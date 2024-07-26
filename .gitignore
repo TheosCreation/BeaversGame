@@ -17,9 +17,7 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
 [Rr]eleases/
 x64/
 x86/
@@ -31,6 +29,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+Intermediate Files/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -396,9 +395,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-# Custom Directories
-# Builds/Debug/Intermediate Files
-# Builds/Release/Intermediate Files
-# Builds/Debug/*.pdb
-# Builds/Release/*.pdb
