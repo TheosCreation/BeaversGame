@@ -397,8 +397,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-#Custom Directories
-Builds/Debug/Intermediate Files
-Builds/Release/Intermediate Files
-Builds/Debug/*.pdb
-Builds/Release/*.pdb
+# Custom Directories
+# Builds/Debug/Intermediate Files
+# Builds/Release/Intermediate Files
+# Builds/Debug/*.pdb
+# Builds/Release/*.pdb
