@@ -59,6 +59,26 @@ Object::~Object()
 }
 
 /*
+	Updates the Object
+
+	@author Theo Morris
+	@param float: Delta Time
+*/
+void Object::Update(float deltaTime)
+{
+}
+
+/*
+	Updates the Object on the fixed time scale
+
+	@author Theo Morris
+	@param float: Fixed Delta Time
+*/
+void Object::FixedUpdate(float fixedDeltaTime)
+{
+}
+
+/*
 	Sets the Object's Position
 
 	@author Jamuel Bocacao

@@ -10,6 +10,10 @@ public:
 	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
 	~Object();
 
+	// Update Methods
+	virtual void Update(float deltaTime) override;
+	virtual void FixedUpdate(float fixedDeltaTime) override;
+
 	// Position Methods
 	void SetPosition(Vec2f _newPosition) override;
 	void AddPosition(Vec2f _displacement) override;

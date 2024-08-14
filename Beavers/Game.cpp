@@ -1,5 +1,9 @@
 #include "Game.h"
 #include "AudioManager.h"
+#include "Image.h"
+#include "Object.h"
+#include "Slider.h"
+//#include "Text.h"
 
 /*
 	Begins the Game Loop
@@ -27,6 +31,9 @@ void Game::Start(string _strWindowTitle)
 	{
 		// Calculate deltaTime
 		deltaTime = clock.restart().asSeconds();
+
+		// Accumulate time for fixed updates
+		accumulatedTime += deltaTime;
 
 		// Read Events
 		sf::Event event;
@@ -148,7 +155,9 @@ void Game::LoadMenu()
 */
 void Game::LoadGameScene()
 {
-	auto gameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
+	auto gameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false, true);
+
+	gameScene->AddObject(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Play.png", false);
 
 	SetScene(gameScene);
 }

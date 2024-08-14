@@ -1,4 +1,7 @@
 #include "Scene.h"
+#include "Object.h"
+#include "Slider.h"
+#include "Button.h"
 
 /*
 	Creates a Scene
@@ -7,15 +10,23 @@
 	@param Vec2u: Size of Scene Viewport in Pixels
 	@param sf::RenderWindow*: Window Handle
 	@param bool: Whether previous Scene should be unloaded when this Scene is loaded
+	@param bool: Whether the Scene will have physics enabled
 */
-Scene::Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad)
+Scene::Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad, bool _enablePhysics)
+	: m_canvasSize(_sceneSize),
+	m_bUnloadPreviousSceneOnLoad(_bUnloadPreviousSceneOnLoad),
+	m_world(nullptr)
 {
 	// Set Scene Properties
 	m_bUnloadPreviousSceneOnLoad = _bUnloadPreviousSceneOnLoad;
 
-	// Set Viewport Properties
-	m_canvasSize = _sceneSize;
 	Resize(_window);
+
+	if (_enablePhysics)
+	{
+		// Initialize Box2D world with gravity
+		m_world = std::make_shared<b2World>(b2Vec2(0.0f, 9.8f));
+	}
 }
 
 /*
@@ -55,6 +66,27 @@ void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundP
 void Scene::AddImage(Vec2f _position, string _strTexturePath)
 {
 	m_objects.push_back(make_shared<Image>(_position, _strTexturePath));
+}
+
+/*
+	Adds an Physics Object to Scene
+
+	@author Theo Morris
+	@param Vec2f: Position of Button
+	@param string: Texture File Path
+	@param bool: Whether the Physics object is staic or not
+*/
+void Scene::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
+{
+	if (m_world)
+	{
+		// Create a physics object
+		m_objects.push_back(make_shared<Object>(_position, _strTexturePath, m_world, _bIsStatic));
+	}
+	else
+	{
+		printf("Scene does not contain Box2D world, failed to create object at: X=%.2f, Y=%.2f\n", _position.x, _position.y);
+	}
 }
 
 /*
@@ -156,6 +188,12 @@ void Scene::Update(float deltaTime)
 */
 void Scene::FixedUpdate(float fixedDeltaTime)
 {
+	if (m_world)
+	{
+		// Step the physics world
+		m_world->Step(fixedDeltaTime, 8, 3);
+	}
+	
 	for (auto object : m_objects)
 	{
 		object->FixedUpdate(fixedDeltaTime);

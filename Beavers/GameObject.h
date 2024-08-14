@@ -16,10 +16,12 @@ public:
 	virtual void AddPosition(Vec2f _displacement) abstract;
 	virtual Vec2f GetPosition() abstract;
 
-	// Render Methods
-	void SetVisibility(bool _bIsVisible);
+	// Update Methods
 	virtual void Update(float deltaTime) {};
 	virtual void FixedUpdate(float fixedDeltaTime) {};
+
+	// Render Methods
+	void SetVisibility(bool _bIsVisible);
 	virtual void Render(sf::RenderTexture* _sceneBuffer) abstract;
 
 	// Mouse Methods
