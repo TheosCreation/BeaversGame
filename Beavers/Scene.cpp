@@ -58,6 +58,17 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath)
 }
 
 /*
+	Adds any Game Object to Scene
+
+	@author Jamuel Bocacao
+	@param shared_ptr<GameObject>: Game Object to be added
+*/
+void Scene::AddGameObject(shared_ptr<GameObject> _gameObject)
+{
+	m_objects.push_back(_gameObject);
+}
+
+/*
 	Processes Scene-Specific Events
 
 	@author Jamuel Bocacao
@@ -101,6 +112,22 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 			}
 			break;
 		}
+		case sf::Event::KeyPressed:
+		{
+			for (auto object : m_objects)
+			{
+				object->OnKeyDown(_event);
+			}
+			break;
+		}
+		case sf::Event::KeyReleased:
+		{
+			for (auto object : m_objects)
+			{
+				object->OnKeyUp(_event);
+			}
+			break;
+		}
 		case sf::Event::Resized:
 		{
 			auto windowSize = _window->getSize();
@@ -132,6 +159,18 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 			break;
 		}
 	}
+}
+
+/*
+	Interface for Scene-specific updates
+
+	@author Jamuel Bocacao
+	@param float: Delta Time
+	@param sf::RenderWindow*: Window Handle
+*/
+void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
+{
+	return;
 }
 
 /*

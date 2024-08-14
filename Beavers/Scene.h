@@ -13,9 +13,13 @@ public:
 	void AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent);
 	void AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event);
 	void AddImage(Vec2f _position, string _strTexturePath);
+	void AddGameObject(shared_ptr<GameObject> _gameObject);
 
 	// Process Methods
-	void ProcessEvents(sf::Event& _event, sf::RenderWindow* _window);
+	virtual void ProcessEvents(sf::Event& _event, sf::RenderWindow* _window);
+
+	// Update Methods
+	virtual void Update(float _fDeltaTime, sf::RenderWindow* _window);
 
 	// Render Methods
 	void Render(sf::RenderWindow* _window);

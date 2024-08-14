@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "AudioManager.h"
+#include "Level.h"
 
 /*
 	Begins the Game Loop
@@ -16,9 +17,15 @@ void Game::Start(string _strWindowTitle)
 
 	LoadMenu();
 
+	sf::Clock gameTimer;
+
 	// Begin Loop
 	while (m_window.isOpen())
 	{
+		// Get Delta Time
+		sf::Time deltaTime = gameTimer.restart();
+		float fDeltaTime = deltaTime.asSeconds();
+
 		// Read Events
 		sf::Event event;
 		while (m_window.pollEvent(event))
@@ -37,6 +44,8 @@ void Game::Start(string _strWindowTitle)
 				}
 			}
 		}
+
+		m_currentScene->Update(fDeltaTime, &m_window);
 
 		// Display Scene Objects
 		m_window.clear();
@@ -108,10 +117,12 @@ void Game::Drag(int _iValue)
 void Game::LoadMenu()
 {
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
-	auto event = make_shared<Event<void, void>>(this, &Game::LoadOptions);
+	auto optionEvent = make_shared<Event<void, void>>(this, &Game::LoadOptions);
+	auto playEvent = make_shared<Event<void, void>>(this, &Game::LoadLevel);
 	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", event);
-	
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 100.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
+
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 	
 	SetScene(menu);
@@ -123,4 +134,10 @@ void Game::LoadOptions()
 	auto event = make_shared<Event<void, void>>(this, &Game::LoadPreviousScene);
 	options->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", event);
 	SetScene(options);
+}
+
+void Game::LoadLevel()
+{
+	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
+	SetScene(level);
 }

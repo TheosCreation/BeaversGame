@@ -95,6 +95,17 @@ Vec2f Object::GetPosition()
 }
 
 /*
+	Applies Force to centre of Object
+
+	@author Jamuel Bocacao
+	@param Vec2f: Force Vector applied to Object
+*/
+void Object::ApplyForce(Vec2f _force)
+{
+	m_body->ApplyLinearImpulseToCenter(b2Vec2(_force.x, _force.y), true);
+}
+
+/*
 	Sets The GameObject's Texture
 
 	@author Jamuel Bocacao

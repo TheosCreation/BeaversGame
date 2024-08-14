@@ -34,6 +34,28 @@ void GameObject::OnRelease(Vec2f _mousePos)
 }
 
 /*
+	Interface for Key Press Events
+
+	@author Jamuel Bocacao
+	@param sf::Event&: Event Handle
+*/
+void GameObject::OnKeyDown(sf::Event& _event)
+{
+	return;
+}
+
+/*
+	Interface for Key Release Events
+
+	@author Jamuel Bocacao
+	@param sf::Event&: Event Handle
+*/
+void GameObject::OnKeyUp(sf::Event& _event)
+{
+	return;
+}
+
+/*
 	Interface for Begin Contact Events
 
 	@author Jamuel Bocacao

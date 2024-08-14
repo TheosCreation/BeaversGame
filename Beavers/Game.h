@@ -16,6 +16,7 @@ private:
 	void Drag(int _iValue);
 	void LoadMenu();
 	void LoadOptions();
+	void LoadLevel();
 
 private:
 	static inline bool m_bHasStarted = false;

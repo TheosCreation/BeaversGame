@@ -5,9 +5,6 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Code Files\Game Engine\Texture Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Code Files\Game Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Code Files\Game Engine\Game Object</Filter>
     </ClCompile>
@@ -41,6 +38,10 @@
     <ClCompile Include="Music.cpp">
       <Filter>Code Files\Game Engine\Audio\Music</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -91,28 +92,34 @@
     <Filter Include="Code Files\Game Engine\Scene Objects\Object">
       <UniqueIdentifier>{5aef4bc1-9697-4934-b433-e72f3545073e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Text">
-      <UniqueIdentifier>{3c141a3e-32d7-465a-b049-380f8e0b1121}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code Files\Game Engine\Texture Manager">
       <UniqueIdentifier>{a4faff75-9f32-43e2-aa03-11fc4fa85b6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code Files\Game Engine\Event">
       <UniqueIdentifier>{30b25bf0-ea76-40c5-acae-a840b006ed4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Game Engine\Scene">
-      <UniqueIdentifier>{156be0e4-3827-44de-8e68-004347934127}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code Files\Game Engine\Audio\Music">
       <UniqueIdentifier>{cff3a9b3-334b-46e2-b1ee-91fcbc3c8680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Input">
+      <UniqueIdentifier>{c8f45a44-9c6b-4e03-9a14-6c159832c070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Input\Input Manager">
+      <UniqueIdentifier>{883dd18d-9aa2-48f5-aa53-cfe8e0bc36c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scenes">
+      <UniqueIdentifier>{156be0e4-3827-44de-8e68-004347934127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scenes\Scene">
+      <UniqueIdentifier>{750b53cf-82a5-4580-8e01-8ccf9abc81fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scenes\Level">
+      <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
       <Filter>Code Files\Game Engine\Texture Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Code Files\Game Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Code Files\Game Engine\Game Object</Filter>
@@ -147,5 +154,9 @@
     <ClInclude Include="Music.h">
       <Filter>Code Files\Game Engine\Audio\Music</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h" />
   </ItemGroup>
 </Project>

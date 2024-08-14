@@ -15,6 +15,9 @@ public:
 	void AddPosition(Vec2f _displacement) override;
 	virtual Vec2f GetPosition() override;
 
+	// Physics Methods
+	void ApplyForce(Vec2f _force);
+
 	// Texture Methods
 	void SetTexture(string _strTexturePath);
 	const sf::Texture* GetTexture() const;

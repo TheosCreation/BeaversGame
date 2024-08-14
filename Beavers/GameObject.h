@@ -25,9 +25,14 @@ public:
 	virtual void OnDrag(Vec2f _mousePos);
 	virtual void OnRelease(Vec2f _mousePos);
 
+	// Keyboard Methods
+	virtual void OnKeyDown(sf::Event& _event);
+	virtual void OnKeyUp(sf::Event& _event);
+
 	// Collision Methods
 	void OnBeginContact(GameObject* _otherObject);
 	void OnEndContact(GameObject* _otherObject);
+
 
 	// Simulation Methods
 	void SetActive(bool _bIsActive);
