@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Code Files\Game Engine\Texture Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Code Files\Game Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Code Files\Game Engine\Game Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ContactListener.cpp">
+      <Filter>Code Files\Game Engine\Physics\ContactListener</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Code Files\Game Engine\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Code Files\Game Engine\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Code Files\Game Engine\Audio\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Code Files\Game Engine\Audio\Audio Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Music.cpp">
+      <Filter>Code Files\Game Engine\Audio\Music</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Code Files">
+      <UniqueIdentifier>{90a742e8-f3c9-44bf-8b17-8aafb6085800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine">
+      <UniqueIdentifier>{48559f15-6a9b-4e5e-8532-8fca00259a4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Game">
+      <UniqueIdentifier>{0aca949e-98e9-48e7-8a04-a4148efa63c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Physics">
+      <UniqueIdentifier>{98befd94-1b51-435c-849e-bc215b439fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Audio">
+      <UniqueIdentifier>{bdd739e3-83b6-403a-8d1f-cb6b4468fbac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Game Object">
+      <UniqueIdentifier>{dffa8e92-890a-4314-98c7-ae6715870ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Audio\Audio Manager">
+      <UniqueIdentifier>{10016c41-39db-48fd-b03b-bd3294422392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project">
+      <UniqueIdentifier>{cf973139-1dce-4021-9f5a-b7be7c5492e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Audio\Sound">
+      <UniqueIdentifier>{37698005-c293-4e54-8d3b-1934b583d439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Physics\ContactListener">
+      <UniqueIdentifier>{ad20bd25-7a34-4bb9-8d9e-c773c81da48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects">
+      <UniqueIdentifier>{926370f6-3f7f-4d86-bac8-696be4776e9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element">
+      <UniqueIdentifier>{42b31e58-08ab-4ced-ab7a-6a02efdfc509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Image">
+      <UniqueIdentifier>{c84ddb94-c223-4550-920b-afc49acd4f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Button">
+      <UniqueIdentifier>{cc0cbc2b-8ea9-4722-bee8-a1bea859eddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Slider">
+      <UniqueIdentifier>{b1824e10-712e-402c-93f4-6b3454d585fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\Object">
+      <UniqueIdentifier>{5aef4bc1-9697-4934-b433-e72f3545073e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Text">
+      <UniqueIdentifier>{3c141a3e-32d7-465a-b049-380f8e0b1121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Texture Manager">
+      <UniqueIdentifier>{a4faff75-9f32-43e2-aa03-11fc4fa85b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Event">
+      <UniqueIdentifier>{30b25bf0-ea76-40c5-acae-a840b006ed4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene">
+      <UniqueIdentifier>{156be0e4-3827-44de-8e68-004347934127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Audio\Music">
+      <UniqueIdentifier>{cff3a9b3-334b-46e2-b1ee-91fcbc3c8680}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Code Files\Game Engine\Texture Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Code Files\Game Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Code Files\Game Engine\Game Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Code Files\Game Engine\Physics\ContactListener</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Code Files\Game Engine\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Code Files\Game Engine\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Code Files\Game Engine\Audio\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Code Files\Game Engine\Audio\Audio Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Music.h">
+      <Filter>Code Files\Game Engine\Audio\Music</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
