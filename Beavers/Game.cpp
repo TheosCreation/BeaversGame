@@ -57,6 +57,7 @@ void Game::Start(string _strWindowTitle)
 void Game::CleanUp()
 {
 	TextureManager::GetInstance().UnloadAllTextures();
+	AudioManager::GetInstance().UnloadAll();
 }
 
 /*
