@@ -135,6 +135,34 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 }
 
 /*
+	Updates Game Objects in the scene
+
+	@author Theo Morris
+	@param float: Delta Time
+*/
+void Scene::Update(float deltaTime)
+{
+	for (auto object : m_objects)
+	{
+		object->Update(deltaTime);
+	}
+}
+
+/*
+	Updates Game Objects in the scene on a fixed time scale
+
+	@author Theo Morris
+	@param float: Fixed Delta Time
+*/
+void Scene::FixedUpdate(float fixedDeltaTime)
+{
+	for (auto object : m_objects)
+	{
+		object->FixedUpdate(fixedDeltaTime);
+	}
+}
+
+/*
 	Renders Scene to Window
 
 	@author Jamuel Bocacao

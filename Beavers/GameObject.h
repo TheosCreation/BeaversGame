@@ -18,6 +18,8 @@ public:
 
 	// Render Methods
 	void SetVisibility(bool _bIsVisible);
+	virtual void Update(float deltaTime) {};
+	virtual void FixedUpdate(float fixedDeltaTime) {};
 	virtual void Render(sf::RenderTexture* _sceneBuffer) abstract;
 
 	// Mouse Methods

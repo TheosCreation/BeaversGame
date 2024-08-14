@@ -14,11 +14,20 @@ void Game::Start(string _strWindowTitle)
 	m_window.create(sf::VideoMode(1280, 720), _strWindowTitle);
 	m_bHasStarted = true;
 
+	sf::Clock clock;
+	float deltaTime = 0.0f;
+
+	const float fixedDeltaTime = 1.0f / 60.0f;
+	float accumulatedTime = 0.0f;
+
 	LoadMenu();
 
 	// Begin Loop
 	while (m_window.isOpen())
 	{
+		// Calculate deltaTime
+		deltaTime = clock.restart().asSeconds();
+
 		// Read Events
 		sf::Event event;
 		while (m_window.pollEvent(event))
@@ -36,6 +45,16 @@ void Game::Start(string _strWindowTitle)
 					break;
 				}
 			}
+		}
+
+		// Update
+		m_currentScene->Update(deltaTime);
+
+		// Fixed update loop
+		while (accumulatedTime >= fixedDeltaTime)
+		{
+			m_currentScene->FixedUpdate(fixedDeltaTime);
+			accumulatedTime -= fixedDeltaTime;
 		}
 
 		// Display Scene Objects
@@ -111,15 +130,11 @@ void Game::LoadMenu()
 
 	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
 
-	{
-		auto event = make_shared<Event<void, void>>(this, &Game::LoadGameScene);
-		menu->AddButton(Vec2f(1920, 1080 - 170) / 2.0f, "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", event);
-	}
+	auto LoadGameSceneEvent = make_shared<Event<void, void>>(this, &Game::LoadGameScene);
+	menu->AddButton(Vec2f(1920, 1080 - 170) / 2.0f, "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", LoadGameSceneEvent);
 
-	{
-		auto event = make_shared<Event<void, void>>(this, &Game::LoadOptions);
-		menu->AddButton(Vec2f(1920, 1080 + 170) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", event);
-	}
+	auto event = make_shared<Event<void, void>>(this, &Game::LoadOptions);
+	menu->AddButton(Vec2f(1920, 1080 + 170) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", event);
 
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 	
@@ -133,7 +148,7 @@ void Game::LoadMenu()
 */
 void Game::LoadGameScene()
 {
-	auto gameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
+	auto gameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
 
 	SetScene(gameScene);
 }

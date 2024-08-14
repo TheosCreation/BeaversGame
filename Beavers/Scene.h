@@ -17,6 +17,10 @@ public:
 	// Process Methods
 	void ProcessEvents(sf::Event& _event, sf::RenderWindow* _window);
 
+	// Update Methods
+	void Update(float deltaTime);
+	void FixedUpdate(float fixedDeltaTime);
+
 	// Render Methods
 	void Render(sf::RenderWindow* _window);
 
