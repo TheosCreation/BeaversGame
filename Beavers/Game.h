@@ -15,6 +15,7 @@ public:
 private:
 	void Drag(int _iValue);
 	void LoadMenu();
+	void LoadGameScene();
 	void LoadOptions();
 
 private:

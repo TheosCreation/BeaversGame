@@ -108,13 +108,34 @@ void Game::Drag(int _iValue)
 void Game::LoadMenu()
 {
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
-	auto event = make_shared<Event<void, void>>(this, &Game::LoadOptions);
+
 	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", event);
-	
+
+	{
+		auto event = make_shared<Event<void, void>>(this, &Game::LoadGameScene);
+		menu->AddButton(Vec2f(1920, 1080 - 170) / 2.0f, "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", event);
+	}
+
+	{
+		auto event = make_shared<Event<void, void>>(this, &Game::LoadOptions);
+		menu->AddButton(Vec2f(1920, 1080 + 170) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", event);
+	}
+
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 	
 	SetScene(menu);
+}
+
+/*
+	Create and loads the game scene
+
+	@author Theo Morris
+*/
+void Game::LoadGameScene()
+{
+	auto gameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
+
+	SetScene(gameScene);
 }
 
 void Game::LoadOptions()
