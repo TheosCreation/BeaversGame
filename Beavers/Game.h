@@ -5,6 +5,7 @@ class Game
 {
 public:
 	Game() = default;
+	~Game() = default;
 
 	virtual void Start(string _strWindowTitle) final;
 	virtual void CleanUp() final;
@@ -13,9 +14,11 @@ public:
 	virtual void LoadPreviousScene() final;
 
 private:
+	Game(const Game& _copy) = delete;
+	Game& operator= (const Game& _copy) = delete;
+
+private:
 	virtual void LoadMenu() abstract;
-	virtual void LoadOptions() abstract;
-	virtual void LoadLevel() abstract;
 
 protected:
 	sf::RenderWindow m_window;

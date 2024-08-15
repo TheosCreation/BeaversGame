@@ -45,7 +45,7 @@
       <Filter>Code Files\Beaver Project\Level</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Code Files\Beaver Project\Objects\Player</Filter>
+      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="BeaverGame.cpp">
       <Filter>Code Files\Beaver Project\Game Manager</Filter>
@@ -115,12 +115,6 @@
     <Filter Include="Code Files\Game Engine\Input\Input Manager">
       <UniqueIdentifier>{883dd18d-9aa2-48f5-aa53-cfe8e0bc36c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Beaver Project\Objects">
-      <UniqueIdentifier>{d6d99f4d-6f63-418d-9afa-b76bd5c67a47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Objects\Player">
-      <UniqueIdentifier>{84aafec8-3338-4be0-8233-5a66d69e1fc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code Files\Beaver Project\Level">
       <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
     </Filter>
@@ -129,6 +123,12 @@
     </Filter>
     <Filter Include="Code Files\Beaver Project\Game Manager">
       <UniqueIdentifier>{906312b8-1444-424d-9d03-cb0d7619d618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects">
+      <UniqueIdentifier>{d6d99f4d-6f63-418d-9afa-b76bd5c67a47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Player">
+      <UniqueIdentifier>{84aafec8-3338-4be0-8233-5a66d69e1fc6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +175,7 @@
       <Filter>Code Files\Beaver Project\Level</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Code Files\Beaver Project\Objects\Player</Filter>
+      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="BeaverGame.h">
       <Filter>Code Files\Beaver Project\Game Manager</Filter>

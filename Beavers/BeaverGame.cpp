@@ -2,6 +2,11 @@
 #include "AudioManager.h"
 #include "Level.h"
 
+/*
+	Event Function for Loading Menu Scene
+
+	@author(s) Jamuel Bocacao
+*/
 void BeaverGame::LoadMenu()
 {
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
@@ -9,13 +14,18 @@ void BeaverGame::LoadMenu()
 	auto playEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
 	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 100.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
 
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 
 	SetScene(menu);
 }
 
+/*
+	Event Function for Loading Options Scene
+
+	@author(s) Jamuel Bocacao
+*/
 void BeaverGame::LoadOptions()
 {
 	auto options = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
@@ -24,8 +34,18 @@ void BeaverGame::LoadOptions()
 	SetScene(options);
 }
 
+/*
+	Event Function for Loading Level
+
+	@author(s) Jamuel Bocacao
+*/
 void BeaverGame::LoadLevel()
 {
+	AudioManager::GetInstance().StopAll();
 	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
 	SetScene(level);
+}
+
+void BeaverGame::LoadCredits()
+{
 }

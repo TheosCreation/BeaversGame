@@ -78,6 +78,17 @@ void GameObject::OnEndContact(GameObject* _otherObject)
 }
 
 /*
+	Interface for Updating Objects
+
+	@author Jamuel Bocacao
+	@param float: Delta Time
+*/
+void GameObject::Update(float _fDeltaTime)
+{
+	return;
+}
+
+/*
 	Draws sprite to View Buffer
 
 	@author Jamuel Bocacao

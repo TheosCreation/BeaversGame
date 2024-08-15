@@ -7,7 +7,8 @@ public:
 
 private:
 	void LoadMenu() override;
-	void LoadOptions() override;
-	void LoadLevel() override;
+	void LoadOptions();
+	void LoadLevel();
+	void LoadCredits();
 };
 

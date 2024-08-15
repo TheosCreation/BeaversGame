@@ -54,7 +54,6 @@ void Game::Start(string _strWindowTitle)
 	}
 
 	m_bHasStarted = false;
-	
 	CleanUp();
 }
 

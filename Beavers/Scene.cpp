@@ -170,6 +170,10 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 */
 void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 {
+	for (auto object : m_objects)
+	{
+		object->Update(_fDeltaTime);
+	}
 	return;
 }
 
