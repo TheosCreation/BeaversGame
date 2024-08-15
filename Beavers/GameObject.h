@@ -1,10 +1,6 @@
 #pragma once
 #include "TextureManager.h"
 
-typedef sf::Vector2f Vec2f;
-typedef sf::Vector2i Vec2i;
-typedef sf::Vector2u Vec2u;
-
 class GameObject
 {
 public:

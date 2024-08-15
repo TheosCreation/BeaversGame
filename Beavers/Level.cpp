@@ -44,15 +44,17 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	@param Vec2f: Position of Object
 	@param string: Texture File Path
 	@param bool: Object can move
+	@return weak_ptr<Object>: Reference to Game Object
 */
-void Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
+weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
 	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
 	AddGameObject(object);
+	return object;
 }
 
 /*
-	Adds a Player to Level at a certain Position (Currently Adds 1 do not use twice)
+	Adds a Player to Level at a certain Position
 
 	@author Jamuel Bocacao
 	@param Vec2f: Start Position

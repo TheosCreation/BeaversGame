@@ -1,7 +1,6 @@
 #pragma once
-#include "Slider.h"
-#include "Button.h"
-using std::vector;
+#include "GameObject.h"
+#include "Event.h"
 
 class Scene
 {
@@ -38,5 +37,3 @@ protected:
 	Vec2u m_canvasSize;
 	Vec2f m_bufferDisplacement;
 };
-
-

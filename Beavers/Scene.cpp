@@ -1,4 +1,6 @@
 #include "Scene.h"
+#include "Slider.h"
+#include "Button.h"
 
 /*
 	Creates a Scene

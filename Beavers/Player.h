@@ -12,7 +12,7 @@ public:
 
 private:
 	sf::Clock m_animationClock;
-	float m_fSpeed = 15.0f;
+	float m_fSpeed = 30.0f;
 
 	int m_iAnimationFrame = 0;
 	
