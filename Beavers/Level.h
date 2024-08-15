@@ -19,7 +19,6 @@ private:
 
 private:
 	shared_ptr<b2World> m_world;
-	weak_ptr<Player> m_player;
 };
 
 inline ContactListener Level::m_listener;

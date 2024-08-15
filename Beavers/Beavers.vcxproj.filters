@@ -44,11 +44,11 @@
     <ClCompile Include="Level.cpp">
       <Filter>Code Files\Beaver Project\Level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="BeaverGame.cpp">
       <Filter>Code Files\Beaver Project\Game Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +130,12 @@
     <Filter Include="Code Files\Beaver Project\Game Objects\Player">
       <UniqueIdentifier>{84aafec8-3338-4be0-8233-5a66d69e1fc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Player\Player">
+      <UniqueIdentifier>{e4962abc-e317-4b03-ae5f-1a1e7d5cb3ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Player\ControlScheme">
+      <UniqueIdentifier>{be10934a-be31-4a81-9814-6e51bc2088ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -174,11 +180,14 @@
     <ClInclude Include="Level.h">
       <Filter>Code Files\Beaver Project\Level</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="BeaverGame.h">
       <Filter>Code Files\Beaver Project\Game Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlScheme.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Player\ControlScheme</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

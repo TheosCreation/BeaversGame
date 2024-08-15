@@ -11,6 +11,7 @@ Player::Player(Vec2f _position, shared_ptr<b2World> _world) : Object(_position, 
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
 	AddBoxCollider(Vec2f(0, 6), Vec2f(16, 4), false);
+
 }
 
 /*
@@ -37,24 +38,35 @@ void Player::Update(float _fDeltaTime)
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
 	{
 		displacement += Vec2f(0.0f, -1.0f);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
 	{
 		displacement += Vec2f(-1.0f, 0.0f);
 		m_sprite.setScale(-1, 1);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
 	{
 		displacement += Vec2f(0.0f, 1.0f);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
 	{
 		displacement += Vec2f(1.0f, 0.0f);
 		m_sprite.setScale(1, 1);
 	}
 
 	ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+}
+
+/*
+	Sets the Player's Controls
+
+	@author Jamuel Bocacao
+	@param ControlScheme: Struct containing Keybinds
+*/
+void Player::SetControlScheme(ControlScheme _scheme)
+{
+	m_controlScheme = _scheme;
 }
