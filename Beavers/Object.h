@@ -7,16 +7,16 @@
 class Object : public GameObject
 {
 public:
-	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
+	Object(Vector2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
 	~Object();
 
 	// Position Methods
-	void SetPosition(Vec2f _newPosition) override;
-	void AddPosition(Vec2f _displacement) override;
-	virtual Vec2f GetPosition() override;
+	void SetPosition(Vector2f _newPosition) override;
+	void AddPosition(Vector2f _displacement) override;
+	virtual Vector2f GetPosition() override;
 
 	// Physics Methods
-	void ApplyForce(Vec2f _force);
+	void ApplyForce(Vector2f _force);
 
 	// Texture Methods
 	void SetTexture(string _strTexturePath);

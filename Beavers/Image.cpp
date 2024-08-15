@@ -15,10 +15,10 @@ Image::Image(string _strTexturePath)
 	Creates an Image
 
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Button
+	@param Vector2f: Position of Button
 	@param string: Texture File Path
 */
-Image::Image(Vec2f _position, string _strTexturePath)
+Image::Image(Vector2f _position, string _strTexturePath)
 {
 	SetPosition(_position);
 	SetTexture(_strTexturePath);
@@ -28,9 +28,9 @@ Image::Image(Vec2f _position, string _strTexturePath)
 	Sets the Image's Position
 
 	@author Jamuel Bocacao
-	@param Vec2f: New Position of Image
+	@param Vector2f: New Position of Image
 */
-void Image::SetPosition(Vec2f _newPosition)
+void Image::SetPosition(Vector2f _newPosition)
 {
 	m_sprite.setPosition(_newPosition);
 }
@@ -39,9 +39,9 @@ void Image::SetPosition(Vec2f _newPosition)
 	Displaces the Image's Position
 
 	@author Jamuel Bocacao
-	@param Vec2f: Displacement Vector
+	@param Vector2f: Displacement Vector
 */
-void Image::AddPosition(Vec2f _displacement)
+void Image::AddPosition(Vector2f _displacement)
 {
 	auto position = m_sprite.getPosition();
 	m_sprite.setPosition(position + _displacement);
@@ -51,9 +51,9 @@ void Image::AddPosition(Vec2f _displacement)
 	Gets the Image's Position
 
 	@author Jamuel Bocacao
-	@return Vec2f: Position of Image
+	@return Vector2f: Position of Image
 */
-Vec2f Image::GetPosition()
+Vector2f Image::GetPosition()
 {
 	return m_sprite.getPosition();
 }
@@ -62,7 +62,7 @@ Vec2f Image::GetPosition()
 	Sets the Image's Texture
 
 	@author Jamuel Bocacao
-	@param Vec2f: New Position of Image
+	@param Vector2f: New Position of Image
 */
 void Image::SetTexture(string _strTexturePath)
 {

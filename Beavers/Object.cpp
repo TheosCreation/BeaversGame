@@ -4,12 +4,12 @@
 	Initialises Object Properties
 
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Object
+	@param Vector2f: Position of Object
 	@param string: Texture File Path
 	@param weak_ptr<b2World>: Reference to Scene's Physics World
 	@param bool: Whether Object will simulate movement
 */
-Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+Object::Object(Vector2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
 {
 	// Create Game Object
 	SetTexture(_strTexturePath);
@@ -62,9 +62,9 @@ Object::~Object()
 	Sets the Object's Position
 
 	@author Jamuel Bocacao
-	@param Vec2f: New position
+	@param Vector2f: New position
 */
-void Object::SetPosition(Vec2f _newPosition)
+void Object::SetPosition(Vector2f _newPosition)
 {
 	_newPosition /= PixelsPerMeter;
 	m_body->SetTransform(b2Vec2(_newPosition.x, _newPosition.y), 0.0f);
@@ -74,9 +74,9 @@ void Object::SetPosition(Vec2f _newPosition)
 	Displaces the Object's Position
 
 	@author Jamuel Bocacao
-	@param Vec2f: Displacement Vector
+	@param Vector2f: Displacement Vector
 */
-void Object::AddPosition(Vec2f _displacement)
+void Object::AddPosition(Vector2f _displacement)
 {
 	auto position = m_body->GetTransform().p;
 	_displacement /= PixelsPerMeter;
@@ -87,9 +87,9 @@ void Object::AddPosition(Vec2f _displacement)
 	Gets the Object's Position
 
 	@author Jamuel Bocacao
-	@return Vec2f: Position
+	@return Vector2f: Position
 */
-Vec2f Object::GetPosition()
+Vector2f Object::GetPosition()
 {
 	return m_sprite.getPosition();
 }
@@ -98,9 +98,9 @@ Vec2f Object::GetPosition()
 	Applies Force to centre of Object
 
 	@author Jamuel Bocacao
-	@param Vec2f: Force Vector applied to Object
+	@param Vector2f: Force Vector applied to Object
 */
-void Object::ApplyForce(Vec2f _force)
+void Object::ApplyForce(Vector2f _force)
 {
 	m_body->ApplyLinearImpulseToCenter(b2Vec2(_force.x, _force.y), true);
 }
@@ -143,7 +143,7 @@ const sf::Texture* Object::GetTexture() const
 void Object::Render(sf::RenderTexture* _sceneBuffer)
 {
 	auto position = m_body->GetTransform().p;
-	Vec2f worldPosition = Vec2f(position.x, position.y) * PixelsPerMeter;
+	Vector2f worldPosition = Vector2f(position.x, position.y) * PixelsPerMeter;
 	m_sprite.setPosition(worldPosition);
 
 	DrawSprite(_sceneBuffer, m_sprite);

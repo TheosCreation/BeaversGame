@@ -1,14 +1,17 @@
 #include "Scene.h"
 
+#include "Slider.h"
+#include "Button.h"
+
 /*
 	Creates a Scene
 
 	@author Jamuel Bocacao
-	@param Vec2u: Size of Scene Viewport in Pixels
+	@param Vector2u: Size of Scene Viewport in Pixels
 	@param sf::RenderWindow*: Window Handle
 	@param bool: Whether previous Scene should be unloaded when this Scene is loaded
 */
-Scene::Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad)
+Scene::Scene(Vector2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad)
 {
 	// Set Scene Properties
 	m_bUnloadPreviousSceneOnLoad = _bUnloadPreviousSceneOnLoad;
@@ -22,12 +25,12 @@ Scene::Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 	Adds a Slider Object to Scene
 	
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Slider
+	@param Vector2f: Position of Slider
 	@param unsigned int: Initial Value of Slider
 	@param unsigned int: Max Value of Slider
 	@param shared_ptr<Event<void, int>>: Event that is called when the slider is dragged
 */
-void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent)
+void Scene::AddSlider(Vector2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent)
 {
 	m_objects.push_back(make_shared<Slider>(_position, _iValue, _iMaxValue, _dragEvent));
 }
@@ -36,11 +39,11 @@ void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxV
 	Adds a Button Object to Scene
 
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Button
+	@param Vector2f: Position of Button
 	@param string: Texture File Path
 	@param shared_ptr<Event<void, void>>: Event that is called when the Button is clicked
 */
-void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event)
+void Scene::AddButton(Vector2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event)
 {
 	m_objects.push_back(make_shared<Button>(_position, _strTexturePath, _strSoundPath, _event));
 }
@@ -49,10 +52,10 @@ void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundP
 	Adds an Image Object to Scene
 
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Button
+	@param Vector2f: Position of Button
 	@param string: Texture File Path
 */
-void Scene::AddImage(Vec2f _position, string _strTexturePath)
+void Scene::AddImage(Vector2f _position, string _strTexturePath)
 {
 	m_objects.push_back(make_shared<Image>(_position, _strTexturePath));
 }
@@ -82,7 +85,7 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 		case sf::Event::MouseButtonPressed:
 		{
 			auto mousePos = sf::Mouse::getPosition(*_window);
-			auto worldPos = m_sceneBuffer.mapPixelToCoords(Vec2i(_window->mapPixelToCoords(mousePos) - m_bufferDisplacement));
+			auto worldPos = m_sceneBuffer.mapPixelToCoords(Vector2i(_window->mapPixelToCoords(mousePos) - m_bufferDisplacement));
 			
 			for (auto object : m_objects)
 			{
@@ -224,7 +227,7 @@ void Scene::Resize(sf::RenderWindow* _window)
 		int iViewportWidth = int(fCanvasAspectRatio * float(screenSize.y));	// Calculate new Width
 		int iViewportX = (screenSize.x - iViewportWidth) / 2;				// Calculate new X Pos
 
-		m_bufferDisplacement = Vec2f(float(iViewportX), 0.0f);
+		m_bufferDisplacement = Vector2f(float(iViewportX), 0.0f);
 		m_sceneBuffer.create(iViewportWidth, screenSize.y);
 	}
 	// Check if Screen Height is larger than Scene Canvas' Aspect Ratio
@@ -234,7 +237,7 @@ void Scene::Resize(sf::RenderWindow* _window)
 		int iViewportHeight = int((1.0f / fCanvasAspectRatio) * float(screenSize.x)); // Calculate new Height
 		int iViewportY = (screenSize.y - iViewportHeight) / 2;						  // Calculate new Y Pos
 
-		m_bufferDisplacement = Vec2f(0.0f, float(iViewportY));
+		m_bufferDisplacement = Vector2f(0.0f, float(iViewportY));
 		m_sceneBuffer.create(screenSize.x, iViewportHeight);
 	}
 	// Check if Aspect Ratios are Equal
@@ -242,10 +245,10 @@ void Scene::Resize(sf::RenderWindow* _window)
 	{
 		// Scale Normally
 		m_sceneBuffer.create(screenSize.x, screenSize.y);
-		m_bufferDisplacement = Vec2f(0.0f, 0.0f);
+		m_bufferDisplacement = Vector2f(0.0f, 0.0f);
 	}
 
 	// Sets Canvas World-Space Dimensions to Canvas Size
-	m_sceneBuffer.setView(sf::View(Vec2f(m_canvasSize) / 2.0f, Vec2f(m_canvasSize)));
-	_window->setView(sf::View(Vec2f(screenSize) / 2.0f, Vec2f(screenSize)));
+	m_sceneBuffer.setView(sf::View(Vector2f(m_canvasSize) / 2.0f, Vector2f(m_canvasSize)));
+	_window->setView(sf::View(Vector2f(screenSize) / 2.0f, Vector2f(screenSize)));
 }

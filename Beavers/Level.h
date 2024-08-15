@@ -6,7 +6,7 @@
 class Level : public Scene
 {
 public:
-	Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad = true);
+	Level(Vector2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad = true);
 	~Level();
 
 	void Update(float _fDeltaTime, sf::RenderWindow* _window) override;

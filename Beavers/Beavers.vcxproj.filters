@@ -41,7 +41,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Level.cpp">
+      <Filter>Code Files\Game Engine\Scenes\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -116,6 +118,9 @@
     <Filter Include="Code Files\Game Engine\Scenes\Level">
       <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Game Engine\Utility">
+      <UniqueIdentifier>{16845d25-1168-4d61-a0ca-bedae0458b12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -157,6 +162,11 @@
     <ClInclude Include="Scene.h">
       <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h" />
+    <ClInclude Include="Level.h">
+      <Filter>Code Files\Game Engine\Scenes\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Code Files\Game Engine\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
