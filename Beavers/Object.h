@@ -7,20 +7,20 @@
 class Object : public GameObject
 {
 public:
-	Object(Vector2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
+	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
 	~Object();
 
 	// Position Methods
-	void SetPosition(Vector2f _newPosition) override;
-	void AddPosition(Vector2f _displacement) override;
-	virtual Vector2f GetPosition() override;
+	void SetPosition(Vec2f _newPosition) override;
+	void AddPosition(Vec2f _displacement) override;
+	virtual Vec2f GetPosition() override;
 
 	// Physics Methods
-	void ApplyForce(Vector2f _force);
+	void ApplyForce(Vec2f _force);
 
 	// Collider Methods
-	void AddBoxCollider(Vector2f _relativePosition, Vector2f _size, bool _bIsTrigger = false);
-	void AddCircleCollider(Vector2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
+	void AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
+	void AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
 
 	// Texture Methods
 	void SetTexture(string _strTexturePath);

@@ -1,6 +1,15 @@
 #pragma once
-#include <SFML/Graphics/Texture.hpp>
-#include "Utils.h"
+#include <SFML/Graphics.hpp>
+#include <map>
+#include <memory>
+
+using std::string;
+using std::map;
+using std::shared_ptr;
+using std::weak_ptr;
+using std::unique_ptr;
+using std::make_shared;
+using std::make_unique;
 
 class TextureManager
 {

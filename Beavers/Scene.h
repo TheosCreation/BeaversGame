@@ -1,20 +1,18 @@
 #pragma once
-#include "Utils.h"
-#include "Event.h"
-#include "GameObject.h"
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/Graphics/RenderTexture.hpp"
+#include "Slider.h"
+#include "Button.h"
+using std::vector;
 
 class Scene
 {
 public:
-	Scene(Vector2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad = true);
+	Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad = true);
 	virtual ~Scene() = default;
 
 	// Object Methods
-	void AddSlider(Vector2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent);
-	void AddButton(Vector2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event);
-	void AddImage(Vector2f _position, string _strTexturePath);
+	void AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent);
+	void AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event);
+	void AddImage(Vec2f _position, string _strTexturePath);
 	void AddGameObject(shared_ptr<GameObject> _gameObject);
 
 	// Process Methods
@@ -37,6 +35,8 @@ protected:
 	vector<shared_ptr<GameObject>> m_objects;
 
 	sf::RenderTexture m_sceneBuffer;
-	Vector2u m_canvasSize;
-	Vector2f m_bufferDisplacement;
+	Vec2u m_canvasSize;
+	Vec2f m_bufferDisplacement;
 };
+
+

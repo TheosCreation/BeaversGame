@@ -4,13 +4,13 @@
 	Creates a Player's
 
 	@author Jamuel Bocacao
-	@param Vector2f: Start Position
+	@param Vec2f: Start Position
 	@param shared_ptr<b2World>: Scene World
 */
-Player::Player(Vector2f _position, shared_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
+Player::Player(Vec2f _position, shared_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
-	AddBoxCollider(Vector2f(0, 6), Vector2f(16, 4), false);
+	AddBoxCollider(Vec2f(0, 6), Vec2f(16, 4), false);
 
 }
 
@@ -40,20 +40,20 @@ void Player::Update(float _fDeltaTime)
 	sf::Vector2f displacement;
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
 	{
-		displacement += Vector2f(0.0f, -1.0f);
+		displacement += Vec2f(0.0f, -1.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
 	{
-		displacement += Vector2f(-1.0f, 0.0f);
+		displacement += Vec2f(-1.0f, 0.0f);
 		m_sprite.setScale(-1, 1);
 	}
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
 	{
-		displacement += Vector2f(0.0f, 1.0f);
+		displacement += Vec2f(0.0f, 1.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
 	{
-		displacement += Vector2f(1.0f, 0.0f);
+		displacement += Vec2f(1.0f, 0.0f);
 		m_sprite.setScale(1, 1);
 	}
 

@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "AudioManager.h"
 #include "Level.h"
-#include "Event.h"
 
 /*
 	Begins the Game Loop

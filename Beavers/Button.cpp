@@ -19,12 +19,12 @@ Button::Button(string _strTexturePath, string _strSoundPath, shared_ptr<Event<vo
 	Creates a Button
 
 	@author Jamuel Bocacao
-	@param Vector2f: Position of Button
+	@param Vec2f: Position of Button
 	@param string: Texture File Path
 	@param string: Click Sound File Path
 	@param shared_ptr<Event<void, void>>: Event to be executed on click
 */
-Button::Button(Vector2f _position, string _strTexturePath, string _strSoundPath, shared_ptr < Event<void, void>> _event) : Image(_position, _strTexturePath)
+Button::Button(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr < Event<void, void>> _event) : Image(_position, _strTexturePath)
 {
 	m_clickEvent = _event;
 	m_strSoundID = _strSoundPath;
@@ -35,9 +35,9 @@ Button::Button(Vector2f _position, string _strTexturePath, string _strSoundPath,
 	Executes Event
 
 	@author Jamuel Bocacao
-	@param Vector2f: Mouse Position in World-Space
+	@param Vec2f: Mouse Position in World-Space
 */
-void Button::OnClick(Vector2f _mousePos)
+void Button::OnClick(Vec2f _mousePos)
 {
 	auto objectBounds = m_sprite.getGlobalBounds();
 	

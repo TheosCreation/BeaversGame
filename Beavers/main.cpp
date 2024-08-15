@@ -1,3 +1,5 @@
+#include <SFML/Graphics.hpp>
+#include <Box2D/box2d.h>
 #include <iostream>
 #include "BeaverGame.h"
 

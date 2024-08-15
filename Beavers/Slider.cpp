@@ -6,12 +6,12 @@ typedef unsigned int uint;
 	Creates a Slider Object
 
 	@author Jamuel Bocacao
-	@param Vector2f: Position of Slider
+	@param Vec2f: Position of Slider
 	@param unsigned int: Initial value of Slider
 	@param unsigned int: Max Value of Slider
 	@param shared_ptr<Event<void, int>>: Event that is executed during Slider Drag Event
 */
-Slider::Slider(Vector2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent)
+Slider::Slider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent)
 {
 	// Create Slider Game Objects
 	m_sliderBar = make_unique<Image>(_position, "Resources/Images/Slider/Bar.png");
@@ -25,7 +25,7 @@ Slider::Slider(Vector2f _position, unsigned int _iValue, unsigned int _iMaxValue
 
 	// Set Handle Position
 	float fHandlePosX = m_iSliderWidth * ((_iValue / _iMaxValue) - 0.5f);
-	Vector2f handlePos(fHandlePosX, 0.0f);
+	Vec2f handlePos(fHandlePosX, 0.0f);
 	m_sliderHandle->AddPosition(handlePos);
 }
 
@@ -33,15 +33,15 @@ Slider::Slider(Vector2f _position, unsigned int _iValue, unsigned int _iMaxValue
 	Sets Position of Slider
 
 	@author Jamuel Bocacao
-	@param Vector2f: New Position of Slider
+	@param Vec2f: New Position of Slider
 */
-void Slider::SetPosition(Vector2f _newPosition)
+void Slider::SetPosition(Vec2f _newPosition)
 {
 	m_sliderBar->SetPosition(_newPosition);
 	m_sliderHandle->SetPosition(_newPosition);
 
 	float fHandlePosX = m_sliderBar->GetTexture()->getSize().x * ((m_iValue / m_iMaxValue) - 0.5f);
-	Vector2f handlePos(fHandlePosX, 0.0f);
+	Vec2f handlePos(fHandlePosX, 0.0f);
 
 	m_sliderHandle->AddPosition(handlePos);
 }
@@ -50,9 +50,9 @@ void Slider::SetPosition(Vector2f _newPosition)
 	Displaces Slider Position
 
 	@author Jamuel Bocacao
-	@param Vector2f: Displacement Vector
+	@param Vec2f: Displacement Vector
 */
-void Slider::AddPosition(Vector2f _displacement)
+void Slider::AddPosition(Vec2f _displacement)
 {
 	m_sliderBar->AddPosition(_displacement);
 	m_sliderHandle->AddPosition(_displacement);
@@ -62,9 +62,9 @@ void Slider::AddPosition(Vector2f _displacement)
 	Gets Position of Slider
 
 	@author Jamuel Bocacao
-	@return Vector2f: Position of Slider
+	@return Vec2f: Position of Slider
 */
-Vector2f Slider::GetPosition()
+Vec2f Slider::GetPosition()
 {
 	return m_sliderBar->GetPosition();
 }
@@ -89,14 +89,14 @@ void Slider::Render(sf::RenderTexture* _sceneBuffer)
 	Begins Slider Dragging
 
 	@author Jamuel Bocacao
-	@param Vector2f: Mouse Position in World-Space
+	@param Vec2f: Mouse Position in World-Space
 */
-void Slider::OnClick(Vector2f _mousePos)
+void Slider::OnClick(Vec2f _mousePos)
 {
 	auto barObjectRect = m_sliderBar->GetBounds();
 	auto handleObjectRect = m_sliderHandle->GetBounds();
 	
-	if (barObjectRect.contains(Vector2f(_mousePos)) || handleObjectRect.contains(Vector2f(_mousePos)))
+	if (barObjectRect.contains(Vec2f(_mousePos)) || handleObjectRect.contains(Vec2f(_mousePos)))
 	{
 		m_bIsDragging = true;
 	}
@@ -107,9 +107,9 @@ void Slider::OnClick(Vector2f _mousePos)
 	Updates Handle Position and Slider's Value
 
 	@author Jamuel Bocacao
-	@param Vector2f: Mouse Position in World-Space
+	@param Vec2f: Mouse Position in World-Space
 */
-void Slider::OnDrag(Vector2f _mousePos)
+void Slider::OnDrag(Vec2f _mousePos)
 {
 	// Check if slider handle is being dragged
 	if (!m_bIsDragging) return;
@@ -138,9 +138,9 @@ void Slider::OnDrag(Vector2f _mousePos)
 	Stops Slider Dragging
 
 	@author Jamuel Bocacao
-	@param Vector2f: Mouse Position in World-Space
+	@param Vec2f: Mouse Position in World-Space
 */
-void Slider::OnRelease(Vector2f _mousePos)
+void Slider::OnRelease(Vec2f _mousePos)
 {
 	m_bIsDragging = false;
 }
