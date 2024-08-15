@@ -60,7 +60,5 @@ weak_ptr<Object> Level::AddObject(Vector2f _position, string _strTexturePath, bo
 */
 void Level::AddPlayer(Vector2f _position)
 {
-	auto player = make_shared<Player>(_position, m_world);
-	m_player = player;
-	AddGameObject(player);
+	AddGameObject(make_shared<Player>(_position, m_world));
 }

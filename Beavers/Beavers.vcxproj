@@ -117,6 +117,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ControlScheme.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Music.h" />
