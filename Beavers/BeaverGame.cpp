@@ -43,6 +43,12 @@ void BeaverGame::LoadLevel()
 {
 	AudioManager::GetInstance().StopAll();
 	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
+
+	auto obstacle = level->AddObject(Vec2f(500, 250), "Resources/Images/Objects/Obstacle.png", true);
+	obstacle.lock()->AddBoxCollider(Vec2f(0.0f, 20.0f), Vec2f(128, 24));
+
+	level->AddPlayer(Vec2f(640.0f, 360) / 2.0f);
+
 	SetScene(level);
 }
 

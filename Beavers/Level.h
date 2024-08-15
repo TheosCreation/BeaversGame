@@ -11,6 +11,9 @@ public:
 
 	void Update(float _fDeltaTime, sf::RenderWindow* _window) override;
 
+	weak_ptr<Object> AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic);
+	void AddPlayer(Vec2f _position);
+
 private:
 	static ContactListener m_listener;
 

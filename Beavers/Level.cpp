@@ -12,14 +12,6 @@ Level::Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 {
 	m_world = make_shared<b2World>(b2Vec2_zero);
 	m_world->SetContactListener(&m_listener);
-
-	auto player = make_shared<Player>(Vec2f(_sceneSize) / 2.0f, m_world);
-	m_player = player;
-	AddGameObject(player);
-
-	auto obstacle = make_shared<Object>(Vec2f(500, 250), "Resources/Images/Objects/Obstacle.png", m_world, true);
-	obstacle->AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 64));
-	AddGameObject(obstacle);
 }
 
 /*
@@ -43,4 +35,32 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	Scene::Update(_fDeltaTime, _window);
 
 	m_world->Step(_fDeltaTime, 8, 3);
+}
+
+/*
+	Adds an Object to Scene
+
+	@author Jamuel Bocacao
+	@param Vec2f: Position of Object
+	@param string: Texture File Path
+	@param bool: Object can move
+*/
+weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
+{
+	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
+	AddGameObject(object);
+	return object;
+}
+
+/*
+	Adds a Player to Level at a certain Position (Currently Adds 1 do not use twice)
+
+	@author Jamuel Bocacao
+	@param Vec2f: Start Position
+*/
+void Level::AddPlayer(Vec2f _position)
+{
+	auto player = make_shared<Player>(_position, m_world);
+	m_player = player;
+	AddGameObject(player);
 }
