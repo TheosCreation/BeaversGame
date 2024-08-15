@@ -55,7 +55,6 @@ void Game::Start(string _strWindowTitle)
 	}
 
 	m_bHasStarted = false;
-	
 	CleanUp();
 }
 
@@ -108,37 +107,4 @@ void Game::LoadPreviousScene()
 	// Check if there is a previous Scene loaded
 	if (!m_previousScene.get()) return;
 	SetScene(m_previousScene);
-}
-
-void Game::Drag(int _iValue)
-{
-	printf("%i\n", _iValue);
-}
-
-void Game::LoadMenu()
-{
-	auto menu = make_shared<Scene>(Vector2u(1920, 1080), &m_window, true);
-	auto optionEvent = make_shared<Event<void, void>>(this, &Game::LoadOptions);
-	auto playEvent = make_shared<Event<void, void>>(this, &Game::LoadLevel);
-	menu->AddImage(Vector2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
-	menu->AddButton(Vector2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
-	menu->AddButton(Vector2f(1920, 1080) / 2.0f + Vector2f(0.0f, 100.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
-
-	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
-	
-	SetScene(menu);
-}
-
-void Game::LoadOptions()
-{
-	auto options = make_shared<Scene>(Vector2u(1920, 1080), &m_window, false);
-	auto event = make_shared<Event<void, void>>(this, &Game::LoadPreviousScene);
-	options->AddButton(Vector2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", event);
-	SetScene(options);
-}
-
-void Game::LoadLevel()
-{
-	auto level = make_shared<Level>(Vector2u(1920, 1080), &m_window, true);
-	SetScene(level);
 }

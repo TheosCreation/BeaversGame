@@ -39,7 +39,16 @@
       <Filter>Code Files\Game Engine\Audio\Music</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
+      <Filter>Code Files\Game Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Code Files\Beaver Project\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BeaverGame.cpp">
+      <Filter>Code Files\Beaver Project\Game Manager</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Code Files\Game Engine\Scenes\Level</Filter>
@@ -109,14 +118,20 @@
     <Filter Include="Code Files\Game Engine\Input\Input Manager">
       <UniqueIdentifier>{883dd18d-9aa2-48f5-aa53-cfe8e0bc36c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Game Engine\Scenes">
-      <UniqueIdentifier>{156be0e4-3827-44de-8e68-004347934127}</UniqueIdentifier>
+    <Filter Include="Code Files\Beaver Project\Level">
+      <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Game Engine\Scenes\Scene">
+    <Filter Include="Code Files\Game Engine\Scene">
       <UniqueIdentifier>{750b53cf-82a5-4580-8e01-8ccf9abc81fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code Files\Game Engine\Scenes\Level">
-      <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
+    <Filter Include="Code Files\Beaver Project\Game Manager">
+      <UniqueIdentifier>{906312b8-1444-424d-9d03-cb0d7619d618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects">
+      <UniqueIdentifier>{d6d99f4d-6f63-418d-9afa-b76bd5c67a47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Player">
+      <UniqueIdentifier>{84aafec8-3338-4be0-8233-5a66d69e1fc6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code Files\Game Engine\Utility">
       <UniqueIdentifier>{16845d25-1168-4d61-a0ca-bedae0458b12}</UniqueIdentifier>
@@ -160,7 +175,16 @@
       <Filter>Code Files\Game Engine\Audio\Music</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Code Files\Game Engine\Scenes\Scene</Filter>
+      <Filter>Code Files\Game Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Code Files\Beaver Project\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BeaverGame.h">
+      <Filter>Code Files\Beaver Project\Game Manager</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Code Files\Game Engine\Scenes\Level</Filter>

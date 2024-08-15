@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-#include "Object.h"
+#include "Player.h"
 #include "ContactListener.h"
 
 class Level : public Scene
@@ -11,12 +11,15 @@ public:
 
 	void Update(float _fDeltaTime, sf::RenderWindow* _window) override;
 
+	weak_ptr<Object> AddObject(Vector2f _position, string _strTexturePath, bool _bIsStatic);
+	void AddPlayer(Vector2f _position);
+
 private:
 	static ContactListener m_listener;
 
 private:
 	shared_ptr<b2World> m_world;
-	weak_ptr<Object> m_player;
+	weak_ptr<Player> m_player;
 };
 
 inline ContactListener Level::m_listener;

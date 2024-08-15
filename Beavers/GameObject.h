@@ -28,9 +28,11 @@ public:
 	virtual void OnKeyUp(sf::Event& _event);
 
 	// Collision Methods
-	void OnBeginContact(GameObject* _otherObject);
-	void OnEndContact(GameObject* _otherObject);
+	virtual void OnBeginContact(GameObject* _otherObject);
+	virtual void OnEndContact(GameObject* _otherObject);
 
+	// Update Methods
+	virtual void Update(float _fDeltaTime);
 
 	// Simulation Methods
 	void SetActive(bool _bIsActive);
