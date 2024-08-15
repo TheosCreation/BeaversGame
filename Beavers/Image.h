@@ -4,11 +4,11 @@ class Image : public GameObject
 {
 public:
 	Image(string _strTexturePath);
-	Image(Vec2f _position, string _strTexturePath);
+	Image(Vector2f _position, string _strTexturePath);
 
-	void SetPosition(Vec2f _newPosition) override final;
-	void AddPosition(Vec2f _displacement) override final;
-	Vec2f GetPosition() override final;
+	void SetPosition(Vector2f _newPosition) override final;
+	void AddPosition(Vector2f _displacement) override final;
+	Vector2f GetPosition() override final;
 
 	void SetTexture(string _strTexturePath);
 	const sf::Texture* GetTexture() const;

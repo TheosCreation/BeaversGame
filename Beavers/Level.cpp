@@ -4,11 +4,11 @@
 	Creates a Level
 
 	@author Jamuel Bocacao
-	@param Vec2u: Size of Scene in Pixels
+	@param Vector2u: Size of Scene in Pixels
 	@param sf::RenderWindow*: Window Handle
 	@param bool: Whether previous Scene should be unloaded when this Scene is loaded
 */
-Level::Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad) : Scene(_sceneSize, _window, _bUnloadPreviousSceneOnLoad)
+Level::Level(Vector2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousSceneOnLoad) : Scene(_sceneSize, _window, _bUnloadPreviousSceneOnLoad)
 {
 	m_world = make_shared<b2World>(b2Vec2_zero);
 	m_world->SetContactListener(&m_listener);
@@ -41,11 +41,15 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	Adds an Object to Scene
 
 	@author Jamuel Bocacao
-	@param Vec2f: Position of Object
+	@param Vector2f: Position of Object
 	@param string: Texture File Path
 	@param bool: Object can move
 */
+<<<<<<< HEAD
 void Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
+=======
+weak_ptr<Object> Level::AddObject(Vector2f _position, string _strTexturePath, bool _bIsStatic)
+>>>>>>> 7205161f70f02e837f174a86765637b9b1d476fe
 {
 	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
 	AddGameObject(object);
@@ -55,9 +59,9 @@ void Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 	Adds a Player to Level at a certain Position (Currently Adds 1 do not use twice)
 
 	@author Jamuel Bocacao
-	@param Vec2f: Start Position
+	@param Vector2f: Start Position
 */
-void Level::AddPlayer(Vec2f _position)
+void Level::AddPlayer(Vector2f _position)
 {
 	AddGameObject(make_shared<Player>(_position, m_world));
 }

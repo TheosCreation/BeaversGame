@@ -1,12 +1,13 @@
 #include "GameObject.h"
+#include "SFML/Graphics/RenderTexture.hpp"
 
 /*
 	Interface for Click Events
 
 	@author Jamuel Bocacao
-	@param Vec2f: Mouse Position in World-Space
+	@param Vector2f: Mouse Position in World-Space
 */
-void GameObject::OnClick(Vec2f _mousePos)
+void GameObject::OnClick(Vector2f _mousePos)
 {
 	return;
 }
@@ -15,9 +16,9 @@ void GameObject::OnClick(Vec2f _mousePos)
 	Interface for Drag Events
 
 	@author Jamuel Bocacao
-	@param Vec2f: Mouse Position in World-Space
+	@param Vector2f: Mouse Position in World-Space
 */
-void GameObject::OnDrag(Vec2f _mousePos)
+void GameObject::OnDrag(Vector2f _mousePos)
 {
 	return;
 }
@@ -26,9 +27,9 @@ void GameObject::OnDrag(Vec2f _mousePos)
 	Interface for Release Events
 
 	@author Jamuel Bocacao
-	@param Vec2f: Mouse Position in World-Space
+	@param Vector2f: Mouse Position in World-Space
 */
-void GameObject::OnRelease(Vec2f _mousePos)
+void GameObject::OnRelease(Vector2f _mousePos)
 {
 	return;
 }

@@ -5,7 +5,7 @@
 class Player : public Object
 {
 public:
-	Player(Vec2f _position, shared_ptr<b2World> _world);
+	Player(Vector2f _position, shared_ptr<b2World> _world);
 	
 	void Update(float _fDeltaTime) override;
 	void SetControlScheme(ControlScheme _scheme);

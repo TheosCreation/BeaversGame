@@ -49,6 +49,8 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
+    <ClCompile Include="Level.cpp">
+      <Filter>Code Files\Game Engine\Scenes\Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +137,8 @@
     </Filter>
     <Filter Include="Code Files\Beaver Project\Game Objects\Player\ControlScheme">
       <UniqueIdentifier>{be10934a-be31-4a81-9814-6e51bc2088ab}</UniqueIdentifier>
+    <Filter Include="Code Files\Game Engine\Utility">
+      <UniqueIdentifier>{16845d25-1168-4d61-a0ca-bedae0458b12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +192,11 @@
     </ClInclude>
     <ClInclude Include="ControlScheme.h">
       <Filter>Code Files\Beaver Project\Game Objects\Player\ControlScheme</Filter>
+    <ClInclude Include="Level.h">
+      <Filter>Code Files\Game Engine\Scenes\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Code Files\Game Engine\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
