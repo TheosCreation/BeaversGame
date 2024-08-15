@@ -13,7 +13,6 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 {
 	// Create Game Object
 	SetTexture(_strTexturePath);
-	auto textureSize = m_sprite.getLocalBounds();
 
 	// Setup Physics Body
 	m_world = _sceneWorld;
@@ -30,18 +29,6 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 	bodyDef.userData = userData;
 	bodyDef.linearDamping = 10.0f;
 	m_body = m_world.lock()->CreateBody(&bodyDef);
-
-	// Create Collider
-	b2PolygonShape boxCollider;
-	b2Vec2 size = b2Vec2(textureSize.width / PixelsPerMeter, textureSize.height / PixelsPerMeter);
-	boxCollider.SetAsBox(size.x / 2.0f, size.y / 2.0f);
-
-	b2FixtureDef colliderDef;
-	colliderDef.shape = &boxCollider;
-	colliderDef.friction = 0.0f;
-	colliderDef.density = 1.0f;
-	colliderDef.filter.groupIndex = 1;
-	m_body->CreateFixture(&colliderDef);
 }
 
 /*
@@ -102,7 +89,64 @@ Vec2f Object::GetPosition()
 */
 void Object::ApplyForce(Vec2f _force)
 {
-	m_body->ApplyLinearImpulseToCenter(b2Vec2(_force.x, _force.y), true);
+	_force *= m_body->GetMass();
+	m_body->ApplyForceToCenter(b2Vec2(_force.x, _force.y), true);
+}
+
+/*
+	Adds a Box Collider to Object
+
+	@author Jamuel Bocacao
+	@param Vec2f: Relative Position to centre of Object where centre of collider will be
+	@param Vec2f: Size of Collider
+	@param bool: Whether Object will simulate Collisions or Overlaps
+*/
+void Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger)
+{
+	// Create Collider Shape
+	b2PolygonShape boxCollider;
+	_size /= 2.0f;
+	_size /= PixelsPerMeter;
+	b2Vec2 size(_size.x, _size.y);
+	_relativePosition /= PixelsPerMeter;
+	b2Vec2 position(_relativePosition.x, _relativePosition.y);
+	boxCollider.SetAsBox(size.x, size.y, position, 0);
+
+	// Create Collider
+	b2FixtureDef colliderDef;
+	colliderDef.shape = &boxCollider;
+	colliderDef.friction = 0.0f;
+	colliderDef.density = 1.0f;
+	colliderDef.filter.groupIndex = 1;
+	colliderDef.isSensor = _bIsTrigger;
+	m_body->CreateFixture(&colliderDef);
+}
+
+/*
+	Adds a Circle Collider to Object
+
+	@author Jamuel Bocacao
+	@param Vec2f: Relative Position to centre of Object where centre of collider will be
+	@param float: Radius of Circle Collider
+	@param bool: Whether Object will simulate Collisions or Overlaps
+*/
+void Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger)
+{
+	// Create Collider Shape
+	b2CircleShape circleCollider;
+	_relativePosition /= PixelsPerMeter;
+	b2Vec2 position(_relativePosition.x, _relativePosition.y);
+	circleCollider.m_p = position;
+	circleCollider.m_radius = _fRadius;
+
+	// Create Collider
+	b2FixtureDef colliderDef;
+	colliderDef.shape = &circleCollider;
+	colliderDef.friction = 0.0f;
+	colliderDef.density = 1.0f;
+	colliderDef.filter.groupIndex = 1;
+	colliderDef.isSensor = _bIsTrigger;
+	m_body->CreateFixture(&colliderDef);
 }
 
 /*
@@ -121,6 +165,18 @@ void Object::SetTexture(string _strTexturePath)
 	// Update Sprite's origin to its centre
 	auto texRect = m_sprite.getLocalBounds();
 	m_sprite.setOrigin(texRect.width / 2.0f, texRect.height / 2.0f);
+}
+
+/*
+	Sets the Draw Rect of the Sprite's Texture
+
+	@author Jamuel Bocacao
+	@param sf::IntRect: Draw Rect of Sprite
+*/
+void Object::SetDrawRect(sf::IntRect _drawRect)
+{
+	m_sprite.setOrigin(float(_drawRect.width) / 2.0f, float(_drawRect.height) / 2.0f);
+	m_sprite.setTextureRect(_drawRect);
 }
 
 /*

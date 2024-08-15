@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/box2d.h>
 #include <iostream>
-#include "Game.h"
+#include "BeaverGame.h"
 
 int main()
 {
-    Game game;
+    BeaverGame game;
     game.Start("Beavers");
 
     return 0;

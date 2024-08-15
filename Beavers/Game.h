@@ -6,21 +6,22 @@ class Game
 public:
 	Game() = default;
 
-	void Start(string _strWindowTitle);
-	void CleanUp();
+	virtual void Start(string _strWindowTitle) final;
+	virtual void CleanUp() final;
 
-	void SetScene(shared_ptr<Scene> _scene);
-	void LoadPreviousScene();
+	virtual void SetScene(shared_ptr<Scene> _scene) final;
+	virtual void LoadPreviousScene() final;
 
 private:
-	void Drag(int _iValue);
-	void LoadMenu();
-	void LoadOptions();
-	void LoadLevel();
+	virtual void LoadMenu() abstract;
+	virtual void LoadOptions() abstract;
+	virtual void LoadLevel() abstract;
+
+protected:
+	sf::RenderWindow m_window;
 
 private:
 	static inline bool m_bHasStarted = false;
-	sf::RenderWindow m_window;
 
 	shared_ptr<Scene> m_currentScene;
 	shared_ptr<Scene> m_previousScene;

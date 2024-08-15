@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-#include "Object.h"
+#include "Player.h"
 #include "ContactListener.h"
 
 class Level : public Scene
@@ -16,7 +16,8 @@ private:
 
 private:
 	shared_ptr<b2World> m_world;
-	weak_ptr<Object> m_player;
+	weak_ptr<Player> m_player;
+	shared_ptr<Object> obstacle;
 };
 
 inline ContactListener Level::m_listener;

@@ -18,14 +18,19 @@ public:
 	// Physics Methods
 	void ApplyForce(Vec2f _force);
 
+	// Collider Methods
+	void AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
+	void AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
+
 	// Texture Methods
 	void SetTexture(string _strTexturePath);
+	void SetDrawRect(sf::IntRect _drawRect);
 	const sf::Texture* GetTexture() const;
 
 	// Render Methods
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
 
-private:
+protected:
 	sf::Sprite m_sprite;
 
 	weak_ptr<b2World> m_world;
