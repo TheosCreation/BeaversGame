@@ -113,6 +113,17 @@ void GameObject::SetVisibility(bool _bIsVisible)
 }
 
 /*
+	Interface for Rendering Object
+
+	@author Jamuel Bocacao
+	@param sf::RenderTexture*: Scene's View Buffer
+*/
+void GameObject::Render(sf::RenderTexture* _sceneBuffer)
+{
+	return;
+}
+
+/*
 	Sets whether Game Object should be simulated
 
 	@author Jamuel Bocacao

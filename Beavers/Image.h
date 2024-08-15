@@ -16,8 +16,6 @@ public:
 
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
 
-
-
 protected:
 	sf::Sprite m_sprite;
 };

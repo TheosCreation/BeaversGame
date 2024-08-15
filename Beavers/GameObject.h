@@ -18,7 +18,7 @@ public:
 
 	// Render Methods
 	void SetVisibility(bool _bIsVisible);
-	virtual void Render(sf::RenderTexture* _sceneBuffer) abstract;
+	virtual void Render(sf::RenderTexture* _sceneBuffer);
 
 	// Mouse Methods
 	virtual void OnClick(Vec2f _mousePos);
@@ -42,7 +42,6 @@ public:
 
 protected:
 	static void DrawSprite(sf::RenderTexture* _sceneBuffer, sf::Sprite& _sprite);
-	static inline sf::Window* m_window = nullptr;
 
 	bool m_bIsVisible = true;
 	bool m_bIsActive = true;

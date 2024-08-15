@@ -47,14 +47,3 @@ void Button::OnClick(Vec2f _mousePos)
 		AudioManager::GetInstance().PlaySound(m_strSoundID);
 	}
 }
-
-/*
-	Renders Button to Scene's View Buffer
-
-	@author Jamuel Bocacao
-	@param sf::RenderTexture*: Scene's View Buffer
-*/
-void Button::Render(sf::RenderTexture* _sceneBuffer)
-{
-	DrawSprite(_sceneBuffer, m_sprite);
-}

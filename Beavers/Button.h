@@ -10,8 +10,6 @@ public:
 
 	virtual void OnClick(Vec2f _mousePos) override;
 
-	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
-
 private:
 	shared_ptr<Event<void, void>> m_clickEvent;
 	string m_strSoundID;

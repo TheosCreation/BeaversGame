@@ -45,11 +45,10 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	@param string: Texture File Path
 	@param bool: Object can move
 */
-weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
+void Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
 	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
 	AddGameObject(object);
-	return object;
 }
 
 /*
