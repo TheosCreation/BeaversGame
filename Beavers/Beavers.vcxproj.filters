@@ -50,6 +50,18 @@
     <ClCompile Include="Player.cpp">
       <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Warehouse.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Warehouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Beaver.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -136,6 +148,21 @@
     <Filter Include="Code Files\Beaver Project\Game Objects\Player\ControlScheme">
       <UniqueIdentifier>{be10934a-be31-4a81-9814-6e51bc2088ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Warehouse">
+      <UniqueIdentifier>{3fb2ff4f-ba76-434a-bb07-1628451c7996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Beaver">
+      <UniqueIdentifier>{9623bf46-e4d5-41fe-aa68-eb33dc56df58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Shop">
+      <UniqueIdentifier>{499389fd-4308-4c65-94c1-b7d05cfbae61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Tree">
+      <UniqueIdentifier>{1956c910-2bd1-418d-b336-07c6b08a7c0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Miscellaneous">
+      <UniqueIdentifier>{d141c745-78e2-4eaa-857b-4a735cf3dee2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -146,9 +173,6 @@
     </ClInclude>
     <ClInclude Include="ContactListener.h">
       <Filter>Code Files\Game Engine\Physics\ContactListener</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>Code Files\Game Engine\Scene Objects\UI Element\Image</Filter>
@@ -188,6 +212,24 @@
     </ClInclude>
     <ClInclude Include="ControlScheme.h">
       <Filter>Code Files\Beaver Project\Game Objects\Player\ControlScheme</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Code Files\Game Engine\Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="Warehouse.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Warehouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Beaver.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

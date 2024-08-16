@@ -92,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Beaver.cpp" />
     <ClCompile Include="BeaverGame.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ContactListener.cpp" />
@@ -105,12 +106,16 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Warehouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Beaver.h" />
     <ClInclude Include="BeaverGame.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ContactListener.h" />
@@ -124,10 +129,13 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Warehouse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -180,6 +180,16 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 }
 
 /*
+	Deletes all Marked for Destruction Game Objects
+
+	@author Jamuel Bocacao
+*/
+void Scene::DestroyObjects()
+{
+	std::erase_if(m_objects, [](shared_ptr<GameObject> _object) { return _object->MarkedForDestroy(); });
+}
+
+/*
 	Renders Scene to Window
 
 	@author Jamuel Bocacao

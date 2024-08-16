@@ -1,5 +1,5 @@
 #include "ContactListener.h"
-#include "GameObject.h"
+#include "Object.h"
 
 /*
 	Contact Listener Callback Function
@@ -48,10 +48,10 @@ void ContactListener::ContactEvent(b2Contact* _contact, bool _bStartOverlap)
 
 		// Extract Object instances from Physics Bodies
 		auto userData = interactBody->GetUserData();
-		GameObject* objectA = (GameObject*)userData.pointer;
+		Object* objectA = (Object*)userData.pointer;
 
 		userData = otherBody->GetUserData();
-		GameObject* objectB = (GameObject*)userData.pointer;
+		Object* objectB = (Object*)userData.pointer;
 
 		// Trigger Contact Events in Game Objects
 		if (_bStartOverlap)
@@ -60,7 +60,7 @@ void ContactListener::ContactEvent(b2Contact* _contact, bool _bStartOverlap)
 		}
 		else
 		{
-			objectB->OnEndContact(objectB);
+			objectA->OnEndContact(objectB);
 		}
 	}
 }

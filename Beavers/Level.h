@@ -13,6 +13,7 @@ public:
 
 	weak_ptr<Object> AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic);
 	void AddPlayer(Vec2f _position);
+	void AddWarehouse(Vec2f _position);
 
 private:
 	static ContactListener m_listener;

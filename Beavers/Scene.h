@@ -19,12 +19,16 @@ public:
 
 	// Update Methods
 	virtual void Update(float _fDeltaTime, sf::RenderWindow* _window);
+	void DestroyObjects();
 
 	// Render Methods
 	void Render(sf::RenderWindow* _window);
 
 	// Scene Properties
 	bool GetUnloadPreviousScene();
+
+	// Getter Methods
+
 
 private:
 	void Resize(sf::RenderWindow* _window);

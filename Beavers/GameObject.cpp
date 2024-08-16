@@ -56,28 +56,6 @@ void GameObject::OnKeyUp(sf::Event& _event)
 }
 
 /*
-	Interface for Begin Contact Events
-
-	@author Jamuel Bocacao
-	@param GameObject*: Other object in contact with
-*/
-void GameObject::OnBeginContact(GameObject* _otherObject)
-{
-	return;
-}
-
-/*
-	Interface for End Contact Events
-
-	@author Jamuel Bocacao
-	@param GameObject*: Other object in contact with
-*/
-void GameObject::OnEndContact(GameObject* _otherObject)
-{
-	return;
-}
-
-/*
 	Interface for Updating Objects
 
 	@author Jamuel Bocacao
@@ -132,4 +110,24 @@ void GameObject::Render(sf::RenderTexture* _sceneBuffer)
 void GameObject::SetActive(bool _bIsActive)
 {
 	m_bIsActive = _bIsActive;
+}
+
+/*
+	Marks Game Object for Destruction
+
+	@author Jamuel Bocacao
+*/
+void GameObject::Destroy()
+{
+	m_bDestroyed = true;
+}
+
+/*
+	Checks to see if Game Object is marked for destruction
+
+	@author Jamuel Bocacao
+*/
+bool GameObject::MarkedForDestroy()
+{
+	return m_bDestroyed;
 }

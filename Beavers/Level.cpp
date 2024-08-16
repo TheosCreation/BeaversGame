@@ -1,4 +1,6 @@
 #include "Level.h"
+#include "Warehouse.h"
+#include "Beaver.h"
 
 /*
 	Creates a Level
@@ -62,4 +64,15 @@ weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool 
 void Level::AddPlayer(Vec2f _position)
 {
 	AddGameObject(make_shared<Player>(_position, m_world));
+}
+
+/*
+	Adds a Warehouse to Level at a certain Position
+
+	@author Jamuel Bocacao
+	@param Vec2f: Start Position
+*/
+void Level::AddWarehouse(Vec2f _position)
+{
+	AddGameObject(make_shared<Warehouse>(_position, m_world));
 }

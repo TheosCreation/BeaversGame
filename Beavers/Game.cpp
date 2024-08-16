@@ -51,6 +51,8 @@ void Game::Start(string _strWindowTitle)
 		m_window.clear();
 		m_currentScene->Render(&m_window);
 		m_window.display();
+
+		m_currentScene->DestroyObjects();
 	}
 
 	m_bHasStarted = false;

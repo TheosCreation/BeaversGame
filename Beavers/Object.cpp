@@ -116,7 +116,7 @@ void Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigg
 	b2FixtureDef colliderDef;
 	colliderDef.shape = &boxCollider;
 	colliderDef.friction = 0.0f;
-	colliderDef.density = 1.0f;
+	colliderDef.density = (_bIsTrigger) ? 0.0f : 1.0f;
 	colliderDef.filter.groupIndex = 1;
 	colliderDef.isSensor = _bIsTrigger;
 	m_body->CreateFixture(&colliderDef);
@@ -137,13 +137,13 @@ void Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bI
 	_relativePosition /= PixelsPerMeter;
 	b2Vec2 position(_relativePosition.x, _relativePosition.y);
 	circleCollider.m_p = position;
-	circleCollider.m_radius = _fRadius;
+	circleCollider.m_radius = _fRadius / PixelsPerMeter;
 
 	// Create Collider
 	b2FixtureDef colliderDef;
 	colliderDef.shape = &circleCollider;
 	colliderDef.friction = 0.0f;
-	colliderDef.density = 1.0f;
+	colliderDef.density = (_bIsTrigger) ? 0.0f : 1.0f;
 	colliderDef.filter.groupIndex = 1;
 	colliderDef.isSensor = _bIsTrigger;
 	m_body->CreateFixture(&colliderDef);
@@ -203,4 +203,26 @@ void Object::Render(sf::RenderTexture* _sceneBuffer)
 	m_sprite.setPosition(worldPosition);
 
 	DrawSprite(_sceneBuffer, m_sprite);
+}
+
+/*
+	Interface for Begin Contact Events
+
+	@author Jamuel Bocacao
+	@param Object*: Other object in contact with
+*/
+void Object::OnBeginContact(Object* _otherObject)
+{
+	return;
+}
+
+/*
+	Interface for End Contact Events
+
+	@author Jamuel Bocacao
+	@param Object*: Other object in contact with
+*/
+void Object::OnEndContact(Object* _otherObject)
+{
+	return;
 }

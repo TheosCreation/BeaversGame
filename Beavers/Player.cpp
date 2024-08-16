@@ -1,17 +1,18 @@
 #include "Player.h"
+#include "Warehouse.h"
 
 /*
 	Creates a Player's
 
 	@author Jamuel Bocacao
 	@param Vec2f: Start Position
-	@param shared_ptr<b2World>: Scene World
+	@param weak_ptr<b2World>: Scene World
 */
-Player::Player(Vec2f _position, shared_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
+Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
-	AddBoxCollider(Vec2f(0, 6), Vec2f(16, 4), false);
-
+	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider
+	AddCircleCollider(Vec2f(0, 6), 12, true);			// Interaction Range Sensor
 }
 
 /*
@@ -69,4 +70,17 @@ void Player::Update(float _fDeltaTime)
 void Player::SetControlScheme(ControlScheme _scheme)
 {
 	m_controlScheme = _scheme;
+}
+
+/*
+	Warehouse Deposit Function
+
+	@author Jamuel Bocacao
+	@return int: Wood Amount to deposit into Warehouse
+*/
+int Player::Deposit()
+{
+	int iDepositAmount = m_iWoodAmount;
+	m_iWoodAmount = 0;
+	return iDepositAmount;
 }
