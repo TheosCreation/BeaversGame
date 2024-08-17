@@ -56,23 +56,12 @@ weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool 
 }
 
 /*
-	Adds a Player to Level at a certain Position
+	Get's Level's Physics World
 
 	@author Jamuel Bocacao
-	@param Vec2f: Start Position
+	@return shared_ptr<b2World>: World Handle
 */
-void Level::AddPlayer(Vec2f _position)
+shared_ptr<b2World> Level::GetWorld()
 {
-	AddGameObject(make_shared<Player>(_position, m_world));
-}
-
-/*
-	Adds a Warehouse to Level at a certain Position
-
-	@author Jamuel Bocacao
-	@param Vec2f: Start Position
-*/
-void Level::AddWarehouse(Vec2f _position)
-{
-	AddGameObject(make_shared<Warehouse>(_position, m_world));
+	return m_world;
 }

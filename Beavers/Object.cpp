@@ -158,9 +158,7 @@ void Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bI
 void Object::SetTexture(string _strTexturePath)
 {
 	// Update Texture and Sprite
-	auto texture = TextureManager::GetInstance().GetTexture(_strTexturePath);
-	if (texture.expired()) return;	// Prevent missing textures from being used
-	m_sprite.setTexture(*texture.lock().get(), true);
+	m_sprite.setTexture(TextureManager::GetInstance().GetTexture(_strTexturePath), true);
 
 	// Update Sprite's origin to its centre
 	auto texRect = m_sprite.getLocalBounds();

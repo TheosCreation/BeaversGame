@@ -66,7 +66,7 @@ Vec2f Image::GetPosition()
 */
 void Image::SetTexture(string _strTexturePath)
 {
-	m_sprite.setTexture(*TextureManager::GetInstance().GetTexture(_strTexturePath).lock().get(), true);
+	m_sprite.setTexture(TextureManager::GetInstance().GetTexture(_strTexturePath), true);
 	auto texRect = m_sprite.getLocalBounds();
 	m_sprite.setOrigin(texRect.width / 2.0f, texRect.height / 2.0f);
 }

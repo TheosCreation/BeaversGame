@@ -6,7 +6,8 @@ class TextureManager
 public:
 	static TextureManager& GetInstance();
 
-	weak_ptr<sf::Texture> GetTexture(string _strTexPath);
+	weak_ptr<sf::Texture> GetTextureRef(string _strTexPath);
+	sf::Texture& GetTexture(string _strTexPath);
 	void UnloadTexture(string _strTextureID);
 
 	void UnloadAllTextures();

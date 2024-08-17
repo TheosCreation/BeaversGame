@@ -1,6 +1,8 @@
 #include "BeaverGame.h"
 #include "AudioManager.h"
 #include "Level.h"
+#include "Warehouse.h"
+#include "Player.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -44,8 +46,12 @@ void BeaverGame::LoadLevel()
 	AudioManager::GetInstance().StopAll();
 	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
 
-	level->AddWarehouse(Vec2f(500, 250));
-	level->AddPlayer(Vec2f(640.0f, 360) / 2.0f);
+	// Creates Warehouse
+	level->AddObject<Warehouse>(Vec2f(500, 250));
+
+	// Creates Player
+	auto event = make_shared<Event<void, shared_ptr<GameObject>>>((Scene*)level.get(), &Scene::AddGameObject);
+	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
 
 	SetScene(level);
 }

@@ -47,12 +47,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Builds\Debug\</OutDir>
-    <IntDir>$(SolutionDir)Builds\Debug\Intermediate Files</IntDir>
+    <IntDir>$(SolutionDir)Builds\Debug\Intermediate Files\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Builds\Release\</OutDir>
-    <IntDir>$(SolutionDir)Builds\Release\Intermediate Files</IntDir>
+    <IntDir>$(SolutionDir)Builds\Release\Intermediate Files\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -97,6 +97,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -109,9 +110,11 @@
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Warehouse.cpp" />
+    <ClCompile Include="WoodChange.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
@@ -120,6 +123,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ControlScheme.h" />
@@ -132,10 +136,12 @@
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Warehouse.h" />
+    <ClInclude Include="WoodChange.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
