@@ -62,6 +62,15 @@
     <ClCompile Include="Beaver.cpp">
       <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
     </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Code Files\Game Engine\FontManager</Filter>
+    </ClCompile>
+    <ClCompile Include="WoodChange.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\WoodChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -163,6 +172,15 @@
     <Filter Include="Code Files\Game Engine\Miscellaneous">
       <UniqueIdentifier>{d141c745-78e2-4eaa-857b-4a735cf3dee2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\WoodChange">
+      <UniqueIdentifier>{03780d4f-8452-4908-9d3d-2a83dd3c4b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\FontManager">
+      <UniqueIdentifier>{6d048195-1ec3-495c-a63e-4421dfdc55f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Text">
+      <UniqueIdentifier>{2666bfdf-540e-40d9-beb5-f5de3c004eed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -230,6 +248,15 @@
     </ClInclude>
     <ClInclude Include="Beaver.h">
       <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Code Files\Game Engine\FontManager</Filter>
+    </ClInclude>
+    <ClInclude Include="WoodChange.h">
+      <Filter>Code Files\Beaver Project\Game Objects\WoodChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
