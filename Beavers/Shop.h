@@ -10,7 +10,11 @@ public:
 	void SetItem(PlayerStats _playerStats);
 	void SetCost(int _iCost);
 
+	PlayerStats GetItem();
+
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
+	virtual void OnBeginContact(Object* _otherObject);
+	virtual void OnEndContact(Object* _otherObject);
 
 private:
 	PlayerStats m_statUpgrade;

@@ -1,9 +1,10 @@
 #include "Shop.h"
+#include "Player.h"
 
 /*
 	Creates a Shop Object
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacao and George Mitchell
 	@param Vec2f: Position of Shop
 	@param weak_ptr<b2World>: Scene World
 */
@@ -11,6 +12,9 @@ Shop::Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "
 {
 	m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
 	m_statUI->SetVisibility(false);
+
+	AddBoxCollider(Vec2f(0, 0), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y));
+	AddBoxCollider(Vec2f(0, m_sprite.getTexture()->getSize().y), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y), true);
 }
 
 /*
@@ -35,10 +39,16 @@ void Shop::SetCost(int _iCost)
 	m_iCost = _iCost;
 }
 
+PlayerStats Shop::GetItem()
+{
+	SetCost(m_iCost * 2);
+	return m_statUpgrade;
+}
+
 /*
 	Overide Render
 
-	@author(s) Jamjam :)
+	@author(s) Jamuel Bocacao and George Mitchell
 	@param RenderTexture*: Render Texture
 */
 void Shop::Render(sf::RenderTexture* _sceneBuffer)
@@ -47,3 +57,22 @@ void Shop::Render(sf::RenderTexture* _sceneBuffer)
 	m_statUI->Render(_sceneBuffer);
 }
 
+void Shop::OnBeginContact(Object* _otherObject)
+{
+	// Check to see if overlapping Object is a Player
+	Player* player = nullptr;
+	if (_otherObject->IsOfType<Player>(&player))
+	{
+		player->SetShopRef(this);
+	}
+}
+
+void Shop::OnEndContact(Object* _otherObject)
+{
+	// Check to see if overlapping Object is a Player
+	Player* player = nullptr;
+	if (_otherObject->IsOfType<Player>(&player))
+	{
+		player->SetShopRef(nullptr);
+	}
+}

@@ -59,6 +59,15 @@ void Player::Update(float _fDeltaTime)
 		m_sprite.setScale(1, 1);
 	}
 
+	// @author George Mitchell
+	// TODO Make sure this is only working if you have enough wood
+	if (m_shopRef != nullptr 
+		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
+		)
+	{
+		m_playerStats += m_shopRef->GetItem();
+	}
+
 	ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
 }
 
@@ -94,6 +103,17 @@ void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
 {
 	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, 15.0f), _iAmount);
 	m_woodAmountChangeEvent->execute(woodChange);
+}
+
+/*
+	Set shop reference Function
+
+	@author George Mitchell
+	@param Shop*: Shop reference to store
+*/
+void Player::SetShopRef(Shop* _shop)
+{
+	m_shopRef = _shop;
 }
 
 /*
