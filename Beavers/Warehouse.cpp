@@ -8,7 +8,7 @@
 	@param Vec2f: Position of Warehouse
 	@param weak_ptr<b2World>: Scene World
 */
-Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Images/Objects/Obstacle.png", _sceneWorld, true)
+Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true)
 {
 	AddBoxCollider(Vec2f(0.0f, 20.0f), Vec2f(128, 24));
 	AddBoxCollider(Vec2f(0.0f, 47.0f), Vec2f(128, 30), true);
