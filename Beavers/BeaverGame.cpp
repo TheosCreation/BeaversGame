@@ -49,9 +49,14 @@ void BeaverGame::LoadLevel()
 	// Creates Warehouse
 	level->AddObject<Warehouse>(Vec2f(500, 250));
 
-	// Creates Player
+	// Creates a Player and adds it to the level
+	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f, level->GetWorld());
+	level->AddGameObject(player);
+
+	// Adds a event to the player
 	auto event = make_shared<Event<void, shared_ptr<GameObject>>>((Scene*)level.get(), &Scene::AddGameObject);
-	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
+	player->SetWoodAmountChangeEvent(event);
+	player->SetColor(sf::Color::Red);
 
 	SetScene(level);
 }
