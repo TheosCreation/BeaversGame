@@ -77,9 +77,9 @@ void Player::SetControlScheme(ControlScheme _scheme)
 	Sets the Event that spawns a UI indicator when wood amount has changed
 
 	@author Jamuel Bocacao
-	@param shared_ptr<Event<void, shared_ptr<GameObject>>>: Level's AddGameObject() function
+	@param shared_ptr<Event2P<void, shared_ptr<GameObject>, int>>: Level's AddGameObject() function
 */
-void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent)
+void Player::SetWoodAmountChangeEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _woodAmountChangeEvent)
 {
 	m_woodAmountChangeEvent = _woodAmountChangeEvent;
 }
@@ -93,7 +93,7 @@ void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObje
 void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
 {
 	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, 15.0f), _iAmount);
-	m_woodAmountChangeEvent->execute(woodChange);
+	m_woodAmountChangeEvent->execute(woodChange, 100);
 }
 
 /*
@@ -104,7 +104,7 @@ void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
 */
 int Player::Deposit()
 {
-	// Spawns a Minus 
+	// Spawns a Minus Item Element
 	if (m_iWoodAmount != 0)
 	{
 		ExecuteWoodAmountChangeEvent(-m_iWoodAmount);

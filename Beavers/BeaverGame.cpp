@@ -50,7 +50,7 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Warehouse>(Vec2f(500, 250));
 
 	// Creates Player
-	auto event = make_shared<Event<void, shared_ptr<GameObject>>>((Scene*)level.get(), &Scene::AddGameObject);
+	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
 	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
 
 	SetScene(level);

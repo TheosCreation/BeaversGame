@@ -90,8 +90,9 @@ void Slider::Render(sf::RenderTexture* _sceneBuffer)
 
 	@author Jamuel Bocacao
 	@param Vec2f: Mouse Position in World-Space
+	@return bool: Clicked on Slider
 */
-void Slider::OnClick(Vec2f _mousePos)
+bool Slider::OnClick(Vec2f _mousePos)
 {
 	auto barObjectRect = m_sliderBar->GetBounds();
 	auto handleObjectRect = m_sliderHandle->GetBounds();
@@ -99,7 +100,9 @@ void Slider::OnClick(Vec2f _mousePos)
 	if (barObjectRect.contains(Vec2f(_mousePos)) || handleObjectRect.contains(Vec2f(_mousePos)))
 	{
 		m_bIsDragging = true;
+		return true;
 	}
+	return false;
 }
 
 /*
