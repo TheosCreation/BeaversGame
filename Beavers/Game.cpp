@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "AudioManager.h"
+#include "FontManager.h"
 #include "Level.h"
 
 /*
@@ -68,6 +69,7 @@ void Game::CleanUp()
 {
 	TextureManager::GetInstance().UnloadAllTextures();
 	AudioManager::GetInstance().UnloadAll();
+	FontManager::GetInstance().UnloadAllFonts();
 }
 
 /*

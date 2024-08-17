@@ -12,8 +12,10 @@ public:
 	void Update(float _fDeltaTime, sf::RenderWindow* _window) override;
 
 	weak_ptr<Object> AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic);
-	void AddPlayer(Vec2f _position);
-	void AddWarehouse(Vec2f _position);
+	template <std::derived_from<Object> T>
+	weak_ptr<T> AddObject(Vec2f _position);
+
+	shared_ptr<b2World> GetWorld();
 
 private:
 	static ContactListener m_listener;
@@ -23,3 +25,19 @@ private:
 };
 
 inline ContactListener Level::m_listener;
+
+/*
+	Adds an Object to Scene
+
+	@author Jamuel Bocacao
+	@param <T>: Object Subclass to be instantiated
+	@param Vec2f: Position of Object
+	@return weak_ptr<T>: Reference to Object
+*/
+template <std::derived_from<Object> T>
+inline weak_ptr<T> Level::AddObject(Vec2f _position)
+{
+	auto object = make_shared<T>(_position, m_world);
+	AddGameObject(object);
+	return object;
+}

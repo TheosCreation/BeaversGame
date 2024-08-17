@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "ControlScheme.h"
+#include "Event.h"
 
 class Player : public Object
 {
@@ -9,6 +10,10 @@ public:
 	
 	void Update(float _fDeltaTime) override;
 	void SetControlScheme(ControlScheme _scheme);
+	
+	// Wood Amount Methods
+	void SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent);
+	void ExecuteWoodAmountChangeEvent(int _iAmount);
 
 	int Deposit();
 
@@ -16,10 +21,12 @@ private:
 	sf::Clock m_animationClock;
 	int m_iAnimationFrame = 0;
 
-	float m_fSpeed = 60.0f;
+	float m_fSpeed = 40.0f;
 
 	int m_iWoodAmount = 50;
 	
 	ControlScheme m_controlScheme;
+
+	shared_ptr<Event<void, shared_ptr<GameObject>>> m_woodAmountChangeEvent;
 };
 

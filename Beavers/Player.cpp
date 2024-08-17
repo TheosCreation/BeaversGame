@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Warehouse.h"
+#include "WoodChange.h"
 
 /*
 	Creates a Player's
@@ -73,6 +74,29 @@ void Player::SetControlScheme(ControlScheme _scheme)
 }
 
 /*
+	Sets the Event that spawns a UI indicator when wood amount has changed
+
+	@author Jamuel Bocacao
+	@param shared_ptr<Event<void, shared_ptr<GameObject>>>: Level's AddGameObject() function
+*/
+void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent)
+{
+	m_woodAmountChangeEvent = _woodAmountChangeEvent;
+}
+
+/*
+	Executes an Event when the amount of Wood a Player if holding changes
+
+	@author Jamuel Bocacao
+	@param int: Change in Wood amount
+*/
+void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
+{
+	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, 15.0f), _iAmount);
+	m_woodAmountChangeEvent->execute(woodChange);
+}
+
+/*
 	Warehouse Deposit Function
 
 	@author Jamuel Bocacao
@@ -80,6 +104,12 @@ void Player::SetControlScheme(ControlScheme _scheme)
 */
 int Player::Deposit()
 {
+	// Spawns a Minus 
+	if (m_iWoodAmount != 0)
+	{
+		ExecuteWoodAmountChangeEvent(-m_iWoodAmount);
+	}
+
 	int iDepositAmount = m_iWoodAmount;
 	m_iWoodAmount = 0;
 	return iDepositAmount;
