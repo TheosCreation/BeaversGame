@@ -14,7 +14,7 @@ void BeaverGame::LoadMenu()
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
 	auto optionEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadOptions);
 	auto playEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
-	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
+	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg", -10);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
 

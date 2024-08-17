@@ -45,6 +45,7 @@ protected:
 
 struct RenderSorter
 {
+	// Render-Order Sorter Function
 	bool operator()(const shared_ptr<GameObject>& _gameObjectA, const shared_ptr<GameObject>& _gameObjectB)
 	{
 		Object* objA = dynamic_cast<Object*>(_gameObjectA.get());
