@@ -2,6 +2,8 @@
 #include "Object.h"
 #include "ControlScheme.h"
 #include "Event.h"
+#include "Shop.h"
+#include "PlayerStats.h"
 
 class Player : public Object
 {
@@ -15,9 +17,13 @@ public:
 	void SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent);
 	void ExecuteWoodAmountChangeEvent(int _iAmount);
 
+	void SetShopRef(Shop* _shop);
+
 	int Deposit();
 
 private:
+	static PlayerStats m_playerStats;
+
 	sf::Clock m_animationClock;
 	int m_iAnimationFrame = 0;
 
@@ -28,5 +34,8 @@ private:
 	ControlScheme m_controlScheme;
 
 	shared_ptr<Event<void, shared_ptr<GameObject>>> m_woodAmountChangeEvent;
+
+	Shop* m_shopRef = nullptr;
 };
 
+inline PlayerStats Player::m_playerStats;
