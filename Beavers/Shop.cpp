@@ -45,6 +45,11 @@ PlayerStats Shop::GetItem()
 	return m_statUpgrade;
 }
 
+int Shop::GetCost()
+{
+	return m_iCost;
+}
+
 /*
 	Overide Render
 

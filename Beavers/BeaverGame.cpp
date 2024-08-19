@@ -58,6 +58,9 @@ void BeaverGame::LoadLevel()
 	player->SetWoodAmountChangeEvent(event);
 	player->SetColor(sf::Color::Red);
 
+	// Creates Shop(s)
+	// level->AddObject<Shop>(Vec2f(50, 50));
+
 	SetScene(level);
 }
 
