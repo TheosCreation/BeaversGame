@@ -3,6 +3,7 @@
 #include "Level.h"
 #include "Warehouse.h"
 #include "Player.h"
+#include "Tree.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -14,7 +15,7 @@ void BeaverGame::LoadMenu()
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
 	auto optionEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadOptions);
 	auto playEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
-	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg");
+	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg", -10);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
 
@@ -31,8 +32,13 @@ void BeaverGame::LoadMenu()
 void BeaverGame::LoadOptions()
 {
 	auto options = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	auto event = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
-	options->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", event);
+	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
+	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
+	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
+	options->AddSlider(Vec2f(960, 410), 50, 100, soundDragEvent);
+	options->AddSlider(Vec2f(960, 540), 50, 100, musicDragEvent);
+	options->AddButton(Vec2f(960, 670), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
+
 	SetScene(options);
 }
 
@@ -57,7 +63,11 @@ void BeaverGame::LoadLevel()
 	auto event = make_shared<Event<void, shared_ptr<GameObject>>>((Scene*)level.get(), &Scene::AddGameObject);
 	player->SetWoodAmountChangeEvent(event);
 	player->SetColor(sf::Color::Red);
+	// Creates Player
+	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
+	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
 
+	level->AddObject<Tree>(Vec2f(150, 150));
 	// Creates Shop(s)
 	// level->AddObject<Shop>(Vec2f(50, 50));
 

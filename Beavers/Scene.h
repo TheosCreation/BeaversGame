@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Event.h"
+#include "Object.h"
 
 class Scene
 {
@@ -9,10 +10,10 @@ public:
 	virtual ~Scene() = default;
 
 	// Object Methods
-	void AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent);
-	void AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event);
-	void AddImage(Vec2f _position, string _strTexturePath);
-	void AddGameObject(shared_ptr<GameObject> _gameObject);
+	void AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent, int _iLayer = 0);
+	void AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer = 0);
+	void AddImage(Vec2f _position, string _strTexturePath, int _iLayer = 0);
+	void AddGameObject(shared_ptr<GameObject> _gameObject, int _iLayer = 0);
 
 	// Process Methods
 	virtual void ProcessEvents(sf::Event& _event, sf::RenderWindow* _window);
@@ -32,12 +33,34 @@ public:
 
 private:
 	void Resize(sf::RenderWindow* _window);
+	void CheckLayer(int _iLayer);
 
 protected:
 	bool m_bUnloadPreviousSceneOnLoad;
-	vector<shared_ptr<GameObject>> m_objects;
-
+	map<int, vector<shared_ptr<GameObject>>> m_objects;
 	sf::RenderTexture m_sceneBuffer;
 	Vec2u m_canvasSize;
 	Vec2f m_bufferDisplacement;
+};
+
+struct RenderSorter
+{
+	// Render-Order Sorter Function
+	bool operator()(const shared_ptr<GameObject>& _gameObjectA, const shared_ptr<GameObject>& _gameObjectB)
+	{
+		Object* objA = dynamic_cast<Object*>(_gameObjectA.get());
+		Object* objB = dynamic_cast<Object*>(_gameObjectB.get());
+		if (objA && objB)
+		{
+			return objA->GetPosition().y < objB->GetPosition().y;
+		}
+		else if (!objA && objB)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 };

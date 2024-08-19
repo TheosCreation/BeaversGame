@@ -1,6 +1,7 @@
 #pragma once
 #include "Image.h"
 #include "Event.h"
+#include "Text.h"
 
 class Slider : public GameObject
 {
@@ -16,13 +17,14 @@ public:
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
 
 	// Mouse Methods
-	virtual void OnClick(Vec2f _mousePos) override;
+	virtual bool OnClick(Vec2f _mousePos) override;
 	virtual void OnDrag(Vec2f _mousePos) override;
 	virtual void OnRelease(Vec2f _mousePos) override;
 
 private:
 	unique_ptr<Image> m_sliderBar;
 	unique_ptr<Image> m_sliderHandle;
+	unique_ptr<Text> m_text;
 
 	unsigned int m_iValue;
 	unsigned int m_iMaxValue;

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Warehouse.h"
 #include "WoodChange.h"
+#include "Tree.h"
 
 /*
 	Creates a Player's
@@ -58,7 +59,47 @@ void Player::Update(float _fDeltaTime)
 		displacement += Vec2f(1.0f, 0.0f);
 		m_sprite.setScale(1, 1);
 	}
-
+	
+	float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
+	if (length > 0)
+	{
+		displacement /= length;
+		ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+	
+		// Clamp Speed
+		b2Vec2 velocity = m_body->GetLinearVelocity();
+		float velSpeed = velocity.Normalize();
+		if (velSpeed > 2.0f)
+		{
+			m_body->SetLinearVelocity(2.0f * velocity);
+		}
+	}
+	
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
+	{
+		if (m_bInteractHeld)
+		{
+			if (m_interactClock.getElapsedTime().asSeconds() > 1.0f)
+			{
+				if (m_bNearTree)
+				{
+					ExecuteWoodAmountChangeEvent(10);
+					m_iWoodAmount += 10;
+					m_interactClock.restart();
+				}
+			}
+		}
+		else
+		{
+			m_bInteractHeld = true;
+			m_interactClock.restart();
+		}
+	}
+	else
+	{
+		m_bInteractHeld = false;
+	}
+	
 	// @author George Mitchell
 	// TODO Make sure this is only working if you have enough wood
 	if (m_shopRef != nullptr 
@@ -67,8 +108,6 @@ void Player::Update(float _fDeltaTime)
 	{
 		m_playerStats += m_shopRef->GetItem();
 	}
-
-	ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
 }
 
 /*
@@ -86,9 +125,9 @@ void Player::SetControlScheme(ControlScheme _scheme)
 	Sets the Event that spawns a UI indicator when wood amount has changed
 
 	@author Jamuel Bocacao
-	@param shared_ptr<Event<void, shared_ptr<GameObject>>>: Level's AddGameObject() function
+	@param shared_ptr<Event2P<void, shared_ptr<GameObject>, int>>: Level's AddGameObject() function
 */
-void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent)
+void Player::SetWoodAmountChangeEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _woodAmountChangeEvent)
 {
 	m_woodAmountChangeEvent = _woodAmountChangeEvent;
 }
@@ -101,8 +140,24 @@ void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObje
 */
 void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
 {
-	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, 15.0f), _iAmount);
-	m_woodAmountChangeEvent->execute(woodChange);
+	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, -15.0f), _iAmount);
+	m_woodAmountChangeEvent->execute(woodChange, 100);
+}
+
+void Player::OnBeginContact(Object* _other)
+{
+	if (_other->IsOfType<Tree>())
+	{
+		m_bNearTree = true;
+	}
+}
+
+void Player::OnEndContact(Object* _other)
+{
+	if (_other->IsOfType<Tree>())
+	{
+		m_bNearTree = false;
+	}
 }
 
 /*
@@ -124,7 +179,7 @@ void Player::SetShopRef(Shop* _shop)
 */
 int Player::Deposit()
 {
-	// Spawns a Minus 
+	// Spawns a Minus Item Element
 	if (m_iWoodAmount != 0)
 	{
 		ExecuteWoodAmountChangeEvent(-m_iWoodAmount);
