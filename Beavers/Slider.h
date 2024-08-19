@@ -1,6 +1,7 @@
 #pragma once
 #include "Image.h"
 #include "Event.h"
+#include "Text.h"
 
 class Slider : public GameObject
 {
@@ -23,6 +24,7 @@ public:
 private:
 	unique_ptr<Image> m_sliderBar;
 	unique_ptr<Image> m_sliderHandle;
+	unique_ptr<Text> m_text;
 
 	unsigned int m_iValue;
 	unsigned int m_iMaxValue;

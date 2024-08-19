@@ -16,6 +16,7 @@ Slider::Slider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, s
 	// Create Slider Game Objects
 	m_sliderBar = make_unique<Image>(_position, "Resources/Images/Slider/Bar.png");
 	m_sliderHandle = make_unique<Image>(_position, "Resources/Images/Slider/Handle.png");
+	m_text = make_unique<Text>(_position, std::to_string(_iValue), "Resources/Fonts/Yogurt Extra.ttf");
 
 	// Set Slider Properties
 	m_iValue = _iValue;
@@ -23,8 +24,13 @@ Slider::Slider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, s
 	m_iSliderWidth = m_sliderBar->GetTexture()->getSize().x;
 	m_dragEvent = _dragEvent;
 
+	// Set Text Properties
+	m_text->AddPosition(Vec2f((float(m_iSliderWidth) / 2.0f) + 75.0f, -12.0f));
+	m_text->SetColour(sf::Color::White);
+	m_text->SetSize(45);
+
 	// Set Handle Position
-	float fHandlePosX = m_iSliderWidth * ((_iValue / _iMaxValue) - 0.5f);
+	float fHandlePosX = m_iSliderWidth * ((float(_iValue) / float(_iMaxValue)) - 0.5f);
 	Vec2f handlePos(fHandlePosX, 0.0f);
 	m_sliderHandle->AddPosition(handlePos);
 }
@@ -81,6 +87,7 @@ void Slider::Render(sf::RenderTexture* _sceneBuffer)
 	{
 		m_sliderBar->Render(_sceneBuffer);
 		m_sliderHandle->Render(_sceneBuffer);
+		m_text->Render(_sceneBuffer);
 	}
 }
 
@@ -134,6 +141,7 @@ void Slider::OnDrag(Vec2f _mousePos)
 	// Set new value
 	m_iValue = uint(((fHorizontalDisplacement + m_iSliderWidth / 2.0f) / m_iSliderWidth) * m_iMaxValue);
 	m_dragEvent->execute(m_iValue);
+	m_text->SetText(std::to_string(m_iValue));
 }
 
 /*

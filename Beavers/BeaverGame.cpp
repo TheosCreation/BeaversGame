@@ -3,6 +3,7 @@
 #include "Level.h"
 #include "Warehouse.h"
 #include "Player.h"
+#include "Tree.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -31,8 +32,13 @@ void BeaverGame::LoadMenu()
 void BeaverGame::LoadOptions()
 {
 	auto options = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	auto event = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
-	options->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", event);
+	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
+	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
+	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
+	options->AddSlider(Vec2f(960, 410), 50, 100, soundDragEvent);
+	options->AddSlider(Vec2f(960, 540), 50, 100, musicDragEvent);
+	options->AddButton(Vec2f(960, 670), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
+
 	SetScene(options);
 }
 
@@ -52,6 +58,8 @@ void BeaverGame::LoadLevel()
 	// Creates Player
 	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
 	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
+
+	level->AddObject<Tree>(Vec2f(150, 150));
 
 	SetScene(level);
 }
