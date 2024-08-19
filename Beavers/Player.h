@@ -31,7 +31,7 @@ private:
 	sf::Clock m_interactClock;
 	int m_iAnimationFrame = 0;
 
-	float m_fSpeed = 40.0f;
+	float m_fSpeed = 50.0f;
 
 	int m_iWoodAmount = 50;
 	

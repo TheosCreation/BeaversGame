@@ -71,9 +71,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="VolumeSlider.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Volume Slider</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -267,8 +264,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="VolumeSlider.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Volume Slider</Filter>
-    </ClInclude>
+    <ClInclude Include="PlayerStats.h" />
   </ItemGroup>
 </Project>
