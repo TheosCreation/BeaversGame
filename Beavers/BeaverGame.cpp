@@ -60,9 +60,8 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(player);
 
 	// Adds a event to the player
-	auto event = make_shared<Event<void, shared_ptr<GameObject>>>((Scene*)level.get(), &Scene::AddGameObject);
+	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
 	player->SetWoodAmountChangeEvent(event);
-	player->SetColor(sf::Color::Red);
 
 	level->AddObject<Tree>(Vec2f(150, 150));
 	// Creates Shop(s)
