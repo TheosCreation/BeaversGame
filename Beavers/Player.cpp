@@ -59,6 +59,7 @@ void Player::Update(float _fDeltaTime)
 		displacement += Vec2f(1.0f, 0.0f);
 		m_sprite.setScale(1, 1);
 	}
+	
 	float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
 	if (length > 0)
 	{
@@ -99,6 +100,14 @@ void Player::Update(float _fDeltaTime)
 		m_bInteractHeld = false;
 	}
 	
+	// @author George Mitchell
+	// TODO Make sure this is only working if you have enough wood
+	if (m_shopRef != nullptr 
+		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
+		)
+	{
+		m_playerStats += m_shopRef->GetItem();
+	}
 }
 
 /*
@@ -149,6 +158,17 @@ void Player::OnEndContact(Object* _other)
 	{
 		m_bNearTree = false;
 	}
+}
+
+/*
+	Set shop reference Function
+
+	@author George Mitchell
+	@param Shop*: Shop reference to store
+*/
+void Player::SetShopRef(Shop* _shop)
+{
+	m_shopRef = _shop;
 }
 
 /*

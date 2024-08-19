@@ -60,6 +60,8 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Player>(Vec2f(640.0f, 360) / 2.0f).lock()->SetWoodAmountChangeEvent(event);
 
 	level->AddObject<Tree>(Vec2f(150, 150));
+	// Creates Shop(s)
+	// level->AddObject<Shop>(Vec2f(50, 50));
 
 	SetScene(level);
 }

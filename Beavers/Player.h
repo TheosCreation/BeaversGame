@@ -2,6 +2,8 @@
 #include "Object.h"
 #include "ControlScheme.h"
 #include "Event.h"
+#include "Shop.h"
+#include "PlayerStats.h"
 
 class Player : public Object
 {
@@ -17,10 +19,14 @@ public:
 
 	void OnBeginContact(Object* _other) override;
 	void OnEndContact(Object* _other) override;
+	
+	void SetShopRef(Shop* _shop);
 
 	int Deposit();
 
 private:
+	static PlayerStats m_playerStats;
+
 	sf::Clock m_animationClock;
 	sf::Clock m_interactClock;
 	int m_iAnimationFrame = 0;
@@ -35,5 +41,8 @@ private:
 	bool m_bInteractHeld = false;
 
 	shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_woodAmountChangeEvent;
+
+	Shop* m_shopRef = nullptr;
 };
 
+inline PlayerStats Player::m_playerStats;
