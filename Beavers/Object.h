@@ -27,6 +27,8 @@ public:
 
 	// Texture Methods
 	void SetTexture(string _strTexturePath);
+
+	void SetColor(sf::Color _color);
 	void SetDrawRect(sf::IntRect _drawRect);
 	const sf::Texture* GetTexture() const;
 

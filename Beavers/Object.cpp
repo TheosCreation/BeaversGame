@@ -170,6 +170,17 @@ void Object::SetTexture(string _strTexturePath)
 }
 
 /*
+	Sets the Color of the GameObject's Sprite
+
+	@author Theo Morris
+	@param sf::Color: New Color of the sprite
+*/
+void Object::SetColor(sf::Color _color)
+{
+	m_sprite.setColor(_color);
+}
+
+/*
 	Sets the Draw Rect of the Sprite's Texture
 
 	@author Jamuel Bocacao
