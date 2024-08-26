@@ -55,6 +55,8 @@ void Object::SetPosition(Vec2f _newPosition)
 {
 	_newPosition /= PixelsPerMeter;
 	m_body->SetTransform(b2Vec2(_newPosition.x, _newPosition.y), 0.0f);
+	m_body->ApplyForceToCenter(b2Vec2(0.0000001f, 0.0000001f), true);	// Apply Force to trigger Collision response
+	m_body->SetAwake(true);
 }
 
 /*
@@ -68,6 +70,8 @@ void Object::AddPosition(Vec2f _displacement)
 	auto position = m_body->GetTransform().p;
 	_displacement /= PixelsPerMeter;
 	position += b2Vec2(_displacement.x, _displacement.y);
+	m_body->SetTransform(position, 0.0f);
+	m_body->SetAwake(true);
 }
 
 /*

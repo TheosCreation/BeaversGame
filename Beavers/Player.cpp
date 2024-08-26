@@ -64,7 +64,8 @@ void Player::Update(float _fDeltaTime)
 	if (length > 0)
 	{
 		displacement /= length;
-		ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+		AddPosition(displacement * _fDeltaTime * m_fSpeed);
+		//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
 	
 		// Clamp Speed
 		b2Vec2 velocity = m_body->GetLinearVelocity();
