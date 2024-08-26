@@ -113,7 +113,6 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Tree.cpp" />
-    <ClCompile Include="VolumeSlider.cpp" />
     <ClCompile Include="Warehouse.cpp" />
     <ClCompile Include="WoodChange.cpp" />
   </ItemGroup>
@@ -142,7 +141,6 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="VolumeSlider.h" />
     <ClInclude Include="Warehouse.h" />
     <ClInclude Include="WoodChange.h" />
   </ItemGroup>

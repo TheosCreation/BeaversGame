@@ -64,6 +64,19 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 }
 
 /*
+	Adds an Image Object to Scene
+
+	@author Theo Morris
+	@param Vec2f: Position of Text
+	@param string: Text to display
+*/
+void Scene::AddText(Vec2f _position, string _strText, int _iLayer)
+{
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(make_shared<Text>(_position, _strText, "Resources/Fonts/Yogurt Extra.ttf"));
+}
+
+/*
 	Adds any Game Object to Scene
 
 	@author Jamuel Bocacao
