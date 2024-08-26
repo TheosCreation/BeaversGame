@@ -39,9 +39,10 @@ void BeaverGame::LoadOptions()
 	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
 	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
 	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
-	options->AddSlider(Vec2f(960, 410), 50, 100, soundDragEvent);
-	options->AddSlider(Vec2f(960, 540), 50, 100, musicDragEvent);
-	options->AddButton(Vec2f(960, 670), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
+	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Options");
+	options->AddSlider(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), 50, 100, soundDragEvent);
+	options->AddSlider(Vec2f(1920, 1080) / 2.0f, 50, 100, musicDragEvent);
+	options->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
 
 	SetScene(options);
 }
