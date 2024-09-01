@@ -32,6 +32,33 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 }
 
 /*
+	Initialises Object Properties without Sprite
+
+	@author Jamuel Bocacao
+	@param Vec2f: Position of Object
+	@param weak_ptr<b2World>: Reference to Scene's Physics World
+	@param bool: Whether Object will simulate movement
+*/
+Object::Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+{
+	// Setup Physics Body
+	m_world = _sceneWorld;
+	b2BodyUserData userData;
+	userData.pointer = (uintptr_t)this;
+
+	// Create Body Definition
+	_position /= PixelsPerMeter;
+
+	b2BodyDef bodyDef;
+	bodyDef.type = (_bIsStatic) ? b2BodyType::b2_staticBody : b2BodyType::b2_dynamicBody;
+	bodyDef.position = b2Vec2(_position.x, _position.y);
+	bodyDef.fixedRotation = true;
+	bodyDef.userData = userData;
+	bodyDef.linearDamping = 10.0f;
+	m_body = m_world.lock()->CreateBody(&bodyDef);
+}
+
+/*
 	Handles deleting Object
 	Deletes Object's Physics Body
 

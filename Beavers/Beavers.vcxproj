@@ -91,6 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Beaver.cpp" />
     <ClCompile Include="BeaverGame.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="WoodChange.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Beaver.h" />
     <ClInclude Include="BeaverGame.h" />

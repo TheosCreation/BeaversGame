@@ -4,6 +4,7 @@
 #include "Event.h"
 #include "Shop.h"
 #include "PlayerStats.h"
+#include "Animator.h"
 
 class Player : public Object
 {
@@ -27,7 +28,7 @@ public:
 private:
 	static PlayerStats m_playerStats;
 
-	sf::Clock m_animationClock;
+	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;
 	int m_iAnimationFrame = 0;
 

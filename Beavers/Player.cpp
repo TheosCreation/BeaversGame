@@ -10,11 +10,15 @@
 	@param Vec2f: Start Position
 	@param weak_ptr<b2World>: Scene World
 */
-Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
+Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, _world, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
 	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider
 	AddCircleCollider(Vec2f(0, 6), 12, true);			// Interaction Range Sensor
+
+	m_animator = make_unique<Animator>(&m_sprite);
+	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
+	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
 }
 
 /*
@@ -26,18 +30,7 @@ Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "R
 void Player::Update(float _fDeltaTime)
 {
 	// Updates Current Animation Frame
-	if (m_animationClock.getElapsedTime().asSeconds() > 3.0f / 24.0f)
-	{
-		m_animationClock.restart();
-		m_iAnimationFrame++;
-
-		if (m_iAnimationFrame > 3)
-		{
-			m_iAnimationFrame = 0;
-		}
-
-		m_sprite.setTextureRect(sf::IntRect(16 * m_iAnimationFrame, 16, 16, 16));
-	}
+	m_animator->Update();
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
@@ -63,6 +56,8 @@ void Player::Update(float _fDeltaTime)
 	float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
 	if (length > 0)
 	{
+		m_animator->ChangeState("Running");
+
 		displacement /= length;
 		AddPosition(displacement * _fDeltaTime * m_fSpeed);
 		//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
@@ -74,6 +69,10 @@ void Player::Update(float _fDeltaTime)
 		{
 			m_body->SetLinearVelocity(2.0f * velocity);
 		}
+	}
+	else
+	{
+		m_animator->ChangeState("Idle");
 	}
 	
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
