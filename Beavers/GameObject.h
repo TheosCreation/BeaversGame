@@ -17,7 +17,7 @@ public:
 	virtual void Render(sf::RenderTexture* _sceneBuffer);
 
 	// Mouse Methods
-	virtual void OnClick(Vec2f _mousePos);
+	virtual bool OnClick(Vec2f _mousePos);
 	virtual void OnDrag(Vec2f _mousePos);
 	virtual void OnRelease(Vec2f _mousePos);
 

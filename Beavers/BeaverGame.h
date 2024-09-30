@@ -10,5 +10,9 @@ private:
 	void LoadOptions();
 	void LoadLevel();
 	void LoadCredits();
+	void LoadWinGame();
+	void LoadGameOver();
+
+	void Quit();
 };
 

@@ -5,10 +5,11 @@
 
 	@author Jamuel Bocacao
 	@param Vec2f: Mouse Position in World-Space
+	@return bool: Clicked on Element
 */
-void GameObject::OnClick(Vec2f _mousePos)
+bool GameObject::OnClick(Vec2f _mousePos)
 {
-	return;
+	return false;
 }
 
 /*

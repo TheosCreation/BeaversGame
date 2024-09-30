@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Slider.h"
 #include "Button.h"
+#include "Object.h"
 
 /*
 	Creates a Scene
@@ -29,9 +30,10 @@ Scene::Scene(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 	@param unsigned int: Max Value of Slider
 	@param shared_ptr<Event<void, int>>: Event that is called when the slider is dragged
 */
-void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent)
+void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent, int _iLayer)
 {
-	m_objects.push_back(make_shared<Slider>(_position, _iValue, _iMaxValue, _dragEvent));
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(make_shared<Slider>(_position, _iValue, _iMaxValue, _dragEvent));
 }
 
 /*
@@ -42,9 +44,10 @@ void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxV
 	@param string: Texture File Path
 	@param shared_ptr<Event<void, void>>: Event that is called when the Button is clicked
 */
-void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event)
+void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer)
 {
-	m_objects.push_back(make_shared<Button>(_position, _strTexturePath, _strSoundPath, _event));
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(make_shared<Button>(_position, _strTexturePath, _strSoundPath, _event));
 }
 
 /*
@@ -54,9 +57,23 @@ void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundP
 	@param Vec2f: Position of Button
 	@param string: Texture File Path
 */
-void Scene::AddImage(Vec2f _position, string _strTexturePath)
+void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 {
-	m_objects.push_back(make_shared<Image>(_position, _strTexturePath));
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(make_shared<Image>(_position, _strTexturePath));
+}
+
+/*
+	Adds an Image Object to Scene
+
+	@author Theo Morris
+	@param Vec2f: Position of Text
+	@param string: Text to display
+*/
+void Scene::AddText(Vec2f _position, string _strText, int _iLayer)
+{
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(make_shared<Text>(_position, _strText, "Resources/Fonts/Yogurt Extra.ttf"));
 }
 
 /*
@@ -65,9 +82,10 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath)
 	@author Jamuel Bocacao
 	@param shared_ptr<GameObject>: Game Object to be added
 */
-void Scene::AddGameObject(shared_ptr<GameObject> _gameObject)
+void Scene::AddGameObject(shared_ptr<GameObject> _gameObject, int _iLayer)
 {
-	m_objects.push_back(_gameObject);
+	CheckLayer(_iLayer);
+	m_objects.at(_iLayer).push_back(_gameObject);
 }
 
 /*
@@ -86,9 +104,15 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 			auto mousePos = sf::Mouse::getPosition(*_window);
 			auto worldPos = m_sceneBuffer.mapPixelToCoords(Vec2i(_window->mapPixelToCoords(mousePos) - m_bufferDisplacement));
 			
-			for (auto object : m_objects)
+			for (auto const& [layer, objects] : m_objects)
 			{
-				object->OnClick(worldPos);
+				for (auto object : objects)
+				{
+					if (object->OnClick(worldPos))
+					{
+						return;
+					}
+				}
 			}
 			break;
 		}
@@ -96,11 +120,15 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 		{
 			auto mousePos = sf::Mouse::getPosition(*_window);
 			auto worldPos = m_sceneBuffer.mapPixelToCoords(mousePos);
-
-			for (auto object : m_objects)
+			
+			for (auto const& [layer, objects] : m_objects)
 			{
-				object->OnRelease(worldPos);
+				for (auto object : objects)
+				{
+					object->OnRelease(worldPos);
+				}
 			}
+			
 			break;
 		}
 		case sf::Event::MouseMoved:
@@ -108,25 +136,34 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 			auto mousePos = sf::Mouse::getPosition(*_window);
 			auto worldPos = m_sceneBuffer.mapPixelToCoords(mousePos);
 
-			for (auto object : m_objects)
+			for (auto const& [layer, objects] : m_objects)
 			{
-				object->OnDrag(worldPos);
+				for (auto object : objects)
+				{
+					object->OnDrag(worldPos);
+				}
 			}
 			break;
 		}
 		case sf::Event::KeyPressed:
 		{
-			for (auto object : m_objects)
+			for (auto const& [layer, objects] : m_objects)
 			{
-				object->OnKeyDown(_event);
+				for (auto object : objects)
+				{
+					object->OnKeyDown(_event);
+				}
 			}
 			break;
 		}
 		case sf::Event::KeyReleased:
 		{
-			for (auto object : m_objects)
+			for (auto const& [layer, objects] : m_objects)
 			{
-				object->OnKeyUp(_event);
+				for (auto object : objects)
+				{
+					object->OnKeyUp(_event);
+				}
 			}
 			break;
 		}
@@ -172,9 +209,12 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 */
 void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 {
-	for (auto object : m_objects)
+	for (auto const& [layer, objects] : m_objects)
 	{
-		object->Update(_fDeltaTime);
+		for (auto object : objects)
+		{
+			object->Update(_fDeltaTime);
+		}
 	}
 	return;
 }
@@ -186,7 +226,10 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 */
 void Scene::DestroyObjects()
 {
-	std::erase_if(m_objects, [](shared_ptr<GameObject> _object) { return _object->MarkedForDestroy(); });
+	for (auto &[layer, objects] : m_objects)
+	{
+		std::erase_if(objects, [](shared_ptr<GameObject> _object) { return _object->MarkedForDestroy(); });
+	}
 }
 
 /*
@@ -198,11 +241,14 @@ void Scene::DestroyObjects()
 void Scene::Render(sf::RenderWindow* _window)
 {
 	m_sceneBuffer.clear(sf::Color(0, 0, 0, 0));
-	for (auto object : m_objects)
+	for (auto &layer : m_objects)
 	{
-		object->Render(&m_sceneBuffer);
+		std::sort(layer.second.begin(), layer.second.end(), RenderSorter());
+		for (auto object : layer.second)
+		{
+			object->Render(&m_sceneBuffer);
+		}
 	}
-
 	sf::Sprite buffer(m_sceneBuffer.getTexture());
 	buffer.setPosition(m_bufferDisplacement);
 	_window->draw(buffer);
@@ -264,4 +310,18 @@ void Scene::Resize(sf::RenderWindow* _window)
 	// Sets Canvas World-Space Dimensions to Canvas Size
 	m_sceneBuffer.setView(sf::View(Vec2f(m_canvasSize) / 2.0f, Vec2f(m_canvasSize)));
 	_window->setView(sf::View(Vec2f(screenSize) / 2.0f, Vec2f(screenSize)));
+}
+
+/*
+	Check if Layer has been created already, if not create one
+
+	@author Jamuel Bocacao
+	@param int: Layer ID
+*/
+void Scene::CheckLayer(int _iLayer)
+{
+	if (!m_objects.contains(_iLayer))
+	{
+		m_objects.emplace(_iLayer, vector<shared_ptr<GameObject>>());
+	}
 }

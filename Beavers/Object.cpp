@@ -32,6 +32,33 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 }
 
 /*
+	Initialises Object Properties without Sprite
+
+	@author Jamuel Bocacao
+	@param Vec2f: Position of Object
+	@param weak_ptr<b2World>: Reference to Scene's Physics World
+	@param bool: Whether Object will simulate movement
+*/
+Object::Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+{
+	// Setup Physics Body
+	m_world = _sceneWorld;
+	b2BodyUserData userData;
+	userData.pointer = (uintptr_t)this;
+
+	// Create Body Definition
+	_position /= PixelsPerMeter;
+
+	b2BodyDef bodyDef;
+	bodyDef.type = (_bIsStatic) ? b2BodyType::b2_staticBody : b2BodyType::b2_dynamicBody;
+	bodyDef.position = b2Vec2(_position.x, _position.y);
+	bodyDef.fixedRotation = true;
+	bodyDef.userData = userData;
+	bodyDef.linearDamping = 10.0f;
+	m_body = m_world.lock()->CreateBody(&bodyDef);
+}
+
+/*
 	Handles deleting Object
 	Deletes Object's Physics Body
 
@@ -55,6 +82,8 @@ void Object::SetPosition(Vec2f _newPosition)
 {
 	_newPosition /= PixelsPerMeter;
 	m_body->SetTransform(b2Vec2(_newPosition.x, _newPosition.y), 0.0f);
+	m_body->ApplyForceToCenter(b2Vec2(0.0000001f, 0.0000001f), true);	// Apply Force to trigger Collision response
+	m_body->SetAwake(true);
 }
 
 /*
@@ -68,6 +97,8 @@ void Object::AddPosition(Vec2f _displacement)
 	auto position = m_body->GetTransform().p;
 	_displacement /= PixelsPerMeter;
 	position += b2Vec2(_displacement.x, _displacement.y);
+	m_body->SetTransform(position, 0.0f);
+	m_body->SetAwake(true);
 }
 
 /*
@@ -163,6 +194,17 @@ void Object::SetTexture(string _strTexturePath)
 	// Update Sprite's origin to its centre
 	auto texRect = m_sprite.getLocalBounds();
 	m_sprite.setOrigin(texRect.width / 2.0f, texRect.height / 2.0f);
+}
+
+/*
+	Sets the Color of the GameObject's Sprite
+
+	@author Theo Morris
+	@param sf::Color: New Color of the sprite
+*/
+void Object::SetColor(sf::Color _color)
+{
+	m_sprite.setColor(_color);
 }
 
 /*

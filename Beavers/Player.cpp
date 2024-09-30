@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Warehouse.h"
 #include "WoodChange.h"
+#include "Tree.h"
 
 /*
 	Creates a Player's
@@ -9,11 +10,16 @@
 	@param Vec2f: Start Position
 	@param weak_ptr<b2World>: Scene World
 */
-Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
+Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, _world, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
 	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider
 	AddCircleCollider(Vec2f(0, 6), 12, true);			// Interaction Range Sensor
+
+	m_animator = make_unique<Animator>(&m_sprite);
+	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
+	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
+	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
 }
 
 /*
@@ -25,40 +31,79 @@ Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "R
 void Player::Update(float _fDeltaTime)
 {
 	// Updates Current Animation Frame
-	if (m_animationClock.getElapsedTime().asSeconds() > 3.0f / 24.0f)
-	{
-		m_animationClock.restart();
-		m_iAnimationFrame++;
-
-		if (m_iAnimationFrame > 3)
-		{
-			m_iAnimationFrame = 0;
-		}
-
-		m_sprite.setTextureRect(sf::IntRect(16 * m_iAnimationFrame, 16, 16, 16));
-	}
+	m_animator->Update();
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
+	if (!m_bInteracting)
 	{
-		displacement += Vec2f(0.0f, -1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
-	{
-		displacement += Vec2f(-1.0f, 0.0f);
-		m_sprite.setScale(-1, 1);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
-	{
-		displacement += Vec2f(0.0f, 1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
-	{
-		displacement += Vec2f(1.0f, 0.0f);
-		m_sprite.setScale(1, 1);
-	}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
+		{
+			displacement += Vec2f(0.0f, -1.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
+		{
+			displacement += Vec2f(-1.0f, 0.0f);
+			m_sprite.setScale(-1, 1);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
+		{
+			displacement += Vec2f(0.0f, 1.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
+		{
+			displacement += Vec2f(1.0f, 0.0f);
+			m_sprite.setScale(1, 1);
+		}
 
+		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
+		if (length > 0)
+		{
+			m_animator->ChangeState("Running");
+
+			displacement /= length;
+			AddPosition(displacement * _fDeltaTime * m_fSpeed);
+			//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+
+			// Clamp Speed
+			b2Vec2 velocity = m_body->GetLinearVelocity();
+			float velSpeed = velocity.Normalize();
+			if (velSpeed > 2.0f)
+			{
+				m_body->SetLinearVelocity(2.0f * velocity);
+			}
+		}
+		else
+		{
+			m_animator->ChangeState("Idle");
+		}
+	}
+	else
+	{
+		if (m_interactClock.getElapsedTime().asSeconds() > 4.0f/8.0f)
+		{
+			if (m_bNearTree)
+			{
+				m_bInteracting = false;
+				ExecuteWoodAmountChangeEvent(10);
+				m_iWoodAmount += 10;
+			}
+		}
+	}
+	
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
+	{
+		if (!m_bInteracting)
+		{
+			if (m_bNearTree)
+			{
+				m_animator->ChangeState("Attack");
+				m_interactClock.restart();
+				m_bInteracting = true;
+			}
+		}
+	}
+	
 	// @author George Mitchell
 	// TODO Make sure this is only working if you have enough wood
 	if (m_shopRef != nullptr 
@@ -67,8 +112,6 @@ void Player::Update(float _fDeltaTime)
 	{
 		 m_shopRef->ApplyItem(m_playerStats);
 	}
-
-	ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
 }
 
 /*
@@ -86,9 +129,9 @@ void Player::SetControlScheme(ControlScheme _scheme)
 	Sets the Event that spawns a UI indicator when wood amount has changed
 
 	@author Jamuel Bocacao
-	@param shared_ptr<Event<void, shared_ptr<GameObject>>>: Level's AddGameObject() function
+	@param shared_ptr<Event2P<void, shared_ptr<GameObject>, int>>: Level's AddGameObject() function
 */
-void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObject>>> _woodAmountChangeEvent)
+void Player::SetWoodAmountChangeEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _woodAmountChangeEvent)
 {
 	m_woodAmountChangeEvent = _woodAmountChangeEvent;
 }
@@ -101,8 +144,24 @@ void Player::SetWoodAmountChangeEvent(shared_ptr<Event<void, shared_ptr<GameObje
 */
 void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
 {
-	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, 15.0f), _iAmount);
-	m_woodAmountChangeEvent->execute(woodChange);
+	auto woodChange = make_shared<WoodChange>(GetPosition() + Vec2f(15.0f, -15.0f), _iAmount);
+	m_woodAmountChangeEvent->execute(woodChange, 100);
+}
+
+void Player::OnBeginContact(Object* _other)
+{
+	if (_other->IsOfType<Tree>())
+	{
+		m_bNearTree = true;
+	}
+}
+
+void Player::OnEndContact(Object* _other)
+{
+	if (_other->IsOfType<Tree>())
+	{
+		m_bNearTree = false;
+	}
 }
 
 /*
@@ -124,7 +183,7 @@ void Player::SetShopRef(Shop* _shop)
 */
 int Player::Deposit()
 {
-	// Spawns a Minus 
+	// Spawns a Minus Item Element
 	if (m_iWoodAmount != 0)
 	{
 		ExecuteWoodAmountChangeEvent(-m_iWoodAmount);

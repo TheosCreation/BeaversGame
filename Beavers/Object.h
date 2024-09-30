@@ -9,6 +9,7 @@ class Object : public GameObject
 {
 public:
 	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
+	Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
 	~Object();
 
 	// Position Methods
@@ -27,6 +28,8 @@ public:
 
 	// Texture Methods
 	void SetTexture(string _strTexturePath);
+
+	void SetColor(sf::Color _color);
 	void SetDrawRect(sf::IntRect _drawRect);
 	const sf::Texture* GetTexture() const;
 
@@ -74,5 +77,5 @@ template<std::derived_from<Object> T>
 inline bool Object::IsOfType(T** _objectPointer)
 {
 	*_objectPointer = dynamic_cast<T*>(this);
-	return (_objectPointer) ? true : false;
+	return (*_objectPointer) ? true : false;
 }
