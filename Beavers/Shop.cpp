@@ -1,5 +1,6 @@
 #include "Shop.h"
 #include "Player.h"
+#include <iostream>
 
 /*
 	Creates a Shop Object
@@ -46,7 +47,11 @@ void Shop::ApplyItem(PlayerStats& _playerStats)
 {
 	if(m_WarehouseRef->GetWoodAmount() >= GetCost())
 	{
+		std::cout << "We buyin" << std::endl;
+		//std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
 		_playerStats += m_statUpgrade;
+		m_WarehouseRef->ChangeWoodAmount(-m_iCost);
+		std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
 		SetCost(m_iCost * 2);
 	}
 }

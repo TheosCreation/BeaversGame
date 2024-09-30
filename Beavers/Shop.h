@@ -25,4 +25,3 @@ private:
 
 	Warehouse* m_WarehouseRef;
 };
-

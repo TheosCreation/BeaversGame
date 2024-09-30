@@ -2,6 +2,7 @@
 #include "Warehouse.h"
 #include "WoodChange.h"
 #include "Tree.h"
+#include <iostream>
 
 /*
 	Creates a Player's
@@ -84,10 +85,14 @@ void Player::Update(float _fDeltaTime)
 		{
 			if (m_bNearTree)
 			{
-				m_bInteracting = false;
 				ExecuteWoodAmountChangeEvent(10);
 				m_iWoodAmount += 10;
 			}
+			else if (m_shopRef)
+			{
+				m_shopRef->ApplyItem(m_playerStats);
+			}
+			m_bInteracting = false;
 		}
 	}
 	
@@ -101,16 +106,12 @@ void Player::Update(float _fDeltaTime)
 				m_interactClock.restart();
 				m_bInteracting = true;
 			}
+			else if (m_shopRef)
+			{
+				m_interactClock.restart();
+				m_bInteracting = true;
+			}
 		}
-	}
-	
-	// @author George Mitchell
-	// TODO Make sure this is only working if you have enough wood
-	if (m_shopRef != nullptr 
-		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
-		)
-	{
-		 m_shopRef->ApplyItem(m_playerStats);
 	}
 }
 
