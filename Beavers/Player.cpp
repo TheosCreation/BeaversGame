@@ -65,7 +65,7 @@ void Player::Update(float _fDeltaTime)
 		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
 		)
 	{
-		m_playerStats += m_shopRef->GetItem();
+		 m_shopRef->ApplyItem(m_playerStats);
 	}
 
 	ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
