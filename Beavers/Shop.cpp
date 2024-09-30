@@ -1,5 +1,6 @@
 #include "Shop.h"
 #include "Player.h"
+#include <iostream>
 
 /*
 	Creates a Shop Object
@@ -8,10 +9,13 @@
 	@param Vec2f: Position of Shop
 	@param weak_ptr<b2World>: Scene World
 */
-Shop::Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Images/Objects/Shop.png", _sceneWorld, true)
+Shop::Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld, Warehouse* _warehouseRef, int _baseCost) : Object(_position, "Resources/Images/Objects/Shop.png", _sceneWorld, true)
 {
+	m_WarehouseRef = _warehouseRef;
 	m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
 	m_statUI->SetVisibility(false);
+
+	m_iCost = _baseCost;
 
 	AddBoxCollider(Vec2f(0, 0), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y));
 	AddBoxCollider(Vec2f(0, m_sprite.getTexture()->getSize().y), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y), true);
@@ -39,10 +43,17 @@ void Shop::SetCost(int _iCost)
 	m_iCost = _iCost;
 }
 
-PlayerStats Shop::GetItem()
+void Shop::ApplyItem(PlayerStats& _playerStats)
 {
-	SetCost(m_iCost * 2);
-	return m_statUpgrade;
+	if(m_WarehouseRef->GetWoodAmount() >= GetCost())
+	{
+		std::cout << "We buyin" << std::endl;
+		//std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
+		_playerStats += m_statUpgrade;
+		m_WarehouseRef->ChangeWoodAmount(-m_iCost);
+		std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
+		SetCost(m_iCost * 2);
+	}
 }
 
 int Shop::GetCost()

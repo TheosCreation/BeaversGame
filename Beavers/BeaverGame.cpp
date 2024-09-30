@@ -58,7 +58,7 @@ void BeaverGame::LoadLevel()
 	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
 
 	// Creates Warehouse
-	level->AddObject<Warehouse>(Vec2f(500, 250));
+	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();
 
 	// Creates a Player and adds it to the level
 	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f, level->GetWorld());
@@ -70,7 +70,8 @@ void BeaverGame::LoadLevel()
 
 	level->AddObject<Tree>(Vec2f(150, 150));
 	// Creates Shop(s)
-	// level->AddObject<Shop>(Vec2f(50, 50));
+	auto shop = make_shared<Shop>(Vec2f(50, 50), level->GetWorld(), warehouseRef, 1);
+	level->AddGameObject(shop);
 
 	SetScene(level);
 }

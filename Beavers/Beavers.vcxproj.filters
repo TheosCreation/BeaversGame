@@ -71,6 +71,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Code Files\Game Engine\Animator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -187,6 +190,9 @@
     <Filter Include="Code Files\Beaver Project\Game Objects\Volume Slider">
       <UniqueIdentifier>{1618b619-1846-4f2c-9f57-6a73854fe49d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Game Engine\Animator">
+      <UniqueIdentifier>{d9e239f8-f5ad-487a-a887-df66797a9802}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -265,5 +271,8 @@
       <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
     </ClInclude>
     <ClInclude Include="PlayerStats.h" />
+    <ClInclude Include="Animator.h">
+      <Filter>Code Files\Game Engine\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

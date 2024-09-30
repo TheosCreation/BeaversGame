@@ -4,6 +4,7 @@
 #include "Event.h"
 #include "Shop.h"
 #include "PlayerStats.h"
+#include "Animator.h"
 
 class Player : public Object
 {
@@ -27,18 +28,18 @@ public:
 private:
 	static PlayerStats m_playerStats;
 
-	sf::Clock m_animationClock;
+	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;
 	int m_iAnimationFrame = 0;
 
-	float m_fSpeed = 40.0f;
+	float m_fSpeed = 50.0f;
 
 	int m_iWoodAmount = 50;
 	
 	ControlScheme m_controlScheme;
 
 	bool m_bNearTree = false;
-	bool m_bInteractHeld = false;
+	bool m_bInteracting = false;
 
 	shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_woodAmountChangeEvent;
 

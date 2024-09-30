@@ -2,6 +2,7 @@
 #include "Warehouse.h"
 #include "WoodChange.h"
 #include "Tree.h"
+#include <iostream>
 
 /*
 	Creates a Player's
@@ -10,11 +11,16 @@
 	@param Vec2f: Start Position
 	@param weak_ptr<b2World>: Scene World
 */
-Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "Resources/Images/Entities/Player.png", _world, false)
+Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, _world, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
 	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider
 	AddCircleCollider(Vec2f(0, 6), 12, true);			// Interaction Range Sensor
+
+	m_animator = make_unique<Animator>(&m_sprite);
+	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
+	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
+	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
 }
 
 /*
@@ -26,87 +32,86 @@ Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, "R
 void Player::Update(float _fDeltaTime)
 {
 	// Updates Current Animation Frame
-	if (m_animationClock.getElapsedTime().asSeconds() > 3.0f / 24.0f)
-	{
-		m_animationClock.restart();
-		m_iAnimationFrame++;
-
-		if (m_iAnimationFrame > 3)
-		{
-			m_iAnimationFrame = 0;
-		}
-
-		m_sprite.setTextureRect(sf::IntRect(16 * m_iAnimationFrame, 16, 16, 16));
-	}
+	m_animator->Update();
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
+	if (!m_bInteracting)
 	{
-		displacement += Vec2f(0.0f, -1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
-	{
-		displacement += Vec2f(-1.0f, 0.0f);
-		m_sprite.setScale(-1, 1);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
-	{
-		displacement += Vec2f(0.0f, 1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
-	{
-		displacement += Vec2f(1.0f, 0.0f);
-		m_sprite.setScale(1, 1);
-	}
-	
-	float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
-	if (length > 0)
-	{
-		displacement /= length;
-		ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
-	
-		// Clamp Speed
-		b2Vec2 velocity = m_body->GetLinearVelocity();
-		float velSpeed = velocity.Normalize();
-		if (velSpeed > 2.0f)
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
 		{
-			m_body->SetLinearVelocity(2.0f * velocity);
+			displacement += Vec2f(0.0f, -1.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
+		{
+			displacement += Vec2f(-1.0f, 0.0f);
+			m_sprite.setScale(-1, 1);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
+		{
+			displacement += Vec2f(0.0f, 1.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
+		{
+			displacement += Vec2f(1.0f, 0.0f);
+			m_sprite.setScale(1, 1);
+		}
+
+		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
+		if (length > 0)
+		{
+			m_animator->ChangeState("Running");
+
+			displacement /= length;
+			AddPosition(displacement * _fDeltaTime * m_fSpeed);
+			//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+
+			// Clamp Speed
+			b2Vec2 velocity = m_body->GetLinearVelocity();
+			float velSpeed = velocity.Normalize();
+			if (velSpeed > 2.0f)
+			{
+				m_body->SetLinearVelocity(2.0f * velocity);
+			}
+		}
+		else
+		{
+			m_animator->ChangeState("Idle");
+		}
+	}
+	else
+	{
+		if (m_interactClock.getElapsedTime().asSeconds() > 4.0f/8.0f)
+		{
+			if (m_bNearTree)
+			{
+				ExecuteWoodAmountChangeEvent(10);
+				m_iWoodAmount += 10;
+			}
+			else if (m_shopRef)
+			{
+				m_shopRef->ApplyItem(m_playerStats);
+			}
+			m_bInteracting = false;
 		}
 	}
 	
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
 	{
-		if (m_bInteractHeld)
+		if (!m_bInteracting)
 		{
-			if (m_interactClock.getElapsedTime().asSeconds() > 1.0f)
+			if (m_bNearTree)
 			{
-				if (m_bNearTree)
-				{
-					ExecuteWoodAmountChangeEvent(10);
-					m_iWoodAmount += 10;
-					m_interactClock.restart();
-				}
+				m_animator->ChangeState("Attack");
+				m_interactClock.restart();
+				m_bInteracting = true;
+			}
+			else if (m_shopRef)
+			{
+				m_interactClock.restart();
+				m_bInteracting = true;
 			}
 		}
-		else
-		{
-			m_bInteractHeld = true;
-			m_interactClock.restart();
-		}
-	}
-	else
-	{
-		m_bInteractHeld = false;
-	}
-	
-	// @author George Mitchell
-	// TODO Make sure this is only working if you have enough wood
-	if (m_shopRef != nullptr 
-		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
-		)
-	{
-		m_playerStats += m_shopRef->GetItem();
 	}
 }
 
