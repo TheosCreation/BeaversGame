@@ -16,8 +16,12 @@ Level::Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 	m_world->SetContactListener(&m_listener);
 	auto field = make_shared<FlowField>(Vec2i(0, 0), Vec2i(30, 17));
 	field->SetWalkable(Vec2i(24, 10), false);
+	field->SetWalkable(Vec2i(5, 8), false);
 	vector<Vec2i> goal;
 	goal.push_back(Vec2i(15, 5));
+	goal.push_back(Vec2i(16, 5));
+	goal.push_back(Vec2i(15, 4));
+	goal.push_back(Vec2i(16, 4));
 	field->CalculateField(goal);
 	AddGameObject(field, -2);
 }

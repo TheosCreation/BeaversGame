@@ -89,7 +89,12 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 
 				// Check if Neighbor is valid and walkable
 				auto neighbor = cell + Vec2i(x, y);
-				if (!IsValid(neighbor) || !IsWalkable(neighbor)) continue;
+				if (!IsValid(neighbor)) continue;
+				if (!IsWalkable(neighbor))
+				{
+					gridValue[neighbor.y * m_size.x + neighbor.x] = -1;
+					continue;
+				}
 
 				// Process Neighbors
 				float fDistCell = gridValue[cell.y * m_size.x + cell.x];
@@ -124,9 +129,10 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 		{
 			Vec2i cell(x, y);
 			cell -= m_topLeft;
-			if (!IsWalkable(cell))
+			if (!IsWalkable(cell) || gridValue[cell.y * m_size.x + cell.x] == 0.0f)
 			{
 				m_field[y * m_size.x + x] = Vec2f(0, 0);
+				continue;
 			}
 
 			// Process Cell
@@ -141,6 +147,9 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 					if (cellValue > 0)
 					{
 						neighborVector /= cellValue;
+					}
+					if (cellValue >= 0)
+					{
 						cellVector += neighborVector;
 					}
 				}
@@ -153,22 +162,42 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 
 void FlowField::Render(sf::RenderTexture* _texture)
 {
-	sf::RectangleShape rect;
-	rect.setFillColor(sf::Color::White);
-	rect.setSize(Vec2f(64.0f, 32.0f));
+	sf::ConvexShape shape;
+	shape.setPointCount(7);
+	shape.setPoint(0, Vec2f(32, 0));
+	shape.setPoint(1, Vec2f(64, 32));
+	shape.setPoint(2, Vec2f(32, 64));
+	shape.setPoint(3, Vec2f(32, 40));
+	shape.setPoint(4, Vec2f(0, 40));
+	shape.setPoint(5, Vec2f(0, 20));
+	shape.setPoint(6, Vec2f(32, 20));
+	
+	shape.setFillColor(sf::Color::White);
+	shape.setOrigin(32.0f, 32.0f);
 	for (int i = 0; i < m_size.y; i++)
 	{
 		for (int j = 0; j < m_size.x; j++)
 		{
 			Vec2f dir = m_field[i * m_size.x + j];
-			
+			if (dir == Vec2f(0, 0))
+			{
+				sf::RectangleShape rect;
+				rect.setSize(Vec2f(64.0f, 64.0f));
+				rect.setOrigin(32, 32);
+				rect.setFillColor(sf::Color::Red);
+				rect.setPosition(Vec2f(j * 64.0f, i * 64.0f));
+				_texture->draw(rect);
+				_texture->display();
+				continue;
+			}
+
 			float angle = atan2(dir.y, dir.x) * (180.0 / 3.141592653589793238463);
 			
-			rect.setOrigin(32.0f, 16.0f);
-			rect.setRotation(-angle);
-			rect.setPosition(Vec2f(j * 64.0f, i * 64.0f));
+			
+			shape.setRotation(-angle);
+			shape.setPosition(Vec2f(j * 64.0f, i * 64.0f));
 
-			_texture->draw(rect);
+			_texture->draw(shape);
 			_texture->display();
 		}
 	}
