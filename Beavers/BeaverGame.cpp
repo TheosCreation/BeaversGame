@@ -21,7 +21,7 @@ void BeaverGame::LoadMenu()
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
-	menu->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Beaverpocalypse");
+	menu->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Beaverpocalypse", 100);
 
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 
@@ -39,7 +39,7 @@ void BeaverGame::LoadOptions()
 	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
 	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
 	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
-	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Options");
+	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Options", 100);
 	options->AddSlider(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), 50, 100, soundDragEvent);
 	options->AddSlider(Vec2f(1920, 1080) / 2.0f, 50, 100, musicDragEvent);
 	options->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
@@ -98,7 +98,7 @@ void BeaverGame::LoadCredits()
 void BeaverGame::LoadWinGame()
 {
 	auto winGame = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	winGame->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "You Win");
+	winGame->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "You Win", 100);
 
 	auto playAgainEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
 	winGame->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
@@ -117,7 +117,7 @@ void BeaverGame::LoadWinGame()
 void BeaverGame::LoadGameOver()
 {
 	auto gameOver = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	gameOver->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Game Over");
+	gameOver->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Game Over", 100);
 
 	auto playAgainEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
 	gameOver->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
