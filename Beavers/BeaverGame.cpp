@@ -70,8 +70,13 @@ void BeaverGame::LoadLevel()
 
 	level->AddObject<Tree>(Vec2f(150, 150));
 	// Creates Shop(s)
-	auto shop = make_shared<Shop>(Vec2f(50, 50), level->GetWorld(), warehouseRef, 1);
-	level->AddGameObject(shop);
+	auto shop1 = make_shared<Shop>(Vec2f(90, 50), level->GetWorld(), warehouseRef, 1, "Resources/Images/Objects/AxeShop.png");
+	auto shop2 = make_shared<Shop>(Vec2f(38, 50), level->GetWorld(), warehouseRef, 1, "Resources/Images/Objects/BootShop.png");
+	auto shop3 = make_shared<Shop>(Vec2f(142, 50), level->GetWorld(), warehouseRef, 1, "Resources/Images/Objects/BagShop.png");
+
+	level->AddGameObject(shop1);
+	level->AddGameObject(shop2);
+	level->AddGameObject(shop3);
 
 	SetScene(level);
 }
