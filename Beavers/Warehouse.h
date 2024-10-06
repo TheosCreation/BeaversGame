@@ -3,7 +3,7 @@
 class Warehouse : public Object
 {
 public:
-	Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld);
+	Warehouse(Vec2f _position);
 
 	void ChangeWoodAmount(int _iAmount);
 	int GetWoodAmount();

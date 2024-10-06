@@ -8,9 +8,8 @@
 
 	@author Jamuel Bocacao
 	@param Vec2f: Start Position
-	@param weak_ptr<b2World>: Scene World
 */
-Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, _world, false)
+Player::Player(Vec2f _position) : Object(_position, false)
 {
 	SetDrawRect(sf::IntRect(0, 16, 16, 16));
 	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider

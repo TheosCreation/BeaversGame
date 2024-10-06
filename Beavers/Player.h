@@ -9,7 +9,7 @@
 class Player : public Object
 {
 public:
-	Player(Vec2f _position, weak_ptr<b2World> _world);
+	Player(Vec2f _position);
 	
 	void Update(float _fDeltaTime) override;
 	void SetControlScheme(ControlScheme _scheme);

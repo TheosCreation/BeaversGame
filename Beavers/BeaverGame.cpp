@@ -61,7 +61,7 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Warehouse>(Vec2f(500, 250));
 
 	// Creates a Player and adds it to the level
-	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f, level->GetWorld());
+	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f);
 	level->AddGameObject(player);
 
 	// Adds a event to the player
@@ -69,8 +69,6 @@ void BeaverGame::LoadLevel()
 	player->SetWoodAmountChangeEvent(event);
 
 	level->AddObject<Tree>(Vec2f(150, 150));
-	// Creates Shop(s)
-	// level->AddObject<Shop>(Vec2f(50, 50));
 
 	SetScene(level);
 }

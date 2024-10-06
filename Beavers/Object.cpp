@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "Level.h"
 
 /*
 	Initialises Object Properties
@@ -6,16 +7,15 @@
 	@author Jamuel Bocacao
 	@param Vec2f: Position of Object
 	@param string: Texture File Path
-	@param weak_ptr<b2World>: Reference to Scene's Physics World
 	@param bool: Whether Object will simulate movement
 */
-Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+Object::Object(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
 	// Create Game Object
 	SetTexture(_strTexturePath);
 
 	// Setup Physics Body
-	m_world = _sceneWorld;
+	m_world = Level::GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 
@@ -39,10 +39,10 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 	@param weak_ptr<b2World>: Reference to Scene's Physics World
 	@param bool: Whether Object will simulate movement
 */
-Object::Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+Object::Object(Vec2f _position, bool _bIsStatic)
 {
 	// Setup Physics Body
-	m_world = _sceneWorld;
+	m_world = Level::GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 

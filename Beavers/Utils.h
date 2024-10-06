@@ -22,3 +22,5 @@ using sf::Vector3f;
 typedef sf::Vector2f Vec2f;
 typedef sf::Vector2i Vec2i;
 typedef sf::Vector2u Vec2u;
+
+const int TileSize = 64;

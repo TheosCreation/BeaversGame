@@ -8,8 +8,8 @@
 class Object : public GameObject
 {
 public:
-	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
-	Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
+	Object(Vec2f _position, string _strTexturePath, bool _bIsStatic = false);
+	Object(Vec2f _position, bool _bIsStatic = false);
 	~Object();
 
 	// Position Methods

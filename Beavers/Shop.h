@@ -5,7 +5,7 @@
 class Shop : public Object
 {
 public:
-	Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld);
+	Shop(Vec2f _position);
 
 	void SetItem(PlayerStats _playerStats);
 	void SetCost(int _iCost);

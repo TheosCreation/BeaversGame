@@ -6,9 +6,8 @@
 
 	@author(s) Jamuel Bocacao and George Mitchell
 	@param Vec2f: Position of Shop
-	@param weak_ptr<b2World>: Scene World
 */
-Shop::Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Images/Objects/Shop.png", _sceneWorld, true)
+Shop::Shop(Vec2f _position) : Object(_position, "Resources/Images/Objects/Shop.png", true)
 {
 	m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
 	m_statUI->SetVisibility(false);

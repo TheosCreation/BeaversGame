@@ -74,6 +74,7 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Code Files\Game Engine\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -193,6 +194,15 @@
     <Filter Include="Code Files\Game Engine\Animator">
       <UniqueIdentifier>{d9e239f8-f5ad-487a-a887-df66797a9802}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Game Engine\Tiles">
+      <UniqueIdentifier>{d5d8e60c-d8d4-49a2-b3a1-5f7d593b7e16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Tiles\Tile">
+      <UniqueIdentifier>{7d90c6c0-e4cb-42fd-b660-b659a72cdcc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Files\Game Engine\Tiles\Tilemap">
+      <UniqueIdentifier>{933a444d-6832-4e0d-91cd-11e100ca682c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -274,5 +284,6 @@
     <ClInclude Include="Animator.h">
       <Filter>Code Files\Game Engine\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
 </Project>

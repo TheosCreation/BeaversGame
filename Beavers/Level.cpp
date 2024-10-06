@@ -50,7 +50,7 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 */
 weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
-	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
+	auto object = make_shared<Object>(_position, _strTexturePath, true);
 	AddGameObject(object);
 	return object;
 }

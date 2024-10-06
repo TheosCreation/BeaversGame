@@ -7,7 +7,7 @@
 	@param Vec2f: Position of Beaver
 	@param weak_ptr<b2World>: Scene World
 */
-Beaver::Beaver(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Objects/Beaver.png", _sceneWorld, false)
+Beaver::Beaver(Vec2f _position) : Object(_position, "Resources/Objects/Beaver.png", false)
 {
 
 }

@@ -4,7 +4,7 @@
 class Beaver : public Object
 {
 public:
-	Beaver(Vec2f _position, weak_ptr<b2World> _sceneWorld);
+	Beaver(Vec2f _position);
 
 	void OnBeginContact(Object* _otherObject) override;
 	void OnEndContact(Object* _otherObject) override;

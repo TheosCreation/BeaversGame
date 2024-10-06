@@ -15,13 +15,13 @@ public:
 	template <std::derived_from<Object> T>
 	weak_ptr<T> AddObject(Vec2f _position);
 
-	shared_ptr<b2World> GetWorld();
+	static shared_ptr<b2World> GetWorld();
 
 private:
 	static ContactListener m_listener;
 
 private:
-	shared_ptr<b2World> m_world;
+	static inline shared_ptr<b2World> m_world;
 };
 
 inline ContactListener Level::m_listener;
@@ -37,7 +37,7 @@ inline ContactListener Level::m_listener;
 template <std::derived_from<Object> T>
 inline weak_ptr<T> Level::AddObject(Vec2f _position)
 {
-	auto object = make_shared<T>(_position, m_world);
+	auto object = make_shared<T>(_position);
 	AddGameObject(object);
 	return object;
 }
