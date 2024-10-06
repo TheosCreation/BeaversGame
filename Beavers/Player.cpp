@@ -2,6 +2,7 @@
 #include "Warehouse.h"
 #include "WoodChange.h"
 #include "Tree.h"
+#include <iostream>
 
 /*
 	Creates a Player's
@@ -18,6 +19,7 @@ Player::Player(Vec2f _position) : Object(_position, false)
 	m_animator = make_unique<Animator>(&m_sprite);
 	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
 	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
+	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
 }
 
 /*
@@ -33,79 +35,82 @@ void Player::Update(float _fDeltaTime)
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
+	if (!m_bInteracting)
 	{
-		displacement += Vec2f(0.0f, -1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
-	{
-		displacement += Vec2f(-1.0f, 0.0f);
-		m_sprite.setScale(-1, 1);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
-	{
-		displacement += Vec2f(0.0f, 1.0f);
-	}
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
-	{
-		displacement += Vec2f(1.0f, 0.0f);
-		m_sprite.setScale(1, 1);
-	}
-	
-	float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
-	if (length > 0)
-	{
-		m_animator->ChangeState("Running");
-
-		displacement /= length;
-		AddPosition(displacement * _fDeltaTime * m_fSpeed);
-		//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
-	
-		// Clamp Speed
-		b2Vec2 velocity = m_body->GetLinearVelocity();
-		float velSpeed = velocity.Normalize();
-		if (velSpeed > 2.0f)
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
 		{
-			m_body->SetLinearVelocity(2.0f * velocity);
+			displacement += Vec2f(0.0f, -1.0f);
 		}
-	}
-	else
-	{
-		m_animator->ChangeState("Idle");
-	}
-	
-	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
-	{
-		if (m_bInteractHeld)
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
 		{
-			if (m_interactClock.getElapsedTime().asSeconds() > 1.0f)
+			displacement += Vec2f(-1.0f, 0.0f);
+			m_sprite.setScale(-1, 1);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
+		{
+			displacement += Vec2f(0.0f, 1.0f);
+		}
+		if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
+		{
+			displacement += Vec2f(1.0f, 0.0f);
+			m_sprite.setScale(1, 1);
+		}
+
+		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
+		if (length > 0)
+		{
+			m_animator->ChangeState("Running");
+
+			displacement /= length;
+			AddPosition(displacement * _fDeltaTime * m_fSpeed);
+			//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+
+			// Clamp Speed
+			b2Vec2 velocity = m_body->GetLinearVelocity();
+			float velSpeed = velocity.Normalize();
+			if (velSpeed > 2.0f)
 			{
-				if (m_bNearTree)
-				{
-					ExecuteWoodAmountChangeEvent(10);
-					m_iWoodAmount += 10;
-					m_interactClock.restart();
-				}
+				m_body->SetLinearVelocity(2.0f * velocity);
 			}
 		}
 		else
 		{
-			m_bInteractHeld = true;
-			m_interactClock.restart();
+			m_animator->ChangeState("Idle");
 		}
 	}
 	else
 	{
-		m_bInteractHeld = false;
+		if (m_interactClock.getElapsedTime().asSeconds() > 4.0f/8.0f)
+		{
+			if (m_bNearTree)
+			{
+				ExecuteWoodAmountChangeEvent(10);
+				m_iWoodAmount += 10;
+			}
+			else if (m_shopRef)
+			{
+				m_shopRef->ApplyItem(m_playerStats);
+			}
+			m_bInteracting = false;
+		}
 	}
 	
-	// @author George Mitchell
-	// TODO Make sure this is only working if you have enough wood
-	if (m_shopRef != nullptr 
-		&& sf::Keyboard::isKeyPressed(m_controlScheme.Interact)
-		)
+	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
 	{
-		m_playerStats += m_shopRef->GetItem();
+		if (!m_bInteracting)
+		{
+			if (m_bNearTree)
+			{
+				m_animator->ChangeState("Attack");
+				m_interactClock.restart();
+				m_bInteracting = true;
+			}
+			else if (m_shopRef)
+			{
+				m_interactClock.restart();
+				m_bInteracting = true;
+			}
+		}
 	}
 }
 
