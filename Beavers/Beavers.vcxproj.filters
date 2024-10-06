@@ -74,6 +74,9 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Code Files\Game Engine\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="Hint.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -193,6 +196,9 @@
     <Filter Include="Code Files\Game Engine\Animator">
       <UniqueIdentifier>{d9e239f8-f5ad-487a-a887-df66797a9802}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Hint">
+      <UniqueIdentifier>{3f91d929-2916-489f-a686-e43c298bf719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -273,6 +279,9 @@
     <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Animator.h">
       <Filter>Code Files\Game Engine\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="Hint.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

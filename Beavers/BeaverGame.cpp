@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Tree.h"
 #include "Text.h"
+#include "Hint.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -77,6 +78,9 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
+
+	// going to make a hint class that inherits from text so this can update
+	level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here");
 
 	SetScene(level);
 }

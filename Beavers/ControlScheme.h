@@ -8,4 +8,5 @@ struct ControlScheme
 	sf::Keyboard::Key Up		= sf::Keyboard::Key::W;
 	sf::Keyboard::Key Down		= sf::Keyboard::Key::S;
 	sf::Keyboard::Key Interact	= sf::Keyboard::Key::F;
+	sf::Keyboard::Key Hint	= sf::Keyboard::Key::H;
 };

@@ -40,10 +40,29 @@ private:
 
 	bool m_bNearTree = false;
 	bool m_bInteracting = false;
+	bool m_bHintVisible = false;
+
+	bool m_bHintOnce = false;
+
+	bool hintKeyWasPressed = false;
 
 	shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_woodAmountChangeEvent;
 
 	Shop* m_shopRef = nullptr;
+
+	Text* m_HintRef = nullptr;
+
+	enum class hintText
+	{
+		None,
+		Forest,
+		Shop,
+		Warehouse
+	};
+
+	// Variable to track the last hint displayed
+	hintText previousHint = hintText::None;
+	hintText currentHint = hintText::None;
 };
 
 inline PlayerStats Player::m_playerStats;
