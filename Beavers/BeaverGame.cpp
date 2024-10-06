@@ -55,7 +55,8 @@ void BeaverGame::LoadOptions()
 void BeaverGame::LoadLevel()
 {
 	AudioManager::GetInstance().StopAll();
-	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
+	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
+	SetScene(level);
 
 	// Creates Warehouse
 	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();
@@ -71,15 +72,13 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
 	// Creates Shop(s)
-	auto shop1 = make_shared<Shop>(Vec2f(90, 50), warehouseRef, 1, "Resources/Images/Objects/AxeShop.png");
-	auto shop2 = make_shared<Shop>(Vec2f(38, 50), warehouseRef, 1, "Resources/Images/Objects/BootShop.png");
-	auto shop3 = make_shared<Shop>(Vec2f(142, 50), warehouseRef, 1, "Resources/Images/Objects/BagShop.png");
+	auto shop1 = make_shared<Shop>(Vec2f(90, 50), 1, "Resources/Images/Objects/AxeShop.png");
+	auto shop2 = make_shared<Shop>(Vec2f(38, 50), 1, "Resources/Images/Objects/BootShop.png");
+	auto shop3 = make_shared<Shop>(Vec2f(142, 50), 1, "Resources/Images/Objects/BagShop.png");
 
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
-
-	SetScene(level);
 }
 
 /*

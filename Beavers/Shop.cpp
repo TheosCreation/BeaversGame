@@ -1,5 +1,6 @@
 #include "Shop.h"
 #include "Player.h"
+#include "Level.h"
 #include <iostream>
 
 /*
@@ -8,9 +9,9 @@
 	@author(s) Jamuel Bocacao and George Mitchell
 	@param Vec2f: Position of Shop
 */
-Shop::Shop(Vec2f _position, weak_ptr<b2World> _sceneWorld, Warehouse* _warehouseRef, int _baseCost, std::string _spriteImage) : Object(_position, _spriteImage, _sceneWorld, true)
+Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage) : Object(_position, _spriteImage, true)
 {
-	m_WarehouseRef = _warehouseRef;
+	m_WarehouseRef = m_currLevel->GetObjectOfType<Warehouse>().lock().get();
 	m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
 	m_statUI->SetVisibility(false);
 

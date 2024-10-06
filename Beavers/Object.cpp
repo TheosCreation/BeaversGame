@@ -15,7 +15,7 @@ Object::Object(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 	SetTexture(_strTexturePath);
 
 	// Setup Physics Body
-	m_world = Level::GetWorld();
+	m_world = m_currLevel->GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 
@@ -42,7 +42,7 @@ Object::Object(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 Object::Object(Vec2f _position, bool _bIsStatic)
 {
 	// Setup Physics Body
-	m_world = Level::GetWorld();
+	m_world = m_currLevel->GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 
@@ -243,6 +243,18 @@ void Object::Render(sf::RenderTexture* _sceneBuffer)
 	m_sprite.setPosition(worldPosition);
 
 	DrawSprite(_sceneBuffer, m_sprite);
+}
+
+/*
+	Sets access to Level for all Objects
+
+	@author Jamuel Bocacao
+	@param Level*: Level Loaded
+*/
+void Object::SetCurrentLevel(Level* _level)
+{
+	printf("Test");
+	m_currLevel = _level;
 }
 
 /*

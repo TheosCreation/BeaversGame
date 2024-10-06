@@ -98,6 +98,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FlowField.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -113,8 +114,8 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Warehouse.cpp" />
     <ClCompile Include="WoodChange.cpp" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="FlowField.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -142,7 +144,6 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Warehouse.h" />

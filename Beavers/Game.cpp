@@ -98,6 +98,12 @@ void Game::SetScene(shared_ptr<Scene> _scene)
 		// Unload Current Scene then store next Scene
 		m_currentScene = _scene;
 	}
+
+	// Check if Current Scene is a Level Class
+	if (auto level = dynamic_cast<Level*>(m_currentScene.get()))
+	{
+		Object::SetCurrentLevel(level);
+	}
 }
 
 /*

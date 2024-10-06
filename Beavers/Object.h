@@ -5,6 +5,8 @@
 
 #define PixelsPerMeter 64.0f
 
+class Level;
+
 class Object : public GameObject
 {
 public:
@@ -43,10 +45,15 @@ public:
 	bool IsOfType(T** _objectPointer);
 
 protected:
+	static inline Level* m_currLevel = nullptr;
 	sf::Sprite m_sprite;
 
 	weak_ptr<b2World> m_world;
 	b2Body* m_body;
+
+private:
+	friend class Game;
+	static void SetCurrentLevel(Level* _level);
 };
 
 /*
