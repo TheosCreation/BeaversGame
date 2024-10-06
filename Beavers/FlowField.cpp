@@ -1,14 +1,7 @@
 #include "FlowField.h"
-#include <set>
 #include <queue>
 
-using std::set;
 using std::queue;
-
-bool operator<(const Vec2i& _a, const Vec2i& _b)
-{
-	return _a.x < _b.x || _a.y < _b.y;
-}
 
 FlowField::FlowField(Vec2i _topLeftGrid, Vec2i _bottomRightGrid)
 {
@@ -52,11 +45,6 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 {
 	vector<float> gridValue;
 	gridValue.resize(m_size.x * m_size.y, 0);
-
-	auto sort = [](const Vec2i& _a, const Vec2i& _b)
-	{
-		return _a.x < _b.x || _a.y < _b.y;
-	};
 
 	vector<bool> visitedCells;
 	visitedCells.resize(m_size.x * m_size.y, false);
@@ -123,9 +111,9 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 
 
 	// Convolute Field
-	for (int y = 1; y < m_size.y - 1; y++)
+	for (int y = 0; y < m_size.y; y++)
 	{
-		for (int x = 1; x < m_size.x - 1; x++)
+		for (int x = 0; x < m_size.x; x++)
 		{
 			Vec2i cell(x, y);
 			cell -= m_topLeft;
@@ -135,26 +123,78 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 				continue;
 			}
 
-			// Process Cell
-			Vec2f cellVector;
-			for (int dy = -1; dy <= 1; dy++)
+			// Check if Cell has Neighboring Wall
+			bool bNeighboringWall = false;
+			for (int dy = -1; dy <= 1 && !bNeighboringWall; dy++)
 			{
-				for (int dx = -1; dx <= 1; dx++)
+				if (y + dy < 0 || y + dy >= m_size.y) continue;
+				for (int dx = -1; dx <= 1 ; dx++)
 				{
-					Vec2f neighborVector(float(dx), float(-dy));
-					neighborVector = normalize(neighborVector);
-					float cellValue = gridValue[(y + dy) * m_size.x + (x + dx)];
-					if (cellValue > 0)
+					if (x + dx < 0 || x + dx >= m_size.x) continue;
+					if (gridValue[(y + dy) * m_size.x + (x + dx)] == -1)
 					{
-						neighborVector /= cellValue;
-					}
-					if (cellValue >= 0)
-					{
-						cellVector += neighborVector;
+						bNeighboringWall = true;
+						break;
 					}
 				}
 			}
-			// Update Field
+					
+			// Process Cell
+			Vec2f cellVector;
+			// If Cell has a Wall as a Neighbor, use the non-wall neighboring cell that has the lowest value
+			if (bNeighboringWall)
+			{
+				float fMinCellValue = FLT_MAX;
+				// Check which valid cell has the lowest value
+				// Process Neighbor Cells
+				for (int dy = -1; dy <= 1; dy++)
+				{
+					if (y + dy < 0 || y + dy >= m_size.y) continue;
+					for (int dx = -1; dx <= 1; dx++)
+					{
+						if (x + dx < 0 || x + dx >= m_size.x) continue;
+
+						// Get Value
+						float fCellValue = gridValue[(y + dy) * m_size.x + (x + dx)];
+						if (fCellValue == -1) continue;	// Ignore Wall
+						if (fCellValue < fMinCellValue)	// Check if Lowest Value
+						{
+							cellVector = Vec2f(float(dx), float(-dy)); // Set Direction of Cell
+							fMinCellValue = fCellValue;
+						}
+					}
+				}
+			}
+			// Use Kernel Convolution instead to average out Field Values
+			else
+			{
+				// Process Neighbor Cells
+				for (int dy = -1; dy <= 1; dy++)
+				{
+					if (y + dy < 0 || y + dy >= m_size.y) continue;
+					for (int dx = -1; dx <= 1; dx++)
+					{
+						if (x + dx < 0 || x + dx >= m_size.x) continue;
+						// Get Neighbor Vector
+						Vec2f neighborVector(float(dx), float(-dy));
+						neighborVector = normalize(neighborVector);
+
+						// Reduce Neighbor Vector proportional to distance to Goal
+						float cellValue = gridValue[(y + dy) * m_size.x + (x + dx)];
+						if (cellValue > 0)
+						{
+							neighborVector /= cellValue;
+						}
+						// Add Vector to Average Direction if Neighbor is not Wall
+						if (cellValue >= 0)
+						{
+							cellVector += neighborVector;
+						}
+					}
+				}
+			}
+			
+			// Update Field Value
 			m_field[y * m_size.x + x] = normalize(cellVector);
 		}
 	}
@@ -167,8 +207,8 @@ void FlowField::Render(sf::RenderTexture* _texture)
 	shape.setPoint(0, Vec2f(32, 0));
 	shape.setPoint(1, Vec2f(64, 32));
 	shape.setPoint(2, Vec2f(32, 64));
-	shape.setPoint(3, Vec2f(32, 40));
-	shape.setPoint(4, Vec2f(0, 40));
+	shape.setPoint(3, Vec2f(32, 44));
+	shape.setPoint(4, Vec2f(0, 44));
 	shape.setPoint(5, Vec2f(0, 20));
 	shape.setPoint(6, Vec2f(32, 20));
 	
@@ -191,7 +231,7 @@ void FlowField::Render(sf::RenderTexture* _texture)
 				continue;
 			}
 
-			float angle = atan2(dir.y, dir.x) * (180.0 / 3.141592653589793238463);
+			float angle = atan2(dir.y, dir.x) * (180.0f / 3.141592653589793238463f);
 			
 			
 			shape.setRotation(-angle);
