@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Tree.h"
 #include "Text.h"
-
+#include "TileMap.h"
 /*
 	Event Function for Loading Menu Scene
 
@@ -50,10 +50,11 @@ void BeaverGame::LoadOptions()
 /*
 	Event Function for Loading Level
 
-	@author(s) Jamuel Bocacao and Theo Morris
+	@author(s) Jamuel Bocacao and Theo Morris and Kazuo Reis
 */
 void BeaverGame::LoadLevel()
 {
+
 	AudioManager::GetInstance().StopAll();
 	auto level = make_shared<Level>(Vec2u(640, 360), &m_window, true);
 
@@ -77,6 +78,27 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
+
+	// Creates TileMap
+	// First vector is tilemap size second is tile size
+	auto tileMap = make_shared<TileMap>(Vec2u(22, 12), Vec2f(32, 32));
+	level->AddGameObject(tileMap);
+
+	// Creates different tile types
+	
+
+
+	// Test tiles
+
+	for (int i = 0; i < 22; i++)
+	{
+		for (int j = 0; j < 12; j++)
+		{
+			// This can be exapanded to place as many tiles as you want in whatever patern you want
+			auto grassTile = make_shared<Tile>("Resources/Images/Tiles/grass.png");
+			tileMap->SetTile(Vec2u(i, j), grassTile); 
+		}
+	}
 
 	SetScene(level);
 }
