@@ -65,6 +65,7 @@ void BeaverGame::LoadLevel()
 
 	// Creates a Player and adds it to the level
 	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f, level->GetWorld());
+	
 	level->AddGameObject(player);
 
 	// Adds a event to the player

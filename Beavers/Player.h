@@ -5,6 +5,7 @@
 #include "Shop.h"
 #include "PlayerStats.h"
 #include "Animator.h"
+#include "Hint.h"
 
 class Player : public Object
 {
@@ -24,6 +25,8 @@ public:
 	void SetShopRef(Shop* _shop);
 
 	int Deposit();
+
+	void setHintRef(Hint* _hint);
 
 private:
 	static PlayerStats m_playerStats;
@@ -50,7 +53,7 @@ private:
 
 	Shop* m_shopRef = nullptr;
 
-	Text* m_HintRef = nullptr;
+	Hint* m_HintRef = nullptr;
 
 	enum class hintText
 	{
