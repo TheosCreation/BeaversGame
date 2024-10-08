@@ -127,10 +127,12 @@ void Player::Update(float _fDeltaTime)
 		if (m_bHintVisible)
 		{
 			std::cout << "Hint visible" << std::endl;
+			m_HintRef->SetText("Hint visible");
 		}
 		else
 		{
 			std::cout << "Hint hidden" << std::endl;
+			m_HintRef->SetText("");
 			previousHint = hintText::None; // Reset when hint is hidden
 		}
 	}
@@ -160,6 +162,7 @@ void Player::Update(float _fDeltaTime)
 			if (currentHint == hintText::Forest)
 			{
 				std::cout << "Forest: Press F near to gather wood" << std::endl;
+				m_HintRef->SetText("Forest: Press F near to gather wood");
 			}
 			else if (currentHint == hintText::Shop)
 			{
@@ -168,10 +171,12 @@ void Player::Update(float _fDeltaTime)
 				std::cout << "Upgrade 2 - Increases Swing speed" << std::endl;
 				std::cout << "Upgrade 3 - Increases carrying capacity" << std::endl;
 				std::cout << " Current cost: " << m_shopRef->GetCost() << std::endl;
+				m_HintRef->SetText("Shop: Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost: " + std::to_string(m_shopRef->GetCost()));
 			}
 			else
 			{
 				std::cout << "No hints available" << std::endl;
+				m_HintRef->SetText("No hints available");
 			}
 		}
 	}
@@ -260,4 +265,9 @@ int Player::Deposit()
 	int iDepositAmount = m_iWoodAmount;
 	m_iWoodAmount = 0;
 	return iDepositAmount;
+}
+
+void Player::setHintRef(Hint* _hint)
+{
+		m_HintRef = _hint;
 }

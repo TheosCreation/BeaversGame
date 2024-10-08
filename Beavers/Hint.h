@@ -12,15 +12,18 @@ enum class hintText
 	Warehouse
 };
 
-class Hint : public Text
+class Hint : public Object
 {
 public:
 	Hint(Vec2f _position, weak_ptr<b2World> _sceneWorld);
 
-	void SetHintType(hintText _hintType);
+	void SetText(std::string _strText);
 
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
 
+
 private:
 	hintText m_hintType;
+
+	unique_ptr<Text> m_hintText;
 };
