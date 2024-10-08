@@ -1,5 +1,5 @@
 #include "WoodChange.h"
-
+#include <iostream>
 WoodChange::WoodChange(Vec2f _spawnPosition, int _iAmount)
 {
 	m_woodItemIcon = make_unique<Image>(_spawnPosition, "Resources/Images/WoodItem.png");

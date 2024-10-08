@@ -97,7 +97,7 @@ void TextureManager::UnloadTexture(string _strTexturePath)
 	size_t textureID = hashGenerator(_strTexturePath);
 
 	// Check if Texture exists from the ID
-	if (m_textures.count(textureID) > 0)
+	if (m_textures.count(textureID) > 0)	
 	{
 		// Erase Texture
 		m_textures.erase(textureID);

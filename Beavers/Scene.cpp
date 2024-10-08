@@ -70,10 +70,12 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 	@param Vec2f: Position of Text
 	@param string: Text to display
 */
-void Scene::AddText(Vec2f _position, string _strText, int _iLayer)
+void Scene::AddText(Vec2f _position, string _strText, int _iSize, int _iLayer)
 {
 	CheckLayer(_iLayer);
-	m_objects.at(_iLayer).push_back(make_shared<Text>(_position, _strText, "Resources/Fonts/Yogurt Extra.ttf"));
+	auto text = make_shared<Text>(_position, _strText, "Resources/Fonts/AlteHaasGroteskBold.ttf");
+	text->SetSize(_iSize);
+	m_objects.at(_iLayer).push_back(text);
 }
 
 /*
