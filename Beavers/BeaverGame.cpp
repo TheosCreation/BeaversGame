@@ -63,6 +63,7 @@ void BeaverGame::LoadLevel()
 
 	// Creates a Player and adds it to the level
 	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f, level->GetWorld());
+	
 	level->AddGameObject(player);
 
 	// Adds a event to the player
@@ -80,7 +81,16 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop3);
 
 	// going to make a hint class that inherits from text so this can update
-	level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here");
+	//level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here");
+	
+	//auto shop4 = make_shared<Hint>(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), level->GetWorld());
+	//Hint* shop4 = make_shared<Hint>(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), level->GetWorld(), warehouseRef, 1, "Resources/Images/Objects/BagShop.png");
+
+	Hint* Hintref = level->AddObject<Hint>(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f)).lock().get();
+
+	//level->AddGameObject(shop4);
+
+	player->setHintRef(Hintref);
 
 	SetScene(level);
 }
