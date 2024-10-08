@@ -76,6 +76,8 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Code Files\Game Engine\TileMap</Filter>
+    <ClCompile Include="Hint.cpp">
+      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +200,8 @@
     </Filter>
     <Filter Include="Code Files\Game Engine\TileMap">
       <UniqueIdentifier>{321e7669-e796-4c8d-87f1-644bbfde39f2}</UniqueIdentifier>
+    <Filter Include="Code Files\Beaver Project\Game Objects\Hint">
+      <UniqueIdentifier>{3f91d929-2916-489f-a686-e43c298bf719}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +289,8 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Code Files\Game Engine\TileMap</Filter>
+    <ClInclude Include="Hint.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

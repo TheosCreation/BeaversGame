@@ -113,6 +113,73 @@ void Player::Update(float _fDeltaTime)
 			}
 		}
 	}
+
+
+	// hint system - Nick
+
+	bool hintKeyIsPressed = sf::Keyboard::isKeyPressed(m_controlScheme.Hint);
+
+	// Check if the key was just pressed (transition from "not pressed" to "pressed")
+	if (hintKeyIsPressed && !hintKeyWasPressed)
+	{
+		m_bHintVisible = !m_bHintVisible;
+
+		if (m_bHintVisible)
+		{
+			std::cout << "Hint visible" << std::endl;
+		}
+		else
+		{
+			std::cout << "Hint hidden" << std::endl;
+			previousHint = hintText::None; // Reset when hint is hidden
+		}
+	}
+
+	// Update the hint content only if the hint is visible
+	if (m_bHintVisible)
+	{
+		// Determine the current location
+		if (m_bNearTree)
+		{
+			currentHint = hintText::Forest;
+		}
+		else if (m_shopRef)
+		{
+			currentHint = hintText::Shop;
+		}
+		else
+		{
+			currentHint = hintText::None;
+		}
+
+		// Display the hint only if the player moves to a new location
+		if (currentHint != previousHint)
+		{
+			previousHint = currentHint;
+
+			if (currentHint == hintText::Forest)
+			{
+				std::cout << "Forest: Press F near to gather wood" << std::endl;
+			}
+			else if (currentHint == hintText::Shop)
+			{
+				std::cout << "Shop: Press F near to buy upgrades" << std::endl;
+				std::cout << "Upgrade 1 - Increases movement speed" << std::endl;
+				std::cout << "Upgrade 2 - Increases Swing speed" << std::endl;
+				std::cout << "Upgrade 3 - Increases carrying capacity" << std::endl;
+				std::cout << " Current cost: " << m_shopRef->GetCost() << std::endl;
+			}
+			else
+			{
+				std::cout << "No hints available" << std::endl;
+			}
+		}
+	}
+
+	// Update the previous state
+	hintKeyWasPressed = hintKeyIsPressed;
+
+
 }
 
 /*
