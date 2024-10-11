@@ -12,8 +12,8 @@
 Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage) : Object(_position, _spriteImage, true)
 {
 	m_WarehouseRef = m_currLevel->GetObjectOfType<Warehouse>().lock().get();
-	m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
-	m_statUI->SetVisibility(false);
+	//m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
+	//m_statUI->SetVisibility(false);
 
 	m_iCost = _baseCost;
 

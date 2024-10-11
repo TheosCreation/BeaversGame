@@ -25,11 +25,14 @@ public:
 
 	shared_ptr<b2World> GetWorld();
 
+	Vec2f GetFlowFieldValue(Vec2f _worldPos);
+
 private:
 	static ContactListener m_listener;
 
 private:
 	shared_ptr<b2World> m_world;
+	unique_ptr<FlowField> m_flowField;
 };
 
 inline ContactListener Level::m_listener;
@@ -73,4 +76,23 @@ inline weak_ptr<T> Level::GetObjectOfType()
 		}
 	}
 	return weak_ptr<T>();
+}
+
+template<std::derived_from<GameObject> T>
+inline vector<weak_ptr<T>> Level::GetObjectsOfType()
+{
+	vector<weak_ptr<T>> objects;
+	// Iterate through Scene Objects
+	for (auto layer : m_objects)
+	{
+		for (auto object : layer.second)
+		{
+			// Check if Object is of specified Class Type
+			if (object->IsOfType<T>())
+			{
+				objects.push_back(std::dynamic_pointer_cast<T>(object));
+			}
+		}
+	}
+	return vector<weak_ptr<T>>();
 }

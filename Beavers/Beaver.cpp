@@ -1,4 +1,5 @@
 #include "Beaver.h"
+#include "Level.h"
 
 /*
 	Creates a Beaver Object
@@ -56,5 +57,9 @@ void Beaver::Update(float _fDeltaTime)
 			m_woodClock.restart();
 			m_warehouse->ChangeWoodAmount(-1);
 		}
+	}
+	else
+	{
+		m_currLevel->GetFlowFieldValue(m_sprite.getPosition());
 	}
 }

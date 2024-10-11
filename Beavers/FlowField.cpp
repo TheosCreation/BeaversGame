@@ -3,9 +3,10 @@
 
 using std::queue;
 
-FlowField::FlowField(Vec2i _topLeftGrid, Vec2i _bottomRightGrid)
+FlowField::FlowField(Vec2i _topLeftGrid, Vec2i _bottomRightGrid, unsigned int _iGridSize)
 {
 	m_topLeft = _topLeftGrid;
+	m_iGridSize = _iGridSize;
 
 	m_size = (_bottomRightGrid - _topLeftGrid);
 	int iWidth = m_size.x;
@@ -21,17 +22,10 @@ void FlowField::SetWalkable(Vec2i _gridPos, bool _bWalkable)
 	m_field[vectorPos.y * m_size.x + vectorPos.x] = (_bWalkable) ? Vec2f(1, 1) : Vec2f(0, 0);
 }
 
-void FlowField::SetPosition(Vec2f _pos)
+Vec2f FlowField::GetCellValue(Vec2f _worldPos)
 {
-}
-
-void FlowField::AddPosition(Vec2f _pos)
-{
-}
-
-Vec2f FlowField::GetPosition()
-{
-	return Vec2f();
+	_worldPos /= float(m_iGridSize);
+	return GetValue(Vec2i(_worldPos) - m_topLeft);
 }
 
 Vec2f FlowField::GetValue(Vec2i _gridPos)
@@ -44,18 +38,18 @@ Vec2f FlowField::GetValue(Vec2i _gridPos)
 void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 {
 	vector<float> gridValue;
-	gridValue.resize(m_size.x * m_size.y, 0);
-
 	vector<bool> visitedCells;
-	visitedCells.resize(m_size.x * m_size.y, false);
 	queue<Vec2i> openCells;
+
+	gridValue.resize(m_size.x * m_size.y, 0);
+	visitedCells.resize(m_size.x * m_size.y, false);
 
 	// Add Start Points to Queue
 	for (auto pos : _startPositions)
 	{
-		if (IsValid(pos - m_topLeft) && IsWalkable(pos-m_topLeft))
+		Vec2i cellPos = pos - m_topLeft;
+		if (IsValid(cellPos) && IsWalkable(cellPos))
 		{
-			Vec2i cellPos = pos - m_topLeft;
 			openCells.push(cellPos);
 			visitedCells[cellPos.y * m_size.x + cellPos.x] = true;
 		}
@@ -159,7 +153,7 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 						if (fCellValue == -1) continue;	// Ignore Wall
 						if (fCellValue < fMinCellValue)	// Check if Lowest Value
 						{
-							cellVector = Vec2f(float(dx), float(-dy)); // Set Direction of Cell
+							cellVector = Vec2f(float(dx), float(dy)); // Set Direction of Cell
 							fMinCellValue = fCellValue;
 						}
 					}
@@ -176,7 +170,7 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 					{
 						if (x + dx < 0 || x + dx >= m_size.x) continue;
 						// Get Neighbor Vector
-						Vec2f neighborVector(float(dx), float(-dy));
+						Vec2f neighborVector((float)dx, (float)dy);
 						neighborVector = normalize(neighborVector);
 
 						// Reduce Neighbor Vector proportional to distance to Goal
@@ -200,6 +194,7 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 	}
 }
 
+/*
 void FlowField::Render(sf::RenderTexture* _texture)
 {
 	sf::ConvexShape shape;
@@ -225,7 +220,7 @@ void FlowField::Render(sf::RenderTexture* _texture)
 				rect.setSize(Vec2f(64.0f, 64.0f));
 				rect.setOrigin(32, 32);
 				rect.setFillColor(sf::Color::Red);
-				rect.setPosition(Vec2f(j * 64.0f, i * 64.0f));
+				rect.setPosition(Vec2f(j * 64.0f + 32, i * 64.0f + 32));
 				_texture->draw(rect);
 				_texture->display();
 				continue;
@@ -234,14 +229,16 @@ void FlowField::Render(sf::RenderTexture* _texture)
 			float angle = atan2(dir.y, dir.x) * (180.0f / 3.141592653589793238463f);
 			
 			
-			shape.setRotation(-angle);
-			shape.setPosition(Vec2f(j * 64.0f, i * 64.0f));
+			shape.setRotation(angle);
+			shape.setPosition(Vec2f(j * 64.0f + 32, i * 64.0f + 32));
 
 			_texture->draw(shape);
 			_texture->display();
 		}
 	}
 }
+*/
+
 
 bool FlowField::IsWalkable(Vec2i _gridPos)
 {

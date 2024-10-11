@@ -74,7 +74,12 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Code Files\Game Engine\Animator</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="FlowField.cpp">
+      <Filter>Code Files\Game Engine\Flow Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Code Files\Game Engine\Miscellaneous</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -203,6 +208,9 @@
     <Filter Include="Code Files\Game Engine\Tiles\Tilemap">
       <UniqueIdentifier>{933a444d-6832-4e0d-91cd-11e100ca682c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code Files\Game Engine\Flow Field">
+      <UniqueIdentifier>{e9b6219f-3abc-45cf-be7b-bd8d678dae86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureManager.h">
@@ -280,10 +288,14 @@
     <ClInclude Include="Scene.h">
       <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="Animator.h">
       <Filter>Code Files\Game Engine\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h" />
+    <ClInclude Include="FlowField.h">
+      <Filter>Code Files\Game Engine\Flow Field</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStats.h">
+      <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
