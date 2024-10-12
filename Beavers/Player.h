@@ -7,7 +7,9 @@
 #include "Animator.h"
 #include "Hint.h"
 #include "Text.h"
-
+#include "Sound.h"
+#include "AudioManager.h"
+class Sound;
 class Player : public Object
 {
 public:
@@ -27,12 +29,17 @@ public:
 
 	int Deposit();
 
+	void OnPlayerSwingAxe();
+	void OnPlayerWalk();
+
 	void setHintRef(Hint* _hint);
 
 	void Render(sf::RenderTexture* _sceneBuffer) override;
 
 private:
 	static PlayerStats m_playerStats;
+	std::string walkSound = "path";
+	std::string swingSound = "path";
 
 	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;

@@ -64,7 +64,10 @@ void Player::Update(float _fDeltaTime)
 			displacement += Vec2f(1.0f, 0.0f);
 			m_sprite.setScale(1, 1);
 		}
-
+		if (displacement != Vector2f(0, 0))
+		{
+			OnPlayerWalk();
+		}
 		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
 		if (length > 0)
 		{
@@ -113,6 +116,7 @@ void Player::Update(float _fDeltaTime)
 			{
 				m_animator->ChangeState("Attack");
 				m_interactClock.restart();
+				OnPlayerSwingAxe();
 				m_bInteracting = true;
 			}
 			else if (m_shopRef)
@@ -275,6 +279,16 @@ int Player::Deposit()
 	m_iWoodAmount = 0;
 	return iDepositAmount;
 }
+
+void Player::OnPlayerSwingAxe()
+{
+	AudioManager::GetInstance().PlaySound(swingSound);
+}
+void Player::OnPlayerWalk()
+{
+	AudioManager::GetInstance().PlaySound(walkSound);
+}
+
 
 void Player::setHintRef(Hint* _hint)
 {
