@@ -11,20 +11,31 @@
 /*
 	Event Function for Loading Menu Scene
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacao and Theo Morris
 */
 void BeaverGame::LoadMenu()
 {
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
-	auto optionEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadOptions);
-	auto playEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
-	auto quitEvent = make_shared<Event<void, void>>(this, &BeaverGame::Quit);
-	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/download.jpeg", -10);
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
-	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
-	menu->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Beaverpocalypse", 100);
 
+	//Create the background image
+	menu->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", -10);
+
+	//Create the title text
+	menu->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Beaverpocalypse", 100, sf::Color::Black);
+	
+	//Create the options button
+	auto optionEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadOptions);
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/Options.png", "Resources/Audio/Click.wav", optionEvent);
+
+	//Create the play button
+	auto playEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Play.png", "Resources/Audio/Click.wav", playEvent);
+
+	//Create the quit button
+	auto quitEvent = make_shared<Event<void, void>>(this, &BeaverGame::Quit);
+	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
+
+	//Starts playing the music for the menus
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 
 	SetScene(menu);
@@ -33,17 +44,30 @@ void BeaverGame::LoadMenu()
 /*
 	Event Function for Loading Options Scene
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacao and Theo Morris
 */
 void BeaverGame::LoadOptions()
 {
 	auto options = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
+
+	//Create the background image
+	options->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", -10); 
+
+	//Create the title text
+	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Options", 100, sf::Color::Black);
+
+	//Create the sfx volume slider
 	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
-	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
-	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Options", 100);
+	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(-400.0f, -150.0f), "SFX Volume", 30, sf::Color::Black);
 	options->AddSlider(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), 50, 100, soundDragEvent);
+
+	//Create the music volume slider
+	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
+	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(-400.0f, 0.0f), "Music Volume", 30, sf::Color::Black);
 	options->AddSlider(Vec2f(1920, 1080) / 2.0f, 50, 100, musicDragEvent);
+
+	//Create the back button
+	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
 	options->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", backEvent);
 
 	SetScene(options);
@@ -124,16 +148,22 @@ void BeaverGame::LoadCredits()
 */
 void BeaverGame::LoadWinGame()
 {
-	auto winGame = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	winGame->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "You Win", 100);
+	auto winGameScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
+	//Create the background image
+	winGameScene->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", -10);
 
+	//Create title text
+	winGameScene->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "You Win", 100, sf::Color::Black);
+
+	//Create play again button
 	auto playAgainEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
-	winGame->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
+	winGameScene->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
 
+	//Create return to main menu button
 	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
-	winGame->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
+	winGameScene->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
 
-	SetScene(winGame);
+	SetScene(winGameScene);
 }
 
 /*
@@ -143,16 +173,22 @@ void BeaverGame::LoadWinGame()
 */
 void BeaverGame::LoadGameOver()
 {
-	auto gameOver = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
-	gameOver->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Game Over", 100);
+	auto gameOverScene = make_shared<Scene>(Vec2u(1920, 1080), &m_window, false);
+	//Create the background image
+	gameOverScene->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", -10);
 
+	//Create title text
+	gameOverScene->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Game Over", 100, sf::Color::Black);
+
+	//Create play again button
 	auto playAgainEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadLevel);
-	gameOver->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
+	gameOverScene->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
 
+	//Create return to main menu button
 	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
-	gameOver->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
+	gameOverScene->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
 
-	SetScene(gameOver);
+	SetScene(gameOverScene);
 }
 
 void BeaverGame::Quit()

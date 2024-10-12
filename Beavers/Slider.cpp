@@ -16,7 +16,7 @@ Slider::Slider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, s
 	// Create Slider Game Objects
 	m_sliderBar = make_unique<Image>(_position, "Resources/Images/Slider/Bar.png");
 	m_sliderHandle = make_unique<Image>(_position, "Resources/Images/Slider/Handle.png");
-	m_text = make_unique<Text>(_position, std::to_string(_iValue), "Resources/Fonts/Yogurt Extra.ttf");
+	m_text = make_unique<Text>(_position, std::to_string(_iValue), "Resources/Fonts/AlteHaasGroteskBold.ttf");
 
 	// Set Slider Properties
 	m_iValue = _iValue;
