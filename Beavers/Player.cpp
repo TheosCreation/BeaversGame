@@ -21,6 +21,11 @@ Player::Player(Vec2f _position, weak_ptr<b2World> _world) : Object(_position, _w
 	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
 	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
 	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
+
+	// Initialize the wood amount text
+	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -20.0f), "Wood: 0/100", "Resources/Fonts/Yogurt Extra.ttf");
+	m_woodAmountText->SetSize(12);
+	m_woodAmountText->SetColour(sf::Color::White);
 }
 
 /*
@@ -33,6 +38,9 @@ void Player::Update(float _fDeltaTime)
 {
 	// Updates Current Animation Frame
 	m_animator->Update();
+
+	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -20.0f));
+	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_iInventorySize));
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
@@ -85,8 +93,9 @@ void Player::Update(float _fDeltaTime)
 		{
 			if (m_bNearTree)
 			{
-				ExecuteWoodAmountChangeEvent(10);
-				m_iWoodAmount += 10;
+				int actualGain = std::min(m_iWoodPerSwing, m_iInventorySize - m_iWoodAmount);
+				m_iWoodAmount += actualGain;
+				ExecuteWoodAmountChangeEvent(actualGain);
 			}
 			else if (m_shopRef)
 			{
@@ -176,7 +185,7 @@ void Player::Update(float _fDeltaTime)
 			else
 			{
 				std::cout << "No hints available" << std::endl;
-				m_HintRef->SetText("No hints available");
+				m_HintRef->SetText(" ");
 			}
 		}
 	}
@@ -212,7 +221,7 @@ void Player::SetWoodAmountChangeEvent(shared_ptr<Event2P<void, shared_ptr<GameOb
 /*
 	Executes an Event when the amount of Wood a Player if holding changes
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao + Kazuo RDA
 	@param int: Change in Wood amount
 */
 void Player::ExecuteWoodAmountChangeEvent(int _iAmount)
@@ -270,4 +279,15 @@ int Player::Deposit()
 void Player::setHintRef(Hint* _hint)
 {
 		m_HintRef = _hint;
+}
+void Player::Render(sf::RenderTexture* _sceneBuffer)
+{
+	// Render the player's sprite
+	Object::Render(_sceneBuffer);
+
+	// Render the wood amount text
+	if (m_woodAmountText)
+	{
+		m_woodAmountText->Render(_sceneBuffer);
+	}
 }

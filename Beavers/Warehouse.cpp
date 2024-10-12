@@ -8,11 +8,16 @@
 	@param Vec2f: Position of Warehouse
 	@param weak_ptr<b2World>: Scene World
 */
-Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true)
+Warehouse::Warehouse(Vec2f _position, std::weak_ptr<b2World> _sceneWorld)
+	: Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true),
+	m_woodAmountText(std::make_unique<Text>(_position + Vec2f(0, -20), GetWoodAmountString(), "Resources/Fonts/Yogurt Extra.ttf"))
 {
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128));
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128), true);
+	m_woodAmountText->SetSize(20);
+	m_woodAmountText->SetColour(sf::Color::White);
 }
+
 
 /*
 	Changes the Wood Amount stored in Warehouse
@@ -23,18 +28,22 @@ Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_p
 void Warehouse::ChangeWoodAmount(int _iAmount)
 { 
 	m_iWoodAmount += _iAmount;
+	m_woodAmountText->SetText(GetWoodAmountString());
 }
-
+std::string Warehouse::GetWoodAmountString() const {
+	return "Wood: " + std::to_string(m_iWoodAmount);
+}
 /*
 	Gets the Amount of Wood in Warehouse
 
 	@author(s) Jamuel Bocacao
 	@return int: Amount of Wood in Warehouse
 */
-int Warehouse::GetWoodAmount()
+int Warehouse::GetWoodAmount() const
 {
 	return m_iWoodAmount;
 }
+
 
 /*
 	Begin Contact Event for Warehouse
@@ -51,4 +60,9 @@ void Warehouse::OnBeginContact(Object* _other)
 		// Deposit Wood if it is a Player
 		ChangeWoodAmount(player->Deposit());
 	}
+}
+void Warehouse::Render(sf::RenderTexture* _sceneBuffer)
+{
+	Object::Render(_sceneBuffer);
+	m_woodAmountText->Render(_sceneBuffer);
 }
