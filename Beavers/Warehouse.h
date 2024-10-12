@@ -7,6 +7,7 @@ public:
 
 	void ChangeWoodAmount(int _iAmount);
 	int GetWoodAmount();
+	
 
 	void OnBeginContact(Object* _other) override;
 

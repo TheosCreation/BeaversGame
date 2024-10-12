@@ -7,7 +7,8 @@
 #include "Text.h"
 #include "TileMap.h"
 #include "Hint.h"
-
+#include "PerlinNoise.h"
+#include <iostream>
 /*
 	Event Function for Loading Menu Scene
 
@@ -113,7 +114,8 @@ void BeaverGame::LoadLevel()
 
 	// Creates different tile types
 	
-
+	PerlinNoise perlin; // Automatic tile gen
+	float scale = 0.1f; // Perlin scale
 
 	// Test tiles
 
@@ -121,9 +123,10 @@ void BeaverGame::LoadLevel()
 	{
 		for (int j = 0; j < 12; j++)
 		{
-			// This can be exapanded to place as many tiles as you want in whatever patern you want
-			auto grassTile = make_shared<Tile>("Resources/Images/Tiles/grass.png");
-			tileMap->SetTile(Vec2u(i, j), grassTile); 
+			float noiseValue = perlin.noise(i * scale, j * scale, 0.0f);
+			string texturePath = (noiseValue < 0.0) ? "Resources/Images/Tiles/grass.png" : "Resources/Images/Tiles/dirt.png";
+			auto tile = make_shared<Tile>(texturePath);
+			tileMap->SetTile(Vec2u(i, j), tile);
 		}
 	}
 	// going to make a hint class that inherits from text so this can update

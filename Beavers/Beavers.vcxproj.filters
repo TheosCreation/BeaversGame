@@ -1,296 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Beaver.cpp" />
+    <ClCompile Include="BeaverGame.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Hint.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Code Files\Game Engine\Texture Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Code Files\Game Engine\Game Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ContactListener.cpp">
-      <Filter>Code Files\Game Engine\Physics\ContactListener</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="Slider.cpp">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Slider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Code Files\Game Engine\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>Code Files\Game Engine\Event</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Code Files\Game Engine\Audio\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Code Files\Game Engine\Audio\Audio Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Music.cpp">
-      <Filter>Code Files\Game Engine\Audio\Music</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Code Files\Game Engine\Scene Classes\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="BeaverGame.cpp">
-      <Filter>Code Files\Beaver Project\Game Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Warehouse.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Warehouse</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Tree</Filter>
-    </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Shop</Filter>
-    </ClCompile>
-    <ClCompile Include="Beaver.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
-    </ClCompile>
-    <ClCompile Include="FontManager.cpp">
-      <Filter>Code Files\Game Engine\FontManager</Filter>
-    </ClCompile>
-    <ClCompile Include="WoodChange.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\WoodChange</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Code Files\Game Engine\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Code Files\Game Engine\TileMap</Filter>
-    <ClCompile Include="Hint.cpp">
-      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
-    </ClCompile>
+    <ClCompile Include="Music.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Warehouse.cpp" />
+    <ClCompile Include="WoodChange.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Code Files">
-      <UniqueIdentifier>{90a742e8-f3c9-44bf-8b17-8aafb6085800}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine">
-      <UniqueIdentifier>{48559f15-6a9b-4e5e-8532-8fca00259a4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Game">
-      <UniqueIdentifier>{0aca949e-98e9-48e7-8a04-a4148efa63c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Physics">
-      <UniqueIdentifier>{98befd94-1b51-435c-849e-bc215b439fc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Audio">
-      <UniqueIdentifier>{bdd739e3-83b6-403a-8d1f-cb6b4468fbac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Game Object">
-      <UniqueIdentifier>{dffa8e92-890a-4314-98c7-ae6715870ff4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Audio\Audio Manager">
-      <UniqueIdentifier>{10016c41-39db-48fd-b03b-bd3294422392}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project">
-      <UniqueIdentifier>{cf973139-1dce-4021-9f5a-b7be7c5492e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Audio\Sound">
-      <UniqueIdentifier>{37698005-c293-4e54-8d3b-1934b583d439}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Physics\ContactListener">
-      <UniqueIdentifier>{ad20bd25-7a34-4bb9-8d9e-c773c81da48b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects">
-      <UniqueIdentifier>{926370f6-3f7f-4d86-bac8-696be4776e9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element">
-      <UniqueIdentifier>{42b31e58-08ab-4ced-ab7a-6a02efdfc509}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Image">
-      <UniqueIdentifier>{c84ddb94-c223-4550-920b-afc49acd4f4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Button">
-      <UniqueIdentifier>{cc0cbc2b-8ea9-4722-bee8-a1bea859eddd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Slider">
-      <UniqueIdentifier>{b1824e10-712e-402c-93f4-6b3454d585fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\Object">
-      <UniqueIdentifier>{5aef4bc1-9697-4934-b433-e72f3545073e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Texture Manager">
-      <UniqueIdentifier>{a4faff75-9f32-43e2-aa03-11fc4fa85b6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Event">
-      <UniqueIdentifier>{30b25bf0-ea76-40c5-acae-a840b006ed4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Audio\Music">
-      <UniqueIdentifier>{cff3a9b3-334b-46e2-b1ee-91fcbc3c8680}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Input">
-      <UniqueIdentifier>{c8f45a44-9c6b-4e03-9a14-6c159832c070}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Input\Input Manager">
-      <UniqueIdentifier>{883dd18d-9aa2-48f5-aa53-cfe8e0bc36c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Manager">
-      <UniqueIdentifier>{906312b8-1444-424d-9d03-cb0d7619d618}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects">
-      <UniqueIdentifier>{d6d99f4d-6f63-418d-9afa-b76bd5c67a47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Player">
-      <UniqueIdentifier>{84aafec8-3338-4be0-8233-5a66d69e1fc6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Player\Player">
-      <UniqueIdentifier>{e4962abc-e317-4b03-ae5f-1a1e7d5cb3ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Player\ControlScheme">
-      <UniqueIdentifier>{be10934a-be31-4a81-9814-6e51bc2088ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Warehouse">
-      <UniqueIdentifier>{3fb2ff4f-ba76-434a-bb07-1628451c7996}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Beaver">
-      <UniqueIdentifier>{9623bf46-e4d5-41fe-aa68-eb33dc56df58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Shop">
-      <UniqueIdentifier>{499389fd-4308-4c65-94c1-b7d05cfbae61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Tree">
-      <UniqueIdentifier>{1956c910-2bd1-418d-b336-07c6b08a7c0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Miscellaneous">
-      <UniqueIdentifier>{d141c745-78e2-4eaa-857b-4a735cf3dee2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\WoodChange">
-      <UniqueIdentifier>{03780d4f-8452-4908-9d3d-2a83dd3c4b6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\FontManager">
-      <UniqueIdentifier>{6d048195-1ec3-495c-a63e-4421dfdc55f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Objects\UI Element\Text">
-      <UniqueIdentifier>{2666bfdf-540e-40d9-beb5-f5de3c004eed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Classes">
-      <UniqueIdentifier>{750b53cf-82a5-4580-8e01-8ccf9abc81fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Classes\Scene">
-      <UniqueIdentifier>{3a189607-6a13-40ef-b706-d9de187624f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Scene Classes\Level">
-      <UniqueIdentifier>{2ee24d82-7130-4b71-b176-9afe2897c431}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Volume Slider">
-      <UniqueIdentifier>{1618b619-1846-4f2c-9f57-6a73854fe49d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\Animator">
-      <UniqueIdentifier>{d9e239f8-f5ad-487a-a887-df66797a9802}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code Files\Game Engine\TileMap">
-      <UniqueIdentifier>{321e7669-e796-4c8d-87f1-644bbfde39f2}</UniqueIdentifier>
-    <Filter Include="Code Files\Beaver Project\Game Objects\Hint">
-      <UniqueIdentifier>{3f91d929-2916-489f-a686-e43c298bf719}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Code Files\Game Engine\Texture Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Code Files\Game Engine\Game Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ContactListener.h">
-      <Filter>Code Files\Game Engine\Physics\ContactListener</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="Slider.h">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Slider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Code Files\Game Engine\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Code Files\Game Engine\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Code Files\Game Engine\Audio\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Code Files\Game Engine\Audio\Audio Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Music.h">
-      <Filter>Code Files\Game Engine\Audio\Music</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Code Files\Game Engine\Scene Classes\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="BeaverGame.h">
-      <Filter>Code Files\Beaver Project\Game Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlScheme.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Player\ControlScheme</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Code Files\Game Engine\Miscellaneous</Filter>
-    </ClInclude>
-    <ClInclude Include="Warehouse.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Warehouse</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Code Files\Game Engine\Scene Objects\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Tree</Filter>
-    </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Shop</Filter>
-    </ClInclude>
-    <ClInclude Include="Beaver.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Beaver</Filter>
-    </ClInclude>
-    <ClInclude Include="FontManager.h">
-      <Filter>Code Files\Game Engine\FontManager</Filter>
-    </ClInclude>
-    <ClInclude Include="WoodChange.h">
-      <Filter>Code Files\Beaver Project\Game Objects\WoodChange</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Code Files\Game Engine\Scene Objects\UI Element\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Code Files\Game Engine\Scene Classes\Scene</Filter>
-    </ClInclude>
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Beaver.h" />
+    <ClInclude Include="BeaverGame.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ControlScheme.h" />
+    <ClInclude Include="Hint.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Music.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStats.h" />
-    <ClInclude Include="Animator.h">
-      <Filter>Code Files\Game Engine\Animator</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Code Files\Game Engine\TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Code Files\Game Engine\TileMap</Filter>
-    <ClInclude Include="Hint.h">
-      <Filter>Code Files\Beaver Project\Game Objects\Hint</Filter>
-    </ClInclude>
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Warehouse.h" />
+    <ClInclude Include="WoodChange.h" />
+    <ClInclude Include="PerlinNoise.h" />
   </ItemGroup>
 </Project>

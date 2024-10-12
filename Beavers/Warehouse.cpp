@@ -10,8 +10,8 @@
 */
 Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true)
 {
-	AddBoxCollider(Vec2f(0.0f, 20.0f), Vec2f(128, 24));
-	AddBoxCollider(Vec2f(0.0f, 47.0f), Vec2f(128, 30), true);
+	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128));
+	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128), true);
 }
 
 /*
@@ -21,7 +21,7 @@ Warehouse::Warehouse(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_p
 	@param int: Number to change amount by 
 */
 void Warehouse::ChangeWoodAmount(int _iAmount)
-{
+{ 
 	m_iWoodAmount += _iAmount;
 }
 
