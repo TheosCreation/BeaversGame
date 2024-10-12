@@ -24,7 +24,7 @@ public:
 	void DestroyObjects();
 
 	// Render Methods
-	void Render(sf::RenderWindow* _window);
+	virtual void Render(sf::RenderWindow* _window);
 
 	// Scene Properties
 	bool GetUnloadPreviousScene();

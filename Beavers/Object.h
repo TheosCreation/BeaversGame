@@ -23,8 +23,8 @@ public:
 	void ApplyForce(Vec2f _force);
 
 	// Collision Methods
-	void AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
-	void AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
+	b2Fixture* AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
+	b2Fixture* AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
 	virtual void OnBeginContact(Object* _otherObject);
 	virtual void OnEndContact(Object* _otherObject);
 

@@ -74,7 +74,7 @@ int Shop::GetCost()
 void Shop::Render(sf::RenderTexture* _sceneBuffer)
 {
 	Object::Render(_sceneBuffer);
-	m_statUI->Render(_sceneBuffer);
+	//m_statUI->Render(_sceneBuffer);
 
 	m_costText->Render(_sceneBuffer);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Warehouse.h"
+#include "Animator.h"
 
 class Beaver : public Object
 {
@@ -13,6 +14,7 @@ public:
 
 private:
 	Warehouse* m_warehouse = nullptr;
+	unique_ptr<Animator> m_animator;
 	sf::Clock m_woodClock;
 };
 

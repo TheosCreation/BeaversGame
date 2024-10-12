@@ -8,9 +8,15 @@
 	@param Vec2f: Position of Beaver
 	@param weak_ptr<b2World>: Scene World
 */
-Beaver::Beaver(Vec2f _position) : Object(_position, "Resources/Objects/Beaver.png", false)
+Beaver::Beaver(Vec2f _position) : Object(_position, false)
 {
+	m_animator = make_unique<Animator>(&m_sprite);
 
+	m_animator->AddState("Walk", "Resources/Images/Entities/Beaver/Walk.png", 8, 8);
+	m_animator->AddState("HitStanding", "Resources/Images/Entities/Beaver/HitStanding.png", 6, 8);
+	m_animator->AddState("DieStanding", "Resources/Images/Entities/Beaver/DieStanding.png", 5, 8);
+	m_animator->AddState("Attack", "Resources/Images/Entities/Beaver/Attack.png", 8, 8);
+	m_animator->AddState("Stand", "Resources/Images/Entities/Beaver/GroundToStand.png", 5, 8);
 }
 
 /*
@@ -49,6 +55,8 @@ void Beaver::OnEndContact(Object* _otherObject)
 */
 void Beaver::Update(float _fDeltaTime)
 {
+	m_animator->Update();
+
 	if (m_warehouse)
 	{
 		// Removes Wood from Warehouse after a certain Period
@@ -56,10 +64,12 @@ void Beaver::Update(float _fDeltaTime)
 		{
 			m_woodClock.restart();
 			m_warehouse->ChangeWoodAmount(-1);
+			m_animator->ChangeState("Attack");
 		}
 	}
 	else
 	{
-		m_currLevel->GetFlowFieldValue(m_sprite.getPosition());
+		AddPosition(m_currLevel->GetFlowFieldValue(m_sprite.getPosition()) * _fDeltaTime * 300.0f);
+		m_animator->ChangeState("Walk");
 	}
 }

@@ -4,9 +4,11 @@
 #include "Warehouse.h"
 #include "Player.h"
 #include "Tree.h"
+#include "Beaver.h"
 #include "Text.h"
 #include "TileMap.h"
 #include "Hint.h"
+
 
 /*
 	Event Function for Loading Menu Scene
@@ -83,9 +85,11 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
 
+	level->AddObject<Beaver>(Vec2f(500, 500));
+
 	// Creates TileMap
 	// First vector is tilemap size second is tile size
-	auto tileMap = make_shared<TileMap>(Vec2u(22, 12), Vec2f(32, 32));
+	auto tileMap = make_shared<TileMap>(Vec2u(Vec2f(1920, 1080) / 32.0f) + Vec2u(0, 1), Vec2f(32, 32));
 	level->AddGameObject(tileMap);
 
 	// Creates different tile types
@@ -94,13 +98,13 @@ void BeaverGame::LoadLevel()
 
 	// Test tiles
 
-	for (int i = 0; i < 22; i++)
+	for (int i = 0; i < 1920 / 32; i++)
 	{
-		for (int j = 0; j < 12; j++)
+		for (int j = 0; j < (1080 / 32) + 1; j++)
 		{
 			// This can be exapanded to place as many tiles as you want in whatever patern you want
 			auto grassTile = make_shared<Tile>("Resources/Images/Tiles/grass.png");
-			tileMap->SetTile(Vec2u(i, j), grassTile); 
+			tileMap->SetTile(Vec2u(i, j), grassTile);
 		}
 	}
 	// going to make a hint class that inherits from text so this can update

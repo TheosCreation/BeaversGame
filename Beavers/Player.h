@@ -31,8 +31,12 @@ public:
 private:
 	static PlayerStats m_playerStats;
 
+	b2Fixture* m_attackZoneLeft = nullptr;
+	b2Fixture* m_attackZoneRight = nullptr;
+
 	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;
+	sf::Clock m_cooldownClock;
 	int m_iAnimationFrame = 0;
 
 	float m_fSpeed = 50.0f;

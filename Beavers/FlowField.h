@@ -11,6 +11,7 @@ public:
 	void SetWalkable(Vec2i _gridPos, bool _bWalkable);
 
 	Vec2f GetCellValue(Vec2f _worldPos);
+	Vec2i GetCellPos(Vec2f _worldPos);
 	Vec2f GetValue(Vec2i _gridPos);
 
 	void CalculateField(vector<Vec2i>& _startPositions);

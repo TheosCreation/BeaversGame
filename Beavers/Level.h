@@ -26,6 +26,9 @@ public:
 	shared_ptr<b2World> GetWorld();
 
 	Vec2f GetFlowFieldValue(Vec2f _worldPos);
+	void SetFlowFieldGoal(Vec2f _topLeft, Vec2f _bottomRight);
+
+	void Render(sf::RenderWindow* _render) override;
 
 private:
 	static ContactListener m_listener;

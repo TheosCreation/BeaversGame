@@ -14,7 +14,7 @@ Level::Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 {
 	m_world = make_shared<b2World>(b2Vec2_zero);
 	m_world->SetContactListener(&m_listener);
-	m_flowField = make_unique<FlowField>(Vec2i(0, 0), Vec2i(30, 17), 64);
+	m_flowField = make_unique<FlowField>(Vec2i(0, 0), Vec2i(60, 34), 32);
 }
 
 /*
@@ -70,4 +70,29 @@ shared_ptr<b2World> Level::GetWorld()
 Vec2f Level::GetFlowFieldValue(Vec2f _worldPos)
 {
 	return m_flowField->GetCellValue(_worldPos);
+}
+
+void Level::SetFlowFieldGoal(Vec2f _topLeft, Vec2f _bottomRight)
+{
+	Vec2i topLeftCell = m_flowField->GetCellPos(_topLeft);
+	Vec2i btmRightCell = m_flowField->GetCellPos(_bottomRight);
+
+	printf("%i, %i", topLeftCell.x, topLeftCell.y);
+
+	vector<Vec2i> goalCells;
+
+	for (int x = topLeftCell.x; x < btmRightCell.x; x++)
+	{
+		for (int y = topLeftCell.x; y < btmRightCell.y; y++)
+		{
+			goalCells.push_back(Vec2i(x, y));
+		}
+	}
+
+	m_flowField->CalculateField(goalCells);
+}
+
+void Level::Render(sf::RenderWindow* _render)
+{
+	Scene::Render(_render);
 }

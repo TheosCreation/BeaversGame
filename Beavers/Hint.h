@@ -15,7 +15,7 @@ enum class hintText
 class Hint : public Object
 {
 public:
-	Hint(Vec2f _position, weak_ptr<b2World> _sceneWorld);
+	Hint(Vec2f _position);
 
 	void SetText(std::string _strText);
 

@@ -24,8 +24,12 @@ void FlowField::SetWalkable(Vec2i _gridPos, bool _bWalkable)
 
 Vec2f FlowField::GetCellValue(Vec2f _worldPos)
 {
-	_worldPos /= float(m_iGridSize);
-	return GetValue(Vec2i(_worldPos) - m_topLeft);
+	return GetValue(GetCellPos(_worldPos));
+}
+
+Vec2i FlowField::GetCellPos(Vec2f _worldPos)
+{
+	return Vec2i(_worldPos /= float(m_iGridSize)) - m_topLeft;
 }
 
 Vec2f FlowField::GetValue(Vec2i _gridPos)

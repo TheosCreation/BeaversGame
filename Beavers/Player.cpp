@@ -13,14 +13,18 @@
 */
 Player::Player(Vec2f _position) : Object(_position, false)
 {
-	SetDrawRect(sf::IntRect(0, 16, 16, 16));
-	AddBoxCollider(Vec2f(0, 6), Vec2f(12, 4), false);	// Collider
-	AddCircleCollider(Vec2f(0, 6), 12, true);			// Interaction Range Sensor
+	SetDrawRect(sf::IntRect(0, 32, 32, 32));
+	AddBoxCollider(Vec2f(0, 12), Vec2f(24, 8), false);	// Collider
+	AddCircleCollider(Vec2f(0, 12), 24, true);			// Interaction Range Sensor
+	m_attackZoneLeft = AddBoxCollider(Vec2f(-16, 0), Vec2f(16, 32), true); // Left Attack Sensor
+	m_attackZoneRight = AddBoxCollider(Vec2f(16, 0), Vec2f(16, 32), true); // Right Attack Sensor
 
 	m_animator = make_unique<Animator>(&m_sprite);
 	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
 	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
 	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
+
+	m_cooldownClock.restart();
 }
 
 /*
@@ -63,16 +67,8 @@ void Player::Update(float _fDeltaTime)
 			m_animator->ChangeState("Running");
 
 			displacement /= length;
-			AddPosition(displacement * _fDeltaTime * m_fSpeed);
-			//ApplyForce(displacement * _fDeltaTime * 1000.0f * m_fSpeed);
+			AddPosition(displacement * _fDeltaTime * float(m_playerStats.m_iSpeed));
 
-			// Clamp Speed
-			b2Vec2 velocity = m_body->GetLinearVelocity();
-			float velSpeed = velocity.Normalize();
-			if (velSpeed > 2.0f)
-			{
-				m_body->SetLinearVelocity(2.0f * velocity);
-			}
 		}
 		else
 		{
@@ -83,33 +79,60 @@ void Player::Update(float _fDeltaTime)
 	{
 		if (m_interactClock.getElapsedTime().asSeconds() > 4.0f/8.0f)
 		{
-			if (m_bNearTree)
-			{
-				ExecuteWoodAmountChangeEvent(10);
-				m_iWoodAmount += 10;
-			}
-			else if (m_shopRef)
+			m_cooldownClock.restart();
+			if (m_shopRef)
 			{
 				m_shopRef->ApplyItem(m_playerStats);
+			}
+			// Atack Action
+			else
+			{
+				// Get Contacting Bodies
+				b2ContactEdge* contact = m_body->GetContactList();
+				while (contact)
+				{
+					// Check which side Player is facing
+					b2Fixture* attackSide = (m_sprite.getScale().x < 0) ? m_attackZoneLeft : m_attackZoneRight;
+
+					// Check if Attack Fixture is a Contact Point
+					if (contact->contact->GetFixtureA() == attackSide)
+					{
+						// Check if other other Contact Object is an attackable Object
+						Object* contactObject = (Object*)contact->contact->GetFixtureB()->GetBody()->GetUserData().pointer;
+						if (contactObject->IsOfType<Tree>())
+						{
+							ExecuteWoodAmountChangeEvent(10);
+							m_iWoodAmount += 10;
+							break;
+						}
+					}
+
+					// Continue iterating
+					contact = contact->next;
+				}
 			}
 			m_bInteracting = false;
 		}
 	}
 	
+	// Interact Action
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
 	{
-		if (!m_bInteracting)
+		if (m_cooldownClock.getElapsedTime().asSeconds() > 1.0f)
 		{
-			if (m_bNearTree)
+			if (!m_bInteracting)
 			{
-				m_animator->ChangeState("Attack");
-				m_interactClock.restart();
-				m_bInteracting = true;
-			}
-			else if (m_shopRef)
-			{
-				m_interactClock.restart();
-				m_bInteracting = true;
+				if (m_shopRef)
+				{
+					m_interactClock.restart();
+					m_bInteracting = true;
+				}
+				else
+				{
+					m_animator->ChangeState("Attack");
+					m_interactClock.restart();
+					m_bInteracting = true;
+				}
 			}
 		}
 	}
