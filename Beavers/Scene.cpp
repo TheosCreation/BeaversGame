@@ -2,7 +2,7 @@
 #include "Slider.h"
 #include "Button.h"
 #include "Object.h"
-
+#include <iostream>
 /*
 	Creates a Scene
 
@@ -87,8 +87,10 @@ void Scene::AddText(Vec2f _position, string _strText, int _iSize, sf::Color _col
 */
 void Scene::AddGameObject(shared_ptr<GameObject> _gameObject, int _iLayer)
 {
+
 	CheckLayer(_iLayer);
 	m_objects.at(_iLayer).push_back(_gameObject);
+
 }
 
 /*
@@ -100,6 +102,7 @@ void Scene::AddGameObject(shared_ptr<GameObject> _gameObject, int _iLayer)
 */
 void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 {
+
 	switch (_event.type)
 	{
 		case sf::Event::MouseButtonPressed:

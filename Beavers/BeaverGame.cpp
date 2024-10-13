@@ -10,6 +10,7 @@
 #include "Hint.h"
 #include "PerlinNoise.h"
 #include <iostream>
+#include "BeaverSpawner.h"
 /*
 	Event Function for Loading Menu Scene
 
@@ -120,6 +121,8 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop3);
 
 	level->AddObject<Beaver>(Vec2f(500, 500));
+	auto spawner = make_shared<BeaverSpawner>(Vec2f(1000, 1000), level->GetWorld(), "", level.get());
+	level->AddGameObject(spawner);
 
 	// Creates TileMap
 	// First vector is tilemap size second is tile size

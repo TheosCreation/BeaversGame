@@ -13,7 +13,7 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 	SetDrawRect(sf::IntRect(0, 0, 907, 505));
 	m_animator = make_unique<Animator>(&m_sprite);
 
-	AddBoxCollider(Vec2f(0, 0), Vec2f(40, 50));
+	//AddBoxCollider(Vec2f(0, 0), Vec2f(40, 50));
 	AddCircleCollider(Vec2f(0, 0), 26.0f, true);
 
 	m_sprite.setScale(0.1f, 0.1f);
@@ -25,6 +25,7 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 	m_animator->AddState("Stand", "Resources/Images/Entities/Beaver/GroundToStand.png", 5, 8);
 
 	m_woodClock.restart();
+
 }
 
 /*
@@ -35,6 +36,7 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 */
 void Beaver::OnBeginContact(Object* _otherObject)
 {
+
 	if (_otherObject->IsOfType<Warehouse>())
 	{
 		m_warehouse = dynamic_cast<Warehouse*>(_otherObject);
@@ -78,6 +80,7 @@ void Beaver::Damage(int _iDamage)
 */
 void Beaver::Update(float _fDeltaTime)
 {
+
 	m_animator->Update();
 
 	if (m_warehouse)
