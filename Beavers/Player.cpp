@@ -44,7 +44,7 @@ void Player::Update(float _fDeltaTime)
 	m_animator->Update();
 
 	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -20.0f));
-	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_iInventorySize));
+	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_iCapacity));
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
@@ -120,7 +120,7 @@ void Player::Update(float _fDeltaTime)
 						Beaver* beaver;
 						if (contactObject->IsOfType<Tree>())
 						{
-							int actualGain = std::min(m_iWoodPerSwing, m_iInventorySize - m_iWoodAmount);
+							int actualGain = std::min(m_playerStats.m_iDamage, m_playerStats.m_iCapacity - m_iWoodAmount);
 							m_iWoodAmount += actualGain;
 							ExecuteWoodAmountChangeEvent(actualGain);
 							break;
