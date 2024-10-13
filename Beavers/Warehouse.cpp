@@ -35,11 +35,12 @@ void Warehouse::ChangeWoodAmount(int _iAmount)
 	if (m_iWoodAmount > 1000000)
 	{
 		//Win the game
-		
+		m_loadWinSceneEvent->execute();
 	}
 	else if(m_iWoodAmount <= 0)
 	{
 		//Lose the game
+		m_loadLoseSceneEvent->execute();
 	}
 }
 std::string Warehouse::GetWoodAmountString() const {

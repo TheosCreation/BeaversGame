@@ -128,7 +128,7 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
 
-	level->AddObject<Beaver>(Vec2f(500, 500));
+	level->AddObject<Beaver>(Vec2f(1000, 500));
 
 	// Creates TileMap
 	// First vector is tilemap size second is tile size
