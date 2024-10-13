@@ -147,7 +147,12 @@ void BeaverGame::LoadLevel()
 		}
 	}
 	// going to make a hint class that inherits from text so this can update
-	level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here", 12);
+	//level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here", 12);
+
+	Hint* Hintref = level->AddObject<Hint>(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f)).lock().get();
+
+	player.lock()->setHintRef(Hintref);
+	player2.lock()->setHintRef(Hintref);
 
 	SetScene(level);
 }
