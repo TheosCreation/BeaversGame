@@ -14,7 +14,7 @@ AudioManager& AudioManager::GetInstance()
 /*
 	Plays a Sound based on File Path, with optional position and starting time
 
-	@author Jamuel Bocacao + Kazuo RDA
+	@author Jamuel Bocacao + Kazuo RDA + Theo Morris
 	@param string: Sound File Path
 	@param sf::Vector3f: Location to play Sound
 	@param sf::Time: Start time of sound
@@ -39,7 +39,7 @@ void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::T
 			return;
 		}
 	}
-	
+
 	// Play existing sound
 	m_sounds.at(soundID)->RandomizePitch(pitchMin,pitchMax);
 	m_sounds.at(soundID)->PlaySound(_position, _offset);
@@ -124,6 +124,47 @@ void AudioManager::SetMusicVolume(int _iVolume)
 int AudioManager::GetMusicVolume()
 {
 	return m_iMusicVolume;
+}
+
+/*
+	Checks to see if the sound is playing
+
+	@author Theo Morris
+	@param string: Sound Path
+	@return bool: Is the sound playing
+*/
+bool AudioManager::IsSoundPlaying(string _strSoundPath)
+{
+	// Generate a Hash ID based on sound file path
+	std::hash<string> hashGenerator;
+	size_t soundID = hashGenerator(_strSoundPath);
+
+	if (m_sounds.contains(soundID))
+	{
+		return m_sounds.at(soundID)->IsPlaying();
+	}
+
+	return false;
+}
+
+/*
+	Stop the certain sound
+
+	@author Theo Morris
+*/
+void AudioManager::StopSound(string _strSoundPath)
+{
+	// Generate a Hash ID based on sound file path
+	std::hash<string> hashGenerator;
+	size_t soundID = hashGenerator(_strSoundPath);
+
+	if (m_sounds.contains(soundID))
+	{
+		if (m_sounds.at(soundID)->IsPlaying())
+		{
+			m_sounds.at(soundID)->Stop();
+		}
+	}
 }
 
 /*

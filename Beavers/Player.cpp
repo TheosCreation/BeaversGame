@@ -175,12 +175,12 @@ void Player::Update(float _fDeltaTime)
 
 		if (m_bHintVisible)
 		{
-			std::cout << "Hint visible" << std::endl;
+			//std::cout << "Hint visible" << std::endl;
 			m_HintRef->SetText("Hint visible");
 		}
 		else
 		{
-			std::cout << "Hint hidden" << std::endl;
+			//std::cout << "Hint hidden" << std::endl;
 			m_HintRef->SetText("");
 			previousHint = hintText::None; // Reset when hint is hidden
 		}
@@ -322,12 +322,18 @@ void Player::OnPlayerSwingAxe()
 }
 void Player::OnPlayerWalk(bool _active)
 {
+	// make this work with two players walking maybe if needed
+	auto& audioManager = AudioManager::GetInstance();
 	if (_active) {
-		AudioManager::GetInstance().PlaySound(walkSound, sf::Vector3f(), sf::seconds(0), 1.0f, 1.5f);
+		if (!audioManager.IsSoundPlaying(walkSound))
+		{
+			audioManager.PlaySound(walkSound, sf::Vector3f(), sf::seconds(0), 1.0f, 1.5f);
+		}
 	}
-	else {
-		AudioManager::GetInstance().StopSounds();
-	}
+	//else //dont need this
+	//{
+	//	audioManager.StopSound(walkSound);
+	//}
 }
 
 

@@ -35,11 +35,12 @@ void Warehouse::ChangeWoodAmount(int _iAmount)
 	if (m_iWoodAmount > 1000000)
 	{
 		//Win the game
-		
+		m_loadWinSceneEvent->execute();
 	}
 	else if(m_iWoodAmount <= 0)
 	{
 		//Lose the game
+		m_loadLoseSceneEvent->execute();
 	}
 }
 std::string Warehouse::GetWoodAmountString() const {
@@ -79,8 +80,24 @@ void Warehouse::Render(sf::RenderTexture* _sceneBuffer)
 	m_woodAmountText->Render(_sceneBuffer);
 }
 
-void Warehouse::SetLoadWinSceneEvent(shared_ptr<Event<void, void>> _woodAmountChangeEvent)
+/*
+	Sets the load win scene event member variable
+
+	@author(s) Theo Morris
+	@param shared_ptr<Event<void, void>>: Event to the level loading of the win scene
+*/
+void Warehouse::SetLoadWinSceneEvent(shared_ptr<Event<void, void>> _loadWinSceneEvent)
 {
-	int a = 10;
-	Debug::Log(ToString(a));
+	m_loadWinSceneEvent = _loadWinSceneEvent;
+}
+
+/*
+	Sets the load lose scene event member variable
+
+	@author(s) Theo Morris
+	@param shared_ptr<Event<void, void>>: Event to the level loading of the lose scene
+*/
+void Warehouse::SetLoadLoseSceneEvent(shared_ptr<Event<void, void>> _loadLoseSceneEvent)
+{
+	m_loadLoseSceneEvent = _loadLoseSceneEvent;
 }
