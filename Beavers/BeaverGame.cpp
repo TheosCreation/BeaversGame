@@ -9,6 +9,7 @@
 #include "TileMap.h"
 #include "Hint.h"
 #include "PerlinNoise.h"
+#include "Shop.h"
 #include <iostream>
 /*
 	Event Function for Loading Menu Scene
@@ -111,9 +112,9 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
 	// Creates Shop(s)
-	auto shop1 = make_shared<Shop>(Vec2f(90, 50), 1, "Resources/Images/Objects/AxeShop.png");
-	auto shop2 = make_shared<Shop>(Vec2f(38, 50), 1, "Resources/Images/Objects/BootShop.png");
-	auto shop3 = make_shared<Shop>(Vec2f(142, 50), 1, "Resources/Images/Objects/BagShop.png");
+	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 1, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
+	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 1, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
+	auto shop3 = make_shared<Shop>(Vec2f(1550, 150), 1, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
 
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
