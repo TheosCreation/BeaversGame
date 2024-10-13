@@ -49,15 +49,18 @@ void Player::Update(float _fDeltaTime)
 		if (sf::Keyboard::isKeyPressed(m_controlScheme.Up))
 		{
 			displacement += Vec2f(0.0f, -1.0f);
+			
 		}
 		if (sf::Keyboard::isKeyPressed(m_controlScheme.Left))
 		{
 			displacement += Vec2f(-1.0f, 0.0f);
 			m_sprite.setScale(-1, 1);
+			
 		}
 		if (sf::Keyboard::isKeyPressed(m_controlScheme.Down))
 		{
 			displacement += Vec2f(0.0f, 1.0f);
+		
 		}
 		if (sf::Keyboard::isKeyPressed(m_controlScheme.Right))
 		{
@@ -67,6 +70,7 @@ void Player::Update(float _fDeltaTime)
 		if (displacement != Vector2f(0, 0))
 		{
 			OnPlayerWalk();
+			
 		}
 		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
 		if (length > 0)
@@ -282,11 +286,12 @@ int Player::Deposit()
 
 void Player::OnPlayerSwingAxe()
 {
-	AudioManager::GetInstance().PlaySound(swingSound);
+	AudioManager::GetInstance().PlaySound(swingSound, sf::Vector3f(), sf::seconds(0), 1.0f,1.2f);
 }
 void Player::OnPlayerWalk()
 {
-	AudioManager::GetInstance().PlaySound(walkSound);
+
+	AudioManager::GetInstance().PlaySound(walkSound, sf::Vector3f(), sf::seconds(0), 1.0f, 1.5f);
 }
 
 

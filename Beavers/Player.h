@@ -38,8 +38,8 @@ public:
 
 private:
 	static PlayerStats m_playerStats;
-	std::string walkSound = "path";
-	std::string swingSound = "path";
+	std::string walkSound = "Resources/Audio/footStep.mp3";
+	std::string swingSound = "Resources/Audio/slash.mp3";
 
 	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;

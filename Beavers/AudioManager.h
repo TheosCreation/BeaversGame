@@ -8,7 +8,7 @@ class AudioManager
 public:
 	static AudioManager& GetInstance();
 
-	void PlaySound(string _strSoundPath, sf::Vector3f _position = sf::Vector3f(), sf::Time _offset = sf::seconds(0));
+	void PlaySound(string _strSoundPath, sf::Vector3f _position = sf::Vector3f(), sf::Time _offset = sf::seconds(0), float pitchMin = 1, float pitchMax = 1);
 	void PlayMusic(string _strMusicPath, sf::Time _startTime = sf::seconds(0));
 
 	void SetSoundVolume(int _iVolume);

@@ -65,6 +65,19 @@ void Sound::Pause()
 {
 	m_sound.pause();
 }
+void Sound::RandomizePitch(float min, float max)
+{
+	if (min >= max) {
+		throw std::invalid_argument("min should be less than max");
+	}
+	std::random_device rd;  // Obtain a random number from hardware
+	std::default_random_engine eng(rd()); // Seed
+
+	// Define the range
+	std::uniform_real_distribution<float> distr(min, max);
+
+	m_sound.setPitch(distr(eng));
+}
 
 /*
 	Stops Sound Playing

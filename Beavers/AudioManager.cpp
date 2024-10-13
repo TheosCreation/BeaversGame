@@ -14,12 +14,12 @@ AudioManager& AudioManager::GetInstance()
 /*
 	Plays a Sound based on File Path, with optional position and starting time
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao + Kazuo RDA
 	@param string: Sound File Path
 	@param sf::Vector3f: Location to play Sound
 	@param sf::Time: Start time of sound
 */
-void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::Time _offset)
+void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::Time _offset, float pitchMin, float pitchMax)
 {
 	// Generate a Hash ID based on sound file path
 	std::hash<string> hashGenerator;
@@ -30,6 +30,7 @@ void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::T
 	{
 		// If not load Sound file
 		auto sound = make_shared<Sound>(_strSoundPath, float(m_iSoundVolume));
+
 		if (sound->isValid())
 		{
 			// Store Sound using path as File ID
@@ -40,6 +41,7 @@ void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::T
 	}
 	
 	// Play existing sound
+	m_sounds.at(soundID)->RandomizePitch(pitchMin,pitchMax);
 	m_sounds.at(soundID)->PlaySound(_position, _offset);
 }
 

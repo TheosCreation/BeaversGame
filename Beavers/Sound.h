@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Audio.hpp>
-
+#include <random>
 using std::string;
 
 class Sound
@@ -12,7 +12,7 @@ public:
 
 	void PlaySound(sf::Vector3f _location, sf::Time _offset);
 	void SetVolume(float _fVolume);
-
+	void RandomizePitch(float min = 0, float max = 2);
 	void Pause();
 	void Stop();
 
