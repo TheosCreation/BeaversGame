@@ -5,11 +5,13 @@
 
 #define PixelsPerMeter 64.0f
 
+class Level;
+
 class Object : public GameObject
 {
 public:
-	Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
-	Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic = false);
+	Object(Vec2f _position, string _strTexturePath, bool _bIsStatic = false);
+	Object(Vec2f _position, bool _bIsStatic = false);
 	~Object();
 
 	// Position Methods
@@ -21,8 +23,8 @@ public:
 	void ApplyForce(Vec2f _force);
 
 	// Collision Methods
-	void AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
-	void AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
+	b2Fixture* AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger = false);
+	b2Fixture* AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger = false);
 	virtual void OnBeginContact(Object* _otherObject);
 	virtual void OnEndContact(Object* _otherObject);
 
@@ -43,10 +45,15 @@ public:
 	bool IsOfType(T** _objectPointer);
 
 protected:
+	static inline Level* m_currLevel = nullptr;
 	sf::Sprite m_sprite;
 
 	weak_ptr<b2World> m_world;
 	b2Body* m_body;
+
+private:
+	friend class Game;
+	static void SetCurrentLevel(Level* _level);
 };
 
 /*

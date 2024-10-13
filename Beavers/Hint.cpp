@@ -2,7 +2,7 @@
 #include "Player.h"
 #include <iostream>
 
-Hint::Hint(Vec2f _position, weak_ptr<b2World> _sceneWorld) : Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true)
+Hint::Hint(Vec2f _position) : Object(_position, "Resources/Objects/Warehouse.png", true)
 {
 	//m_hintText = make_unique<Text>((Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "yoza", "Resources/Fonts/Yogurt Extra.ttf"));
 	

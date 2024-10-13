@@ -1,14 +1,15 @@
 #include "Warehouse.h"
 #include "Player.h"
+#include "Level.h"
 
 /*
 	Creates a Warehouse Object
 
 	@author(s) Jamuel Bocacao
 	@param Vec2f: Position of Warehouse
-	@param weak_ptr<b2World>: Scene World
 */
-Warehouse::Warehouse(Vec2f _position, std::weak_ptr<b2World> _sceneWorld)
+
+Warehouse::Warehouse(Vec2f _position)
 	: Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true),
 	m_woodAmountText(std::make_unique<Text>(_position + Vec2f(0, -20), GetWoodAmountString(), "Resources/Fonts/Yogurt Extra.ttf"))
 {
@@ -16,6 +17,7 @@ Warehouse::Warehouse(Vec2f _position, std::weak_ptr<b2World> _sceneWorld)
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128), true);
 	m_woodAmountText->SetSize(20);
 	m_woodAmountText->SetColour(sf::Color::White);
+	m_currLevel->SetFlowFieldGoal(_position - Vec2f(64, 32), _position + Vec2f(96, 64));
 }
 
 

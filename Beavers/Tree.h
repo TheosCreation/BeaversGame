@@ -3,6 +3,6 @@
 class Tree : public Object
 {
 public:
-	Tree(Vec2f _position, weak_ptr<b2World> _sceneWorld);
+	Tree(Vec2f _position);
 };
 

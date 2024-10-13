@@ -13,8 +13,8 @@ void TileMap::SetTile(Vec2u _position, shared_ptr<Tile> _tile)
         m_tiles[_position.y][_position.x] = _tile;
         if (_tile)
         {
-            _tile->SetPosition(Vec2f(m_position.x + _position.x * m_tileSize.x,
-                m_position.y + _position.y * m_tileSize.y));
+            _tile->SetPosition(Vec2f(m_position.x + _position.x * m_tileSize.x + m_tileSize.x / 2,
+                m_position.y + _position.y * m_tileSize.y + m_tileSize.y / 2));
         }
     }
 }

@@ -7,7 +7,8 @@
 class Warehouse : public Object
 {
 public:
-    Warehouse(Vec2f _position, std::weak_ptr<b2World> _sceneWorld);
+	Warehouse(Vec2f _position);
+
 
     void ChangeWoodAmount(int _iAmount);
     int GetWoodAmount() const;

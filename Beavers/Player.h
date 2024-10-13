@@ -13,8 +13,8 @@ class Sound;
 class Player : public Object
 {
 public:
-	Player(Vec2f _position, weak_ptr<b2World> _world);
-
+	Player(Vec2f _position);
+	
 	void Update(float _fDeltaTime) override;
 	void SetControlScheme(ControlScheme _scheme);
 
@@ -41,8 +41,12 @@ private:
 	std::string walkSound = "Resources/Audio/footStep.mp3";
 	std::string swingSound = "Resources/Audio/slash.mp3";
 
+	b2Fixture* m_attackZoneLeft = nullptr;
+	b2Fixture* m_attackZoneRight = nullptr;
+
 	unique_ptr<Animator> m_animator;
 	sf::Clock m_interactClock;
+	sf::Clock m_cooldownClock;
 	int m_iAnimationFrame = 0;
 	float m_fSpeed = 50.0f;
 

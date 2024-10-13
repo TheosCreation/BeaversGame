@@ -92,7 +92,7 @@ int AudioManager::GetSoundVolume()
 void AudioManager::SetMusicVolume(int _iVolume)
 {
 	m_iMusicVolume = _iVolume;
-	m_music->SetVolume(_iVolume);
+	m_music->SetVolume((float)_iVolume);
 }
 
 /*

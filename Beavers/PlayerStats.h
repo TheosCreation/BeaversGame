@@ -3,7 +3,7 @@
 struct PlayerStats {
 	int m_iDamage = 0;
 	int m_iCapacity = 0;
-	int m_iSpeed = 0;
+	int m_iSpeed = 64;
 
 	PlayerStats operator+=(PlayerStats const& other) {
 		PlayerStats newVar = other;

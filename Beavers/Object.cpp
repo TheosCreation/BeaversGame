@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "Level.h"
 
 /*
 	Initialises Object Properties
@@ -6,16 +7,15 @@
 	@author Jamuel Bocacao
 	@param Vec2f: Position of Object
 	@param string: Texture File Path
-	@param weak_ptr<b2World>: Reference to Scene's Physics World
 	@param bool: Whether Object will simulate movement
 */
-Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+Object::Object(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
 	// Create Game Object
 	SetTexture(_strTexturePath);
 
 	// Setup Physics Body
-	m_world = _sceneWorld;
+	m_world = m_currLevel->GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 
@@ -39,10 +39,10 @@ Object::Object(Vec2f _position, string _strTexturePath, weak_ptr<b2World> _scene
 	@param weak_ptr<b2World>: Reference to Scene's Physics World
 	@param bool: Whether Object will simulate movement
 */
-Object::Object(Vec2f _position, weak_ptr<b2World> _sceneWorld, bool _bIsStatic)
+Object::Object(Vec2f _position, bool _bIsStatic)
 {
 	// Setup Physics Body
-	m_world = _sceneWorld;
+	m_world = m_currLevel->GetWorld();
 	b2BodyUserData userData;
 	userData.pointer = (uintptr_t)this;
 
@@ -131,8 +131,9 @@ void Object::ApplyForce(Vec2f _force)
 	@param Vec2f: Relative Position to centre of Object where centre of collider will be
 	@param Vec2f: Size of Collider
 	@param bool: Whether Object will simulate Collisions or Overlaps
+	@return b2Fixture*: Reference to created Collider
 */
-void Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger)
+b2Fixture* Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigger)
 {
 	// Create Collider Shape
 	b2PolygonShape boxCollider;
@@ -150,7 +151,7 @@ void Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigg
 	colliderDef.density = (_bIsTrigger) ? 0.0f : 1.0f;
 	colliderDef.filter.groupIndex = 1;
 	colliderDef.isSensor = _bIsTrigger;
-	m_body->CreateFixture(&colliderDef);
+	return m_body->CreateFixture(&colliderDef);
 }
 
 /*
@@ -160,8 +161,9 @@ void Object::AddBoxCollider(Vec2f _relativePosition, Vec2f _size, bool _bIsTrigg
 	@param Vec2f: Relative Position to centre of Object where centre of collider will be
 	@param float: Radius of Circle Collider
 	@param bool: Whether Object will simulate Collisions or Overlaps
+	@return b2Fixture*: Reference to created Collider
 */
-void Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger)
+b2Fixture* Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bIsTrigger)
 {
 	// Create Collider Shape
 	b2CircleShape circleCollider;
@@ -177,7 +179,7 @@ void Object::AddCircleCollider(Vec2f _relativePosition, float _fRadius, bool _bI
 	colliderDef.density = (_bIsTrigger) ? 0.0f : 1.0f;
 	colliderDef.filter.groupIndex = 1;
 	colliderDef.isSensor = _bIsTrigger;
-	m_body->CreateFixture(&colliderDef);
+	return m_body->CreateFixture(&colliderDef);
 }
 
 /*
@@ -243,6 +245,17 @@ void Object::Render(sf::RenderTexture* _sceneBuffer)
 	m_sprite.setPosition(worldPosition);
 
 	DrawSprite(_sceneBuffer, m_sprite);
+}
+
+/*
+	Sets access to Level for all Objects
+
+	@author Jamuel Bocacao
+	@param Level*: Level Loaded
+*/
+void Object::SetCurrentLevel(Level* _level)
+{
+	m_currLevel = _level;
 }
 
 /*

@@ -35,6 +35,9 @@ public:
 	void Destroy();
 	bool MarkedForDestroy();
 
+	template <std::derived_from<GameObject> T>
+	bool IsOfType();
+
 protected:
 	static void DrawSprite(sf::RenderTexture* _sceneBuffer, sf::Sprite& _sprite);
 
@@ -42,3 +45,10 @@ protected:
 	bool m_bIsActive = true;
 	bool m_bDestroyed = false;
 };
+
+template<std::derived_from<GameObject> T>
+inline bool GameObject::IsOfType()
+{
+	T* cast = dynamic_cast<T*>(this);
+	return (cast) ? true : false;
+}

@@ -14,6 +14,7 @@ Level::Level(Vec2u _sceneSize, sf::RenderWindow* _window, bool _bUnloadPreviousS
 {
 	m_world = make_shared<b2World>(b2Vec2_zero);
 	m_world->SetContactListener(&m_listener);
+	m_flowField = make_unique<FlowField>(Vec2i(0, 0), Vec2i(60, 34), 32);
 }
 
 /*
@@ -50,7 +51,7 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 */
 weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic)
 {
-	auto object = make_shared<Object>(_position, _strTexturePath, m_world, true);
+	auto object = make_shared<Object>(_position, _strTexturePath, true);
 	AddGameObject(object);
 	return object;
 }
@@ -64,4 +65,40 @@ weak_ptr<Object> Level::AddObject(Vec2f _position, string _strTexturePath, bool 
 shared_ptr<b2World> Level::GetWorld()
 {
 	return m_world;
+}
+
+Vec2f Level::GetFlowFieldValue(Vec2f _worldPos)
+{
+	return m_flowField->GetCellValue(_worldPos);
+}
+
+void Level::SetFlowFieldGoal(Vec2f _topLeft, Vec2f _bottomRight)
+{
+	Vec2i topLeftCell = m_flowField->GetCellPos(_topLeft);
+	Vec2i btmRightCell = m_flowField->GetCellPos(_bottomRight);
+
+	vector<Vec2i> goalCells;
+
+	Vec2i diff = btmRightCell - topLeftCell;
+
+	for (int x = topLeftCell.x; x < btmRightCell.x; x++)
+	{
+		for (int y = topLeftCell.y; y < btmRightCell.y; y++)
+		{
+			goalCells.push_back(Vec2i(x, y));
+		}
+	}
+
+	m_flowField->CalculateField(goalCells);
+}
+
+void Level::Render(sf::RenderWindow* _render)
+{
+	Scene::Render(_render);
+	return;
+	m_flowField->Render(&m_sceneBuffer);
+
+	sf::Sprite buffer(m_sceneBuffer.getTexture());
+	buffer.setPosition(m_bufferDisplacement);
+	_render->draw(buffer);
 }
