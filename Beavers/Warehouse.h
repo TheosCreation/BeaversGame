@@ -17,7 +17,13 @@ public:
     void OnBeginContact(Object* _other) override;
     void Render(sf::RenderTexture* _sceneBuffer) override;
 
+    void SetLoadWinSceneEvent(shared_ptr<Event<void, void>> _loadWinSceneEvent);
+    void SetLoadLoseSceneEvent(shared_ptr<Event<void, void>> _loadLoseSceneEvent);
+
 private:
     int m_iWoodAmount = 0;
     std::unique_ptr<Text> m_woodAmountText;
+
+    shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_loadWinSceneEvent;
+    shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_loadLoseSceneEvent;
 };
