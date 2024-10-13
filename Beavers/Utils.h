@@ -25,3 +25,34 @@ typedef sf::Vector2u Vec2u;
 
 Vec2f normalize(Vec2f& _vec2);
 float Length(Vec2f& _vec2);
+
+template <typename T>
+std::string ToString(const T& value) {
+    return std::to_string(value);
+}
+
+template <>
+std::string ToString(const std::string& value) {
+    return value;
+}
+
+class Debug
+{
+public:
+    // Static methods for logging messages
+    static void Log(const string& message) {
+        PrintMessage(message, "Log");
+    };
+    static void LogError(const string& message) {
+        PrintMessage(message, "Error");
+    }
+    static void LogWarning(const string& message) {
+        PrintMessage(message, "Warning");
+    }
+
+private:
+    // Helper methods to format and print messages
+    static void PrintMessage(const string& message, const string& type) {
+        printf("[%s] %s\n", type.c_str(), message.c_str());
+    }
+};
