@@ -23,6 +23,7 @@ public:
 private:
     int m_iWoodAmount = 0;
     std::unique_ptr<Text> m_woodAmountText;
+    unique_ptr<Text> m_goalText;
 
     shared_ptr<Event<void, void>> m_loadWinSceneEvent;
     shared_ptr<Event<void, void>> m_loadLoseSceneEvent;
