@@ -31,11 +31,6 @@ std::string ToString(const T& value) {
     return std::to_string(value);
 }
 
-template <>
-std::string ToString(const std::string& value) {
-    return value;
-}
-
 class Debug
 {
 public:
