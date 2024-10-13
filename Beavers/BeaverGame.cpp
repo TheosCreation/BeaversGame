@@ -101,6 +101,8 @@ void BeaverGame::LoadLevel()
 	auto loadLoseSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadGameOver);
 	warehouseRef->SetLoadLoseSceneEvent(loadLoseSceneEvent);
 
+
+
 	// Creates a Player and adds it to the level
 	auto player = level->AddObject<Player>(Vec2f(640, 360) / 2.0f);
 	// Creates Second Player
@@ -114,9 +116,14 @@ void BeaverGame::LoadLevel()
 	player2.lock()->SetControlScheme(secondPlayerControls);
 
 	// Adds a event to the player
-	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
-	player.lock()->SetWoodAmountChangeEvent(event);
-	player2.lock()->SetWoodAmountChangeEvent(event);
+	auto addGameObjectEvent = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
+	player.lock()->SetWoodAmountChangeEvent(addGameObjectEvent);
+	player2.lock()->SetWoodAmountChangeEvent(addGameObjectEvent);
+
+	// Creates the spawner
+	auto spawner = make_shared<BeaverSpawner>(Vec2f(500, 750), level->GetWorld(), "Resources/Images/Objects/AxeShop.png");
+	level->AddGameObject(spawner);
+	spawner->SetAddGameObjectEvent(addGameObjectEvent);
 
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
@@ -129,9 +136,6 @@ void BeaverGame::LoadLevel()
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
 
-	level->AddObject<Beaver>(Vec2f(500, 500));
-	auto spawner = make_shared<BeaverSpawner>(Vec2f(1000, 1000), level->GetWorld(), "", level.get());
-	level->AddGameObject(spawner);
 
 	// Creates TileMap
 	// First vector is tilemap size second is tile size

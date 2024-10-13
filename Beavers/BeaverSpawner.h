@@ -1,6 +1,3 @@
-#ifndef BEAVERSPAWNER_H
-#define BEAVERSPAWNER_H
-
 #include "Object.h"
 #include <memory>
 #include <SFML/System/Clock.hpp>
@@ -10,16 +7,15 @@ class Level;
 
 class BeaverSpawner : public Object {
 public:
-    BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath, Level* level);
+    BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath);
     void Update(float deltaTime) override;
-    void Render(sf::RenderTexture* sceneBuffer) override;
+    void Render(sf::RenderTexture* _sceneBuffer) override;
+
+    void SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _addGameObjectEvent);
 
 private:
     void SpawnBeaver();
-    Vec2f m_position; 
     float m_spawnInterval;
     float m_timeSinceLastSpawn;
-    Level* m_level;
+    shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_addGameObjectEvent;
 };
-
-#endif // BEAVERSPAWNER_H
