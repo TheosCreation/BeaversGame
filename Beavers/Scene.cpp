@@ -64,7 +64,7 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 }
 
 /*
-	Adds an Image Object to Scene
+	Adds an Text Object to Scene
 
 	@author Theo Morris
 	@param Vec2f: Position of Text
