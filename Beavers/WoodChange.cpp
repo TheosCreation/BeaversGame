@@ -3,7 +3,7 @@
 WoodChange::WoodChange(Vec2f _spawnPosition, int _iAmount)
 {
 	m_woodItemIcon = make_unique<Image>(_spawnPosition, "Resources/Images/WoodItem.png");
-	m_woodAmountText = make_unique<Text>(_spawnPosition + Vec2f(20.0f, -2.0f), ((_iAmount > 0) ? "+" : "") + std::to_string(_iAmount), "Resources/Fonts/Yogurt Extra.ttf");
+	m_woodAmountText = make_unique<Text>(_spawnPosition + Vec2f(20.0f, -2.0f), ((_iAmount > 0) ? "+" : "") + std::to_string(_iAmount), "Resources/Fonts/AlteHaasGroteskBold.ttf");
 	m_woodAmountText->SetColour((_iAmount < 0) ? sf::Color::Red : sf::Color::Green);
 	m_woodAmountText->SetSize(12);
 	m_despawnClock.restart();

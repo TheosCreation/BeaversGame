@@ -29,10 +29,12 @@ public:
 
 	int Deposit();
 
+	void UpdateHintSystem();
+
 	void OnPlayerSwingAxe();
 	void OnPlayerWalk(bool _active);
 
-	void setHintRef(Hint* _hint);
+	void SetHintRef(Hint* _hint);
 
 	void Render(sf::RenderTexture* _sceneBuffer) override;
 
@@ -56,7 +58,7 @@ private:
 
 	bool m_bNearTree = false;
 	bool m_bInteracting = false;
-	bool m_bHintVisible = false;
+	bool m_bHintVisible = true;
 
 	bool m_bHintOnce = false;
 
@@ -70,17 +72,9 @@ private:
 
 	unique_ptr<Text> m_woodAmountText; 
 
-	enum class hintText
-	{
-		None,
-		Forest,
-		Shop,
-		Warehouse
-	};
-
 	// Variable to track the last hint displayed
-	hintText previousHint = hintText::None;
-	hintText currentHint = hintText::None;
+	HintType m_PreviousHint = HintType::None;
+	HintType m_CurrentHint = HintType::None;
 };
 
 inline PlayerStats Player::m_playerStats;

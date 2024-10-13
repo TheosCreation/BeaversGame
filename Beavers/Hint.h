@@ -5,13 +5,15 @@
 #include "Warehouse.h"
 #include "Text.h"
 
-enum class hintText
+enum class HintType
 {
+	None,
 	Forest,
 	Shop,
 	Warehouse
 };
 
+//maybe make this a wrapper to the Text class instead instead of containing all the physics stuff and also having a text member
 class Hint : public Object
 {
 public:
@@ -20,10 +22,11 @@ public:
 	void SetText(std::string _strText);
 
 	virtual void Render(sf::RenderTexture* _sceneBuffer) override;
+	virtual void SetPosition(Vec2f _newPosition) override;
 
 
 private:
-	hintText m_hintType;
+	//HintType m_hintType; //Unused remove
 
 	unique_ptr<Text> m_hintText;
 };

@@ -27,7 +27,7 @@ Player::Player(Vec2f _position) : Object(_position, false)
 
 	m_cooldownClock.restart();
 	// Initialize the wood amount text
-	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -20.0f), "Wood: 0/100", "Resources/Fonts/Yogurt Extra.ttf");
+	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -20.0f), "Wood: 0/100", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 	m_woodAmountText->SetSize(12);
 	m_woodAmountText->SetColour(sf::Color::White);
 }
@@ -163,11 +163,7 @@ void Player::Update(float _fDeltaTime)
 		}
 	}
 
-
-	// hint system - Nick
-
 	bool hintKeyIsPressed = sf::Keyboard::isKeyPressed(m_controlScheme.Hint);
-
 	// Check if the key was just pressed (transition from "not pressed" to "pressed")
 	if (hintKeyIsPressed && !hintKeyWasPressed)
 	{
@@ -175,65 +171,23 @@ void Player::Update(float _fDeltaTime)
 
 		if (m_bHintVisible)
 		{
-			//std::cout << "Hint visible" << std::endl;
-			m_HintRef->SetText("Hint visible");
+			Debug::Log("Hint visible");
 		}
 		else
 		{
-			//std::cout << "Hint hidden" << std::endl;
+			Debug::Log("Hint hidden");
 			m_HintRef->SetText("");
-			previousHint = hintText::None; // Reset when hint is hidden
+			m_PreviousHint = HintType::None; // Reset when hint is hidden
 		}
 	}
+	// Update the previous state
+	hintKeyWasPressed = hintKeyIsPressed;
 
 	// Update the hint content only if the hint is visible
 	if (m_bHintVisible)
 	{
-		// Determine the current location
-		if (m_bNearTree)
-		{
-			currentHint = hintText::Forest;
-		}
-		else if (m_shopRef)
-		{
-			currentHint = hintText::Shop;
-		}
-		else
-		{
-			currentHint = hintText::None;
-		}
-
-		// Display the hint only if the player moves to a new location
-		if (currentHint != previousHint)
-		{
-			previousHint = currentHint;
-
-			if (currentHint == hintText::Forest)
-			{
-				//std::cout << "Forest: Press F near to gather wood" << std::endl;
-				m_HintRef->SetText("Forest: Press F near to gather wood");
-			}
-			else if (currentHint == hintText::Shop)
-			{
-				//std::cout << "Shop: Press F near to buy upgrades" << std::endl;
-				//std::cout << "Upgrade 1 - Increases movement speed" << std::endl;
-				//std::cout << "Upgrade 2 - Increases Swing speed" << std::endl;
-				//std::cout << "Upgrade 3 - Increases carrying capacity" << std::endl;
-				//std::cout << " Current cost: " << m_shopRef->GetCost() << std::endl;
-				m_HintRef->SetText("Shop: Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost: " + std::to_string(m_shopRef->GetCost()));
-			}
-			else
-			{
-				//std::cout << "No hints available" << std::endl;
-				m_HintRef->SetText("No hints available");
-			}
-		}
+		UpdateHintSystem();
 	}
-
-	// Update the previous state
-	hintKeyWasPressed = hintKeyIsPressed;
-
-
 }
 
 /*
@@ -316,10 +270,65 @@ int Player::Deposit()
 	return iDepositAmount;
 }
 
+/*
+	Updates the hint system
+
+	@author Theo Morris and Nick
+*/
+void Player::UpdateHintSystem()
+{
+	m_HintRef->SetPosition(GetPosition() + Vec2f(0, 25));
+	// Determine the current location
+	if (m_bNearTree)
+	{
+		m_CurrentHint = HintType::Forest;
+	}
+	else if (m_shopRef)
+	{
+		m_CurrentHint = HintType::Shop;
+	}
+	else
+	{
+		m_CurrentHint = HintType::None;
+	}
+
+	// Display the hint only if the player moves to a new location
+	if (m_CurrentHint != m_PreviousHint)
+	{
+		m_PreviousHint = m_CurrentHint;
+
+		if (m_CurrentHint == HintType::Forest)
+		{
+			m_HintRef->SetText("Press F near to gather wood");
+		}
+		else if (m_CurrentHint == HintType::Shop)
+		{
+			m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost: " + std::to_string(m_shopRef->GetCost()));
+		}
+		else
+		{
+			//std::cout << "No hints available" << std::endl;
+			m_HintRef->SetText(""); //Hides the hint
+		}
+	}
+}
+
+/*
+	Event function when the player uses their axe
+
+	@author Theo Morris and Kazuo RDA
+*/
 void Player::OnPlayerSwingAxe()
 {
 	AudioManager::GetInstance().PlaySound(swingSound, sf::Vector3f(), sf::seconds(0), 1.0f,1.2f);
 }
+
+/*
+	Event function when the player moves
+
+	@author Theo Morris and Kazuo RDA
+	@param bool: Is player walking?
+*/
 void Player::OnPlayerWalk(bool _active)
 {
 	// make this work with two players walking maybe if needed
@@ -336,11 +345,23 @@ void Player::OnPlayerWalk(bool _active)
 	//}
 }
 
+/*
+	Sets the reference to the hint attached to the player
 
-void Player::setHintRef(Hint* _hint)
+	@author Theo Morris and Nick
+	@param Hint*: Hint reference
+*/
+void Player::SetHintRef(Hint* _hint)
 {
-		m_HintRef = _hint;
+	m_HintRef = _hint;
 }
+
+/*
+	Renders Player to Scene View Buffer and the wood text above the player
+
+	@author Jamuel Bocacao, Theo Morris and George
+	@param sf::RenderTexture*: Scene View Buffer
+*/
 void Player::Render(sf::RenderTexture* _sceneBuffer)
 {
 	// Render the player's sprite

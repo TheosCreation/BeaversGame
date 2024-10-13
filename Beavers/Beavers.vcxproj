@@ -124,6 +124,7 @@
     <ClCompile Include="WoodChange.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="All.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Beaver.h" />

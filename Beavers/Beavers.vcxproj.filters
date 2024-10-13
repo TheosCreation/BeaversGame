@@ -93,6 +93,9 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Code Files\Game Engine\Miscellaneous</Filter>
     </ClCompile>
+    <ClCompile Include="BeaverSpawner.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -310,5 +313,11 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Code Files\Beaver Project\Game Objects\Player\Player</Filter>
     </ClInclude>
+    <ClInclude Include="BeaverSpawner.h" />
+    <ClInclude Include="Hint.h" />
+    <ClInclude Include="PerlinNoise.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="All.h" />
   </ItemGroup>
 </Project>
