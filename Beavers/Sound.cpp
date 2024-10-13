@@ -79,16 +79,27 @@ void Sound::RandomizePitch(float min, float max)
 	m_sound.setPitch(distr(eng));
 }
 
+void Sound::LoopSound(sf::Vector3f _location, sf::Time _offset)
+{
+	if(!m_sound.Playing){ 
+		m_sound.setPosition(_location);
+		m_sound.setLoop(true); // Enable looping
+		m_sound.play();
+		m_sound.setPlayingOffset(_offset);
+	}
+}
+
+// Ensure Stop method stops the looping sound
 /*
 	Stops Sound Playing
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao + Kazuo RDA
 */
 void Sound::Stop()
 {
 	m_sound.stop();
+	m_sound.setLoop(false); 
 }
-
 /*
 	Whether Sound is loaded
 

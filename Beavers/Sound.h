@@ -11,6 +11,7 @@ public:
 	~Sound();
 
 	void PlaySound(sf::Vector3f _location, sf::Time _offset);
+	void LoopSound(sf::Vector3f _location, sf::Time _offset);
 	void SetVolume(float _fVolume);
 	void RandomizePitch(float min = 0, float max = 2);
 	void Pause();

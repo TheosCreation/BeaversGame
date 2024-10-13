@@ -73,8 +73,10 @@ void Player::Update(float _fDeltaTime)
 		}
 		if (displacement != Vector2f(0, 0))
 		{
-			OnPlayerWalk();
-			
+			OnPlayerWalk(true);
+		}
+		else {
+			OnPlayerWalk(false);
 		}
 		float length = sqrt(powf(displacement.x, 2.0f) + powf(displacement.y, 2.0f));
 		if (length > 0)
@@ -97,6 +99,7 @@ void Player::Update(float _fDeltaTime)
 			m_cooldownClock.restart();
 			if (m_shopRef)
 			{
+				std::cout << m_playerStats.m_iDamage << std::endl;
 				m_shopRef->ApplyItem(m_playerStats);
 			}
 			// Atack Action
@@ -125,7 +128,7 @@ void Player::Update(float _fDeltaTime)
 						else if (contactObject->IsOfType<Beaver>(&beaver))
 						{
 							printf("Damage");
-							beaver->Damage(10);
+							beaver->Damage(m_playerStats.m_iDamage);
 						}
 					}
 
@@ -317,10 +320,14 @@ void Player::OnPlayerSwingAxe()
 {
 	AudioManager::GetInstance().PlaySound(swingSound, sf::Vector3f(), sf::seconds(0), 1.0f,1.2f);
 }
-void Player::OnPlayerWalk()
+void Player::OnPlayerWalk(bool _active)
 {
-
-	AudioManager::GetInstance().PlaySound(walkSound, sf::Vector3f(), sf::seconds(0), 1.0f, 1.5f);
+	if (_active) {
+		AudioManager::GetInstance().PlaySound(walkSound, sf::Vector3f(), sf::seconds(0), 1.0f, 1.5f);
+	}
+	else {
+		AudioManager::GetInstance().StopSounds();
+	}
 }
 
 

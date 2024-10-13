@@ -45,6 +45,26 @@ void AudioManager::PlaySound(string _strSoundPath, sf::Vector3f _position, sf::T
 	m_sounds.at(soundID)->PlaySound(_position, _offset);
 }
 
+void AudioManager::LoopSound(string _strSoundPath, sf::Vector3f _position, sf::Time _offset)
+{
+	std::hash<string> hashGenerator;
+	size_t soundID = hashGenerator(_strSoundPath);
+
+	if (!m_sounds.contains(soundID))
+	{
+		auto sound = make_shared<Sound>(_strSoundPath, float(m_iSoundVolume));
+
+		if (sound->isValid())
+		{ 
+			m_sounds.emplace(soundID, sound);
+			sound->LoopSound(_position, _offset); 
+			return;
+		}
+	}
+
+	m_sounds.at(soundID)->LoopSound(_position, _offset); 
+}
+
 /*
 	Plays Music based on on File Path
 

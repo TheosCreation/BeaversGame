@@ -37,6 +37,7 @@ void BeaverGame::LoadMenu()
 	auto quitEvent = make_shared<Event<void, void>>(this, &BeaverGame::Quit);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
 
+
 	//Starts playing the music for the menus
 	AudioManager::GetInstance().PlayMusic("Resources/Music/Menu Music.ogg", sf::seconds(2.05f));
 

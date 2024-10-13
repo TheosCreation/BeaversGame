@@ -30,7 +30,7 @@ public:
 	int Deposit();
 
 	void OnPlayerSwingAxe();
-	void OnPlayerWalk();
+	void OnPlayerWalk(bool _active);
 
 	void setHintRef(Hint* _hint);
 
