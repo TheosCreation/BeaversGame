@@ -67,7 +67,7 @@ void Sound::Pause()
 }
 void Sound::RandomizePitch(float min, float max)
 {
-	if (min >= max) {
+	if (min > max) {
 		throw std::invalid_argument("min should be less than max");
 	}
 	std::random_device rd;  // Obtain a random number from hardware
