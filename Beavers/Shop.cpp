@@ -9,7 +9,8 @@
 	@author(s) Jamuel Bocacao and George Mitchell
 	@param Vec2f: Position of Shop
 */
-Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage) : Object(_position, _spriteImage, true)
+
+Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _shopType) : Object(_position, _spriteImage, true)
 {
 	m_WarehouseRef = m_currLevel->GetObjectOfType<Warehouse>().lock().get();
 	//m_statUI = make_unique<Image>(_position + Vec2f(0,0), "");
@@ -17,10 +18,31 @@ Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage) : Object(_p
 
 	m_iCost = _baseCost;
 
-	m_costText = make_unique<Text>(Vec2f(_position.x - 25, _position.y - 40) + Vec2f(20.0f, -2.0f), std::to_string(m_iCost), "Resources/Fonts/Yogurt Extra.ttf");
+	m_costText = make_unique<Text>(Vec2f(_position.x - 25, _position.y - 40) + Vec2f(20.0f, -60.0f), std::to_string(m_iCost), "Resources/Fonts/Yogurt Extra.ttf");
 
 	AddBoxCollider(Vec2f(0, 0), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y));
 	AddBoxCollider(Vec2f(0, m_sprite.getTexture()->getSize().y), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y), true);
+
+	switch (_shopType)
+	{
+	case Type_Weapon:
+		m_statUpgrade.m_iDamage = 10;
+		m_statUpgrade.m_iCapacity = 0;
+		m_statUpgrade.m_iSpeed = 0;
+		break;
+	case Type_Speed:
+		m_statUpgrade.m_iDamage = 0;
+		m_statUpgrade.m_iCapacity = 0;
+		m_statUpgrade.m_iSpeed = 12;
+		break;
+	case Type_Bag:
+		m_statUpgrade.m_iDamage = 0;
+		m_statUpgrade.m_iCapacity = 100;
+		m_statUpgrade.m_iSpeed = 0;
+		break;
+	default:
+		break;
+	}
 }
 
 /*
@@ -51,8 +73,6 @@ void Shop::ApplyItem(PlayerStats& _playerStats)
 {
 	if(m_WarehouseRef->GetWoodAmount() >= GetCost())
 	{
-		std::cout << "We buyin" << std::endl;
-
 		_playerStats += m_statUpgrade;
 		m_WarehouseRef->ChangeWoodAmount(-m_iCost);
 		std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
