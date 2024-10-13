@@ -10,7 +10,7 @@
 */
 
 Warehouse::Warehouse(Vec2f _position)
-	: Object(_position, "Resources/Objects/Warehouse.png", _sceneWorld, true),
+	: Object(_position, "Resources/Objects/Warehouse.png", true),
 	m_woodAmountText(std::make_unique<Text>(_position + Vec2f(0, -20), GetWoodAmountString(), "Resources/Fonts/Yogurt Extra.ttf"))
 {
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128));
