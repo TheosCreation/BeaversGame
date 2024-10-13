@@ -18,6 +18,8 @@ Warehouse::Warehouse(Vec2f _position)
 	m_woodAmountText->SetSize(20);
 	m_woodAmountText->SetColour(sf::Color::White);
 	m_currLevel->SetFlowFieldGoal(_position - Vec2f(64, 32), _position + Vec2f(96, 64));
+
+	m_goalText = make_unique<Text>(Vec2f(0, 0) + Vec2f(0.0f, 0.0f), "Testing Testing Testing Testing", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 }
 
 
@@ -72,12 +74,15 @@ void Warehouse::OnBeginContact(Object* _other)
 	{
 		// Deposit Wood if it is a Player
 		ChangeWoodAmount(player->Deposit());
+
 	}
 }
 void Warehouse::Render(sf::RenderTexture* _sceneBuffer)
 {
 	Object::Render(_sceneBuffer);
 	m_woodAmountText->Render(_sceneBuffer);
+	m_goalText = make_unique<Text>(Vec2f(0,0) + Vec2f(250.0f, 30.0f), "Goal : " + std::to_string(m_iWoodAmount) + " / 1,000,000", "Resources/Fonts/AlteHaasGroteskBold.ttf");
+	m_goalText->Render(_sceneBuffer);
 }
 
 /*
