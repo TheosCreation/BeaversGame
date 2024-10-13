@@ -23,4 +23,5 @@ typedef sf::Vector2f Vec2f;
 typedef sf::Vector2i Vec2i;
 typedef sf::Vector2u Vec2u;
 
-Vec2f normalize(Vec2f& _vec2f);
+Vec2f normalize(Vec2f& _vec2);
+float Length(Vec2f& _vec2);

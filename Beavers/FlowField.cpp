@@ -198,21 +198,21 @@ void FlowField::CalculateField(vector<Vec2i>& _startPositions)
 	}
 }
 
-/*
+
 void FlowField::Render(sf::RenderTexture* _texture)
 {
 	sf::ConvexShape shape;
 	shape.setPointCount(7);
-	shape.setPoint(0, Vec2f(32, 0));
-	shape.setPoint(1, Vec2f(64, 32));
-	shape.setPoint(2, Vec2f(32, 64));
-	shape.setPoint(3, Vec2f(32, 44));
-	shape.setPoint(4, Vec2f(0, 44));
-	shape.setPoint(5, Vec2f(0, 20));
-	shape.setPoint(6, Vec2f(32, 20));
+	shape.setPoint(0, Vec2f(16, 0));
+	shape.setPoint(1, Vec2f(32, 16));
+	shape.setPoint(2, Vec2f(16, 32));
+	shape.setPoint(3, Vec2f(16, 22));
+	shape.setPoint(4, Vec2f(0, 22));
+	shape.setPoint(5, Vec2f(0, 10));
+	shape.setPoint(6, Vec2f(16, 10));
 	
 	shape.setFillColor(sf::Color::White);
-	shape.setOrigin(32.0f, 32.0f);
+	shape.setOrigin(16.0f, 16.0f);
 	for (int i = 0; i < m_size.y; i++)
 	{
 		for (int j = 0; j < m_size.x; j++)
@@ -221,10 +221,10 @@ void FlowField::Render(sf::RenderTexture* _texture)
 			if (dir == Vec2f(0, 0))
 			{
 				sf::RectangleShape rect;
-				rect.setSize(Vec2f(64.0f, 64.0f));
-				rect.setOrigin(32, 32);
+				rect.setSize(Vec2f(32.0f, 32.0f));
+				rect.setOrigin(16, 16);
 				rect.setFillColor(sf::Color::Red);
-				rect.setPosition(Vec2f(j * 64.0f + 32, i * 64.0f + 32));
+				rect.setPosition(Vec2f(j * 32.0f + 16, i * 32.0f + 16));
 				_texture->draw(rect);
 				_texture->display();
 				continue;
@@ -234,14 +234,13 @@ void FlowField::Render(sf::RenderTexture* _texture)
 			
 			
 			shape.setRotation(angle);
-			shape.setPosition(Vec2f(j * 64.0f + 32, i * 64.0f + 32));
+			shape.setPosition(Vec2f(j * 32.0f + 16, i * 32.0f + 16));
 
 			_texture->draw(shape);
 			_texture->display();
 		}
 	}
 }
-*/
 
 
 bool FlowField::IsWalkable(Vec2i _gridPos)

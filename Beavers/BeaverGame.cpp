@@ -67,12 +67,21 @@ void BeaverGame::LoadLevel()
 	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();
 
 	// Creates a Player and adds it to the level
-	auto player = make_shared<Player>(Vec2f(640, 360) / 2.0f);
-	level->AddGameObject(player);
+	auto player = level->AddObject<Player>(Vec2f(640, 360) / 2.0f);
+	// Creates Second Player
+	ControlScheme secondPlayerControls;
+	secondPlayerControls.Left = sf::Keyboard::Left;
+	secondPlayerControls.Up = sf::Keyboard::Up;
+	secondPlayerControls.Down = sf::Keyboard::Down;
+	secondPlayerControls.Right = sf::Keyboard::Right;
+	secondPlayerControls.Interact = sf::Keyboard::RShift;
+	auto player2 = level->AddObject<Player>(Vec2f(780, 360) / 2.0f);
+	player2.lock()->SetControlScheme(secondPlayerControls);
 
 	// Adds a event to the player
 	auto event = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
-	player->SetWoodAmountChangeEvent(event);
+	player.lock()->SetWoodAmountChangeEvent(event);
+	player2.lock()->SetWoodAmountChangeEvent(event);
 
 	level->AddObject<Tree>(Vec2f(150, 150));
 	

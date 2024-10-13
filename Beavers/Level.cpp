@@ -77,13 +77,13 @@ void Level::SetFlowFieldGoal(Vec2f _topLeft, Vec2f _bottomRight)
 	Vec2i topLeftCell = m_flowField->GetCellPos(_topLeft);
 	Vec2i btmRightCell = m_flowField->GetCellPos(_bottomRight);
 
-	printf("%i, %i", topLeftCell.x, topLeftCell.y);
-
 	vector<Vec2i> goalCells;
+
+	Vec2i diff = btmRightCell - topLeftCell;
 
 	for (int x = topLeftCell.x; x < btmRightCell.x; x++)
 	{
-		for (int y = topLeftCell.x; y < btmRightCell.y; y++)
+		for (int y = topLeftCell.y; y < btmRightCell.y; y++)
 		{
 			goalCells.push_back(Vec2i(x, y));
 		}
@@ -95,4 +95,10 @@ void Level::SetFlowFieldGoal(Vec2f _topLeft, Vec2f _bottomRight)
 void Level::Render(sf::RenderWindow* _render)
 {
 	Scene::Render(_render);
+	return;
+	m_flowField->Render(&m_sceneBuffer);
+
+	sf::Sprite buffer(m_sceneBuffer.getTexture());
+	buffer.setPosition(m_bufferDisplacement);
+	_render->draw(buffer);
 }

@@ -13,7 +13,7 @@ Warehouse::Warehouse(Vec2f _position) : Object(_position, "Resources/Objects/War
 	AddBoxCollider(Vec2f(0.0f, 20.0f), Vec2f(128, 24));
 	AddBoxCollider(Vec2f(0.0f, 47.0f), Vec2f(128, 30), true);
 
-	m_currLevel->SetFlowFieldGoal(_position - Vec2f(32, 0), _position + Vec2f(32, 32));
+	m_currLevel->SetFlowFieldGoal(_position - Vec2f(64, 32), _position + Vec2f(96, 64));
 }
 
 /*

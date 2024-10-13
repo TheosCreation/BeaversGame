@@ -10,13 +10,21 @@
 */
 Beaver::Beaver(Vec2f _position) : Object(_position, false)
 {
+	SetDrawRect(sf::IntRect(0, 0, 907, 505));
 	m_animator = make_unique<Animator>(&m_sprite);
+
+	AddBoxCollider(Vec2f(0, 0), Vec2f(40, 50));
+	AddCircleCollider(Vec2f(0, 0), 26.0f, true);
+
+	m_sprite.setScale(0.1f, 0.1f);
 
 	m_animator->AddState("Walk", "Resources/Images/Entities/Beaver/Walk.png", 8, 8);
 	m_animator->AddState("HitStanding", "Resources/Images/Entities/Beaver/HitStanding.png", 6, 8);
 	m_animator->AddState("DieStanding", "Resources/Images/Entities/Beaver/DieStanding.png", 5, 8);
 	m_animator->AddState("Attack", "Resources/Images/Entities/Beaver/Attack.png", 8, 8);
 	m_animator->AddState("Stand", "Resources/Images/Entities/Beaver/GroundToStand.png", 5, 8);
+
+	m_woodClock.restart();
 }
 
 /*
@@ -48,6 +56,21 @@ void Beaver::OnEndContact(Object* _otherObject)
 }
 
 /*
+	Applies Damage to Beaver's Health
+
+	@author Jamuel Bocacao
+	@param int: Value of Damage done to Beaver
+*/
+void Beaver::Damage(int _iDamage)
+{
+	m_iHealth -= _iDamage;
+	if (m_iHealth <= 0)
+	{
+		Destroy();
+	}
+}
+
+/*
 	Handles Updating Beaver
 
 	@author(s) Jamuel Bocacao
@@ -60,7 +83,7 @@ void Beaver::Update(float _fDeltaTime)
 	if (m_warehouse)
 	{
 		// Removes Wood from Warehouse after a certain Period
-		if (m_woodClock.getElapsedTime().asSeconds() > 5.0f)
+		if (m_woodClock.getElapsedTime().asSeconds() > 1.0f)
 		{
 			m_woodClock.restart();
 			m_warehouse->ChangeWoodAmount(-1);
@@ -69,7 +92,12 @@ void Beaver::Update(float _fDeltaTime)
 	}
 	else
 	{
-		AddPosition(m_currLevel->GetFlowFieldValue(m_sprite.getPosition()) * _fDeltaTime * 300.0f);
+		auto cellValue = m_currLevel->GetFlowFieldValue(m_sprite.getPosition());
+		if (Length(cellValue) > 0)
+		{
+			m_velocity = cellValue;
+		}
+		AddPosition(m_velocity * _fDeltaTime * 64.0f);
 		m_animator->ChangeState("Walk");
 	}
 }

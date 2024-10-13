@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Warehouse.h"
 #include "WoodChange.h"
+#include "Beaver.h"
 #include "Tree.h"
 #include <iostream>
 #include "Level.h"
@@ -99,11 +100,17 @@ void Player::Update(float _fDeltaTime)
 					{
 						// Check if other other Contact Object is an attackable Object
 						Object* contactObject = (Object*)contact->contact->GetFixtureB()->GetBody()->GetUserData().pointer;
+						Beaver* beaver;
 						if (contactObject->IsOfType<Tree>())
 						{
 							ExecuteWoodAmountChangeEvent(10);
 							m_iWoodAmount += 10;
 							break;
+						}
+						else if (contactObject->IsOfType<Beaver>(&beaver))
+						{
+							printf("Damage");
+							beaver->Damage(10);
 						}
 					}
 

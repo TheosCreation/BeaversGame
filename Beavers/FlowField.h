@@ -16,6 +16,8 @@ public:
 
 	void CalculateField(vector<Vec2i>& _startPositions);
 
+	void Render(sf::RenderTexture* _render);
+
 private:
 	bool IsWalkable(Vec2i _gridPos);
 	bool IsValid(Vec2i _gridPos);

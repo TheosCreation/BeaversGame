@@ -255,7 +255,6 @@ void Object::Render(sf::RenderTexture* _sceneBuffer)
 */
 void Object::SetCurrentLevel(Level* _level)
 {
-	printf("Test");
 	m_currLevel = _level;
 }
 
