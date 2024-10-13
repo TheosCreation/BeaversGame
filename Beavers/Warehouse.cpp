@@ -31,6 +31,16 @@ void Warehouse::ChangeWoodAmount(int _iAmount)
 { 
 	m_iWoodAmount += _iAmount;
 	m_woodAmountText->SetText(GetWoodAmountString());
+
+	if (m_iWoodAmount > 1000000)
+	{
+		//Win the game
+		
+	}
+	else if(m_iWoodAmount <= 0)
+	{
+		//Lose the game
+	}
 }
 std::string Warehouse::GetWoodAmountString() const {
 	return "Wood: " + std::to_string(m_iWoodAmount);
@@ -67,4 +77,10 @@ void Warehouse::Render(sf::RenderTexture* _sceneBuffer)
 {
 	Object::Render(_sceneBuffer);
 	m_woodAmountText->Render(_sceneBuffer);
+}
+
+void Warehouse::SetLoadWinSceneEvent(shared_ptr<Event<void, void>> _woodAmountChangeEvent)
+{
+	int a = 10;
+	Debug::Log(ToString(a));
 }

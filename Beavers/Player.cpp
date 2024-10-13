@@ -44,7 +44,7 @@ void Player::Update(float _fDeltaTime)
 	m_animator->Update();
 
 	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -20.0f));
-	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_iInventorySize));
+	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_iCapacity));
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
@@ -120,7 +120,7 @@ void Player::Update(float _fDeltaTime)
 						Beaver* beaver;
 						if (contactObject->IsOfType<Tree>())
 						{
-							int actualGain = std::min(m_iWoodPerSwing, m_iInventorySize - m_iWoodAmount);
+							int actualGain = std::min(m_playerStats.m_iDamage, m_playerStats.m_iCapacity - m_iWoodAmount);
 							m_iWoodAmount += actualGain;
 							ExecuteWoodAmountChangeEvent(actualGain);
 							break;
@@ -210,22 +210,22 @@ void Player::Update(float _fDeltaTime)
 
 			if (currentHint == hintText::Forest)
 			{
-				std::cout << "Forest: Press F near to gather wood" << std::endl;
+				//std::cout << "Forest: Press F near to gather wood" << std::endl;
 				m_HintRef->SetText("Forest: Press F near to gather wood");
 			}
 			else if (currentHint == hintText::Shop)
 			{
-				std::cout << "Shop: Press F near to buy upgrades" << std::endl;
-				std::cout << "Upgrade 1 - Increases movement speed" << std::endl;
-				std::cout << "Upgrade 2 - Increases Swing speed" << std::endl;
-				std::cout << "Upgrade 3 - Increases carrying capacity" << std::endl;
-				std::cout << " Current cost: " << m_shopRef->GetCost() << std::endl;
+				//std::cout << "Shop: Press F near to buy upgrades" << std::endl;
+				//std::cout << "Upgrade 1 - Increases movement speed" << std::endl;
+				//std::cout << "Upgrade 2 - Increases Swing speed" << std::endl;
+				//std::cout << "Upgrade 3 - Increases carrying capacity" << std::endl;
+				//std::cout << " Current cost: " << m_shopRef->GetCost() << std::endl;
 				m_HintRef->SetText("Shop: Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost: " + std::to_string(m_shopRef->GetCost()));
 			}
 			else
 			{
-				std::cout << "No hints available" << std::endl;
-				m_HintRef->SetText(" ");
+				//std::cout << "No hints available" << std::endl;
+				m_HintRef->SetText("No hints available");
 			}
 		}
 	}

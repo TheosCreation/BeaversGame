@@ -68,8 +68,6 @@ private:
 
 	Hint* m_HintRef = nullptr;
 
-	int m_iInventorySize = 100;
-	int m_iWoodPerSwing = 10;
 	unique_ptr<Text> m_woodAmountText; 
 
 	enum class hintText

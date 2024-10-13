@@ -5,10 +5,17 @@
 #include "Warehouse.h"
 #include "Text.h"
 
+enum ShopType
+{
+	Type_Weapon,
+	Type_Speed,
+	Type_Bag
+};
+
 class Shop : public Object
 {
 public:
-	Shop(Vec2f _position, int _baseCost, std::string _spriteImage);
+	Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _shopType);
 
 	void SetItem(PlayerStats _playerStats);
 	void SetCost(int _iCost);

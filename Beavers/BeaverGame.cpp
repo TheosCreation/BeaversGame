@@ -9,6 +9,7 @@
 #include "TileMap.h"
 #include "Hint.h"
 #include "PerlinNoise.h"
+#include "Shop.h"
 #include <iostream>
 #include "BeaverSpawner.h"
 /*
@@ -109,12 +110,14 @@ void BeaverGame::LoadLevel()
 	player.lock()->SetWoodAmountChangeEvent(event);
 	player2.lock()->SetWoodAmountChangeEvent(event);
 
+	auto loadWinSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadWinGame);
+	auto event = make_shared<Event<void>>((Scene*)level.get(), &Scene::LoadWinGame);
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
 	// Creates Shop(s)
-	auto shop1 = make_shared<Shop>(Vec2f(90, 50), 1, "Resources/Images/Objects/AxeShop.png");
-	auto shop2 = make_shared<Shop>(Vec2f(38, 50), 1, "Resources/Images/Objects/BootShop.png");
-	auto shop3 = make_shared<Shop>(Vec2f(142, 50), 1, "Resources/Images/Objects/BagShop.png");
+	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 1, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
+	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 1, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
+	auto shop3 = make_shared<Shop>(Vec2f(1550, 150), 1, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
 
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
@@ -147,7 +150,12 @@ void BeaverGame::LoadLevel()
 		}
 	}
 	// going to make a hint class that inherits from text so this can update
-	level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here", 12);
+	//level->AddText(Vec2f(640, 360) / 2.0f + Vec2f(0.0f, 150.0f), "Hints down here", 12);
+
+	Hint* Hintref = level->AddObject<Hint>(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f)).lock().get();
+
+	player.lock()->setHintRef(Hintref);
+	player2.lock()->setHintRef(Hintref);
 
 	SetScene(level);
 }
