@@ -92,6 +92,14 @@ void BeaverGame::LoadLevel()
 	// Creates Warehouse
 	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();
 
+	// Creates and sets the win scene event
+	auto loadWinSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadWinGame); 
+	warehouseRef->SetLoadWinSceneEvent(loadWinSceneEvent);
+
+	// Creates and sets the lose scene event
+	auto loadLoseSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadGameOver);
+	warehouseRef->SetLoadLoseSceneEvent(loadLoseSceneEvent);
+
 	// Creates a Player and adds it to the level
 	auto player = level->AddObject<Player>(Vec2f(640, 360) / 2.0f);
 	// Creates Second Player
@@ -109,8 +117,6 @@ void BeaverGame::LoadLevel()
 	player.lock()->SetWoodAmountChangeEvent(event);
 	player2.lock()->SetWoodAmountChangeEvent(event);
 
-	auto loadWinSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadWinGame);
-	auto event = make_shared<Event<void>>((Scene*)level.get(), &Scene::LoadWinGame);
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
 	// Creates Shop(s)
@@ -140,7 +146,7 @@ void BeaverGame::LoadLevel()
 	{
 		for (int j = 0; j < (1080 / 32) + 1; j++)
 		{
-			float noiseValue = perlin.noise(i * scale, j * scale, 0.0f);
+			float noiseValue = float(perlin.noise(i * scale, j * scale, 0.0f));
 			string texturePath = (noiseValue < 0.0) ? "Resources/Images/Tiles/grass.png" : "Resources/Images/Tiles/dirt.png";
 			auto tile = make_shared<Tile>(texturePath);
 			tileMap->SetTile(Vec2u(i, j), tile);
