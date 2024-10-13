@@ -16,6 +16,7 @@ public:
 	void RandomizePitch(float min = 0, float max = 2);
 	void Pause();
 	void Stop();
+	bool IsPlaying();
 
 	bool isValid();
 

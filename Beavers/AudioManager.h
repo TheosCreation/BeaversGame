@@ -18,6 +18,9 @@ public:
 	void SetMusicVolume(int _iVolume);
 	int GetMusicVolume();
 
+	bool IsSoundPlaying(string _strSoundPath);
+
+	void StopSound(string _strSoundPath);
 	void StopSounds();
 	void StopAll();
 

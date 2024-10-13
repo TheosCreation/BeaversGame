@@ -81,7 +81,7 @@ void Sound::RandomizePitch(float min, float max)
 
 void Sound::LoopSound(sf::Vector3f _location, sf::Time _offset)
 {
-	if(!m_sound.Playing){ 
+	if(!IsPlaying()){
 		m_sound.setPosition(_location);
 		m_sound.setLoop(true); // Enable looping
 		m_sound.play();
@@ -100,6 +100,18 @@ void Sound::Stop()
 	m_sound.stop();
 	m_sound.setLoop(false); 
 }
+
+/*
+	Checks to see if the sound is playing
+
+	@author Theo Morris
+	@return bool: Sound is playing
+*/
+bool Sound::IsPlaying()
+{
+	return m_sound.getStatus() == sf::SoundSource::Playing;
+}
+
 /*
 	Whether Sound is loaded
 
