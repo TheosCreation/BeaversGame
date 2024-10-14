@@ -20,8 +20,8 @@ Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _s
 
 	m_costText = make_unique<Text>(Vec2f(_position.x - 25, _position.y - 40) + Vec2f(20.0f, -60.0f), std::to_string(m_iCost), "Resources/Fonts/AlteHaasGroteskBold.ttf");
 
-	AddBoxCollider(Vec2f(0, 0), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y));
-	AddBoxCollider(Vec2f(0, m_sprite.getTexture()->getSize().y), Vec2f(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y), true);
+	AddBoxCollider(Vec2f(0, 0), Vec2f((float)m_sprite.getTexture()->getSize().x, (float)m_sprite.getTexture()->getSize().y));
+	AddBoxCollider(Vec2f(0, (float)m_sprite.getTexture()->getSize().y), Vec2f((float)m_sprite.getTexture()->getSize().x, (float)m_sprite.getTexture()->getSize().y), true);
 
 	switch (_shopType)
 	{
