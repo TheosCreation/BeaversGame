@@ -110,7 +110,7 @@ void BeaverGame::LoadLevel()
 	player2.lock()->SetWoodAmountChangeEvent(addGameObjectEvent);
 
 	// Creates the spawner
-	auto spawner = make_shared<BeaverSpawner>(Vec2f(500, 750), level->GetWorld(), "Resources/Images/Objects/AxeShop.png");
+	auto spawner = make_shared<BeaverSpawner>(Vec2f(500, 750), level->GetWorld(), "Resources/Images/Objects/Dam.png");
 	level->AddGameObject(spawner);
 	spawner->SetAddGameObjectEvent(addGameObjectEvent);
 
