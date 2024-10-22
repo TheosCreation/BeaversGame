@@ -101,6 +101,7 @@ void BeaverGame::LoadLevel()
 	secondPlayerControls.Down = sf::Keyboard::Down;
 	secondPlayerControls.Right = sf::Keyboard::Right;
 	secondPlayerControls.Interact = sf::Keyboard::RShift;
+	secondPlayerControls.Pause = sf::Keyboard::Unknown; // Please review this is to prevent player 2 from receiving input and then unpausing right after pause through player 1
 	auto player2 = level->AddObject<Player>(Vec2f(780, 360) / 2.0f);
 	player2.lock()->SetControlScheme(secondPlayerControls);
 

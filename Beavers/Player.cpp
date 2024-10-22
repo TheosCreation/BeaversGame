@@ -5,6 +5,7 @@
 #include "Tree.h"
 #include <iostream>
 #include "Level.h"
+#include "PauseManager.h"
 
 /*
 	Creates a Player's
@@ -188,6 +189,17 @@ void Player::Update(float _fDeltaTime)
 	{
 		UpdateHintSystem();
 	}
+
+	bool pauseKeyIsPressed = sf::Keyboard::isKeyPressed(m_controlScheme.Pause);
+	// Check if the key was just pressed (transition from "not pressed" to "pressed")
+	if (pauseKeyIsPressed && !pauseKeyWasPressed)
+	{
+		Debug::Log("Input");
+		PauseManager::GetInstance().TogglePaused();
+	}
+
+	// Update the previous state
+	pauseKeyWasPressed = pauseKeyIsPressed;
 }
 
 /*

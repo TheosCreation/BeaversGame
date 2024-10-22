@@ -13,6 +13,8 @@ public:
 	virtual void SetScene(shared_ptr<Scene> _scene) final;
 	virtual void LoadPreviousScene() final;
 
+	void SetTimeScale(float _newTimeScale);
+
 private:
 	Game(const Game& _copy) = delete;
 	Game& operator= (const Game& _copy) = delete;
@@ -25,6 +27,7 @@ protected:
 
 private:
 	static inline bool m_bHasStarted = false;
+	float m_fTimeScale = 1.0f; // Time scale used to speed up or slow/stop the games updates
 
 	shared_ptr<Scene> m_currentScene;
 	shared_ptr<Scene> m_previousScene;

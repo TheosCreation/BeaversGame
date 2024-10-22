@@ -111,6 +111,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PauseManager.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PauseManager.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStats.h" />

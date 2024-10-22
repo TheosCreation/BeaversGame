@@ -63,6 +63,7 @@ private:
 	bool m_bHintOnce = false;
 
 	bool hintKeyWasPressed = false;
+	bool pauseKeyWasPressed = false; // Used for toggle key press for the pause key
 
 	shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_woodAmountChangeEvent;
 

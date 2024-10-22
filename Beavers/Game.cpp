@@ -2,6 +2,7 @@
 #include "AudioManager.h"
 #include "FontManager.h"
 #include "Level.h"
+#include "PauseManager.h"
 
 /*
 	Begins the Game Loop
@@ -13,6 +14,10 @@ void Game::Start(string _strWindowTitle)
 {
 	// Prevent Game from starting
 	if (m_bHasStarted) return;
+
+	// Init the pause manager instance
+	PauseManager::GetInstance().Init(this);
+
 	m_window.create(sf::VideoMode(1280, 720), _strWindowTitle);
 	m_bHasStarted = true;
 
@@ -26,6 +31,7 @@ void Game::Start(string _strWindowTitle)
 		// Get Delta Time
 		sf::Time deltaTime = gameTimer.restart();
 		float fDeltaTime = deltaTime.asSeconds();
+		fDeltaTime *= m_fTimeScale;
 
 		// Read Events
 		sf::Event event;
@@ -116,4 +122,14 @@ void Game::LoadPreviousScene()
 	// Check if there is a previous Scene loaded
 	if (!m_previousScene.get()) return;
 	SetScene(m_previousScene);
+}
+
+/*
+	Sets the Time scale of the game to new time scale passed in
+
+	@author Time Morris
+*/
+void Game::SetTimeScale(float _newTimeScale)
+{
+	m_fTimeScale = _newTimeScale;
 }

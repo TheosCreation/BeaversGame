@@ -96,6 +96,7 @@
     <ClCompile Include="BeaverSpawner.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="PauseManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -319,5 +320,6 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="All.h" />
+    <ClInclude Include="PauseManager.h" />
   </ItemGroup>
 </Project>
