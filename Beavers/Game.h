@@ -11,6 +11,7 @@ public:
 	virtual void CleanUp() final;
 
 	virtual void SetScene(shared_ptr<Scene> _scene) final;
+	shared_ptr<Scene> GetCurrentScene();
 	virtual void LoadPreviousScene() final;
 
 	void SetTimeScale(float _newTimeScale);

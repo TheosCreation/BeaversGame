@@ -68,6 +68,17 @@ void GameObject::Update(float _fDeltaTime)
 }
 
 /*
+	Adds a child to this game object
+
+	@author Theo Morris
+	@param shared_ptr<GameObject>: The child ptr to add as a child to this game object
+*/
+void GameObject::AddChild(shared_ptr<GameObject> _child)
+{
+	m_children.push_back(_child);
+}
+
+/*
 	Draws sprite to View Buffer
 
 	@author Jamuel Bocacao
@@ -83,12 +94,16 @@ void GameObject::DrawSprite(sf::RenderTexture* _sceneBuffer, sf::Sprite& _sprite
 /*
 	Sets the Visibility of the Game Object
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and Theo Morris
 	@param bool: Whether GameObject will be rendered
 */
 void GameObject::SetVisibility(bool _bIsVisible)
 {
 	m_bIsVisible = _bIsVisible;
+	for (auto& child : m_children)
+	{
+		child->SetVisibility(m_bIsVisible);
+	}
 }
 
 /*

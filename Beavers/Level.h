@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "ContactListener.h"
 #include "FlowField.h"
+#include "Event.h"
 
 class Level : public Scene
 {
@@ -11,6 +12,8 @@ public:
 	~Level();
 
 	void Update(float _fDeltaTime, sf::RenderWindow* _window) override;
+
+	void SetPauseMenu(bool _bisActive) override;
 
 	// Add Object Methods
 	weak_ptr<Object> AddObject(Vec2f _position, string _strTexturePath, bool _bIsStatic);
@@ -30,12 +33,16 @@ public:
 
 	void Render(sf::RenderWindow* _render) override;
 
+	// Setter Methods
+	void SetOpenPauseMenuEvent(shared_ptr<Event<void, bool>> _event);
+
 private:
 	static ContactListener m_listener;
 
 private:
 	shared_ptr<b2World> m_world;
 	unique_ptr<FlowField> m_flowField;
+	shared_ptr<Event<void, bool>> m_openPauseMenuEvent;
 };
 
 inline ContactListener Level::m_listener;

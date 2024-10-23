@@ -38,12 +38,16 @@ public:
 	template <std::derived_from<GameObject> T>
 	bool IsOfType();
 
+	void AddChild(shared_ptr<GameObject> _child);
+
 protected:
 	static void DrawSprite(sf::RenderTexture* _sceneBuffer, sf::Sprite& _sprite);
 
 	bool m_bIsVisible = true;
 	bool m_bIsActive = true;
 	bool m_bDestroyed = false;
+
+	vector<shared_ptr<GameObject>> m_children;
 };
 
 template<std::derived_from<GameObject> T>

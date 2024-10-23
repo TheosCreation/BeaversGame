@@ -112,6 +112,11 @@ void Game::SetScene(shared_ptr<Scene> _scene)
 	}
 }
 
+shared_ptr<Scene> Game::GetCurrentScene()
+{
+	return m_currentScene;
+}
+
 /*
 	Loads Previous Scene
 

@@ -1,5 +1,8 @@
 #include "BeaverGame.h"
 #include "All.h"
+#include "Button.h"
+#include "Text.h"
+#include "PauseManager.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -75,10 +78,29 @@ void BeaverGame::LoadOptions()
 void BeaverGame::LoadLevel()
 {
 	AudioManager::GetInstance().StopAll();
+	PauseManager::GetInstance().SetPaused(false);
 
 	// Creates and sets the scene to the level scene
 	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
 	SetScene(level);
+
+	// Creates a background image attached to the pause menu
+	shared_ptr<Image> pauseMenuImage = level->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", 10);
+	auto openPauseMenuEvent = std::make_shared<Event<void, bool>>(
+		static_cast<GameObject*>(pauseMenuImage.get()), &GameObject::SetVisibility); // Creates an event to be able to toggle the pausemenus visibility
+
+	// Create a back to main menu button attached to the pause menu
+	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
+	shared_ptr<Button> exitToMainMenuButton = level->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", returnToMainMenuEvent, 10);
+	pauseMenuImage->AddChild(exitToMainMenuButton);
+
+	// Create the title text attached to the pause menu
+	auto pauseMenuTitleText = level->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Paused", 100, sf::Color::Black, 10);
+	pauseMenuImage->AddChild(pauseMenuTitleText);
+
+	pauseMenuImage->SetVisibility(false); // Set the menu to be not rendered by default
+	level->SetOpenPauseMenuEvent(openPauseMenuEvent);
+
 
 	// Creates Warehouse
 	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();

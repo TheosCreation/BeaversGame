@@ -39,28 +39,32 @@ void Scene::AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxV
 /*
 	Adds a Button Object to Scene
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and Theo Morris
 	@param Vec2f: Position of Button
 	@param string: Texture File Path
 	@param shared_ptr<Event<void, void>>: Event that is called when the Button is clicked
 */
-void Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer)
+shared_ptr<Button> Scene::AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer)
 {
 	CheckLayer(_iLayer);
-	m_objects.at(_iLayer).push_back(make_shared<Button>(_position, _strTexturePath, _strSoundPath, _event));
+	auto button = make_shared<Button>(_position, _strTexturePath, _strSoundPath, _event);
+	m_objects.at(_iLayer).push_back(button);
+	return button;
 }
 
 /*
 	Adds an Image Object to Scene
 
-	@author Jamuel Bocacao
-	@param Vec2f: Position of Button
+	@author Jamuel Bocacao and Theo Morris
+	@param Vec2f: Position of Image
 	@param string: Texture File Path
 */
-void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
+shared_ptr<Image> Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 {
 	CheckLayer(_iLayer);
-	m_objects.at(_iLayer).push_back(make_shared<Image>(_position, _strTexturePath));
+	auto image = make_shared<Image>(_position, _strTexturePath);
+	m_objects.at(_iLayer).push_back(image);
+	return image;
 }
 
 /*
@@ -70,13 +74,14 @@ void Scene::AddImage(Vec2f _position, string _strTexturePath, int _iLayer)
 	@param Vec2f: Position of Text
 	@param string: Text to display
 */
-void Scene::AddText(Vec2f _position, string _strText, int _iSize, sf::Color _colour, int _iLayer)
+shared_ptr<Text> Scene::AddText(Vec2f _position, string _strText, int _iSize, sf::Color _colour, int _iLayer)
 {
 	CheckLayer(_iLayer);
 	auto text = make_shared<Text>(_position, _strText, "Resources/Fonts/AlteHaasGroteskBold.ttf");
 	text->SetSize(_iSize);
 	text->SetColour(_colour);
 	m_objects.at(_iLayer).push_back(text);
+	return text;
 }
 
 /*

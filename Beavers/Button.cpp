@@ -40,6 +40,8 @@ Button::Button(Vec2f _position, string _strTexturePath, string _strSoundPath, sh
 */
 bool Button::OnClick(Vec2f _mousePos)
 {
+	if (!m_bIsActive || !m_bIsVisible) return false;
+
 	auto objectBounds = m_sprite.getGlobalBounds();
 	
 	if (objectBounds.contains(_mousePos))

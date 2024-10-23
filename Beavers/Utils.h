@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using std::vector;
@@ -28,7 +29,30 @@ float Length(Vec2f& _vec2);
 
 template <typename T>
 std::string ToString(const T& value) {
-    return std::to_string(value);
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
+template <>
+inline std::string ToString(const Vec2f& value) {
+    std::ostringstream oss;
+    oss << "Vec2f(" << value.x << ", " << value.y << ")";
+    return oss.str();
+}
+
+template <>
+inline std::string ToString(const Vec2i& value) {
+    std::ostringstream oss;
+    oss << "Vec2i(" << value.x << ", " << value.y << ")";
+    return oss.str();
+}
+
+template <>
+inline std::string ToString(const Vec2u& value) {
+    std::ostringstream oss;
+    oss << "Vec2u(" << value.x << ", " << value.y << ")";
+    return oss.str();
 }
 
 class Debug
@@ -43,6 +67,11 @@ public:
     }
     static void LogWarning(const string& message) {
         PrintMessage(message, "Warning");
+    }
+
+    template <typename T>
+    static void Log(const T& value) {
+        Log(ToString(value));
     }
 
 private:

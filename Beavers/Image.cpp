@@ -96,10 +96,13 @@ sf::FloatRect Image::GetBounds()
 /*
 	Renders Image to Scene View Buffer
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and Theo Morris
 	@param sf::RenderTexture*: Scene View Buffer 
 */
 void Image::Render(sf::RenderTexture* _sceneBuffer)
 {
-	DrawSprite(_sceneBuffer, m_sprite);
+	if (m_bIsVisible)
+	{
+		DrawSprite(_sceneBuffer, m_sprite);
+	}
 }

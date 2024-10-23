@@ -99,7 +99,7 @@ Vec2f Text::GetPosition()
 /*
 	Renders Text to Scene Buffer
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and Theo Morris
 	@param sf::RenderTexture*: Scene's View Buffer
 */
 void Text::Render(sf::RenderTexture* _sceneBuffer)
@@ -113,7 +113,10 @@ void Text::Render(sf::RenderTexture* _sceneBuffer)
 		m_bUpdateText = false;
 	}
 
-	// Render Text
-	_sceneBuffer->draw(m_text);
-	_sceneBuffer->display();
+	// Render Text if visable
+	if (m_bIsVisible)
+	{
+		_sceneBuffer->draw(m_text);
+		_sceneBuffer->display();
+	}
 }

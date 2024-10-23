@@ -3,6 +3,10 @@
 #include "Event.h"
 #include "Object.h"
 
+class Image;
+class Button;
+class Text;
+
 class Scene
 {
 public:
@@ -11,13 +15,15 @@ public:
 
 	// Object Methods
 	void AddSlider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, shared_ptr<Event<void, int>> _dragEvent, int _iLayer = 0);
-	void AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer = 0);
-	void AddImage(Vec2f _position, string _strTexturePath, int _iLayer = 0);
-	void AddText(Vec2f _position, string _strText, int _iSize, sf::Color _colour = sf::Color::White, int _iLayer = 0);
+	shared_ptr<Button> AddButton(Vec2f _position, string _strTexturePath, string _strSoundPath, shared_ptr<Event<void, void>> _event, int _iLayer = 0);
+	shared_ptr<Image> AddImage(Vec2f _position, string _strTexturePath, int _iLayer = 0);
+	shared_ptr<Text> AddText(Vec2f _position, string _strText, int _iSize, sf::Color _colour = sf::Color::White, int _iLayer = 0);
 	void AddGameObject(shared_ptr<GameObject> _gameObject, int _iLayer = 0);
 
 	// Process Methods
 	virtual void ProcessEvents(sf::Event& _event, sf::RenderWindow* _window);
+
+	virtual void SetPauseMenu(bool _bisActive) {};
 
 	// Update Methods
 	virtual void Update(float _fDeltaTime, sf::RenderWindow* _window);

@@ -12,6 +12,8 @@ public:
 	void Init(Game* _gameRef);
 
 	void TogglePaused();
+	void SetPaused(bool _bIsPaused);
+	void UpdatePauseState();
 
 private:
 	PauseManager() = default;

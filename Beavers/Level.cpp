@@ -40,6 +40,14 @@ void Level::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	m_world->Step(_fDeltaTime, 8, 3);
 }
 
+void Level::SetPauseMenu(bool _bisActive)
+{
+	if (m_openPauseMenuEvent != nullptr)
+	{
+		m_openPauseMenuEvent->execute(_bisActive);
+	}
+}
+
 /*
 	Adds an Object to Scene
 
@@ -101,4 +109,9 @@ void Level::Render(sf::RenderWindow* _render)
 	sf::Sprite buffer(m_sceneBuffer.getTexture());
 	buffer.setPosition(m_bufferDisplacement);
 	_render->draw(buffer);
+}
+
+void Level::SetOpenPauseMenuEvent(shared_ptr<Event<void, bool>> _event)
+{
+	m_openPauseMenuEvent = _event;
 }
