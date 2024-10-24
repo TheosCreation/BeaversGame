@@ -4,19 +4,21 @@
 #include "Level.h"
 #include "Beaver.h"
 
-BeaverSpawner::BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath)
-    : Object(position, texturePath, true), m_spawnInterval(5.0f), m_timeSinceLastSpawn(0.0f)
+BeaverSpawner::BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath, Warehouse* warehouse)
+    : Object(position, texturePath, true), m_spawnInterval(20.0f), m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse)
 {
 }
 
 void BeaverSpawner::Update(float deltaTime) {
     m_timeSinceLastSpawn += deltaTime;
-   
+    m_timeSinceLastBudgetIncrease += deltaTime;
+
     if (m_timeSinceLastSpawn >= m_spawnInterval) {
         SpawnBeaver();
         m_timeSinceLastSpawn = 0.0f;
-        m_spawnInterval = std::max(0.5f, m_spawnInterval * 0.95f); // Decrease interval, but not below 0.5 seconds
+        m_spawnInterval = std::max(0.5f, m_spawnInterval * 0.95f);
     }
+    
 }
 
 void BeaverSpawner::Render(sf::RenderTexture* _sceneBuffer) {
@@ -24,12 +26,63 @@ void BeaverSpawner::Render(sf::RenderTexture* _sceneBuffer) {
     // Maybe river?
 }
 
+void BeaverSpawner::AddBudget(int _budget)
+{
+    m_currentSpawnBudget += _budget;
+}
+
+
 void BeaverSpawner::SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _addGameObjectEvent)
 {
     m_addGameObjectEvent = _addGameObjectEvent;
 }
-void BeaverSpawner::SpawnBeaver() 
-{
-    auto beaver = make_shared<Beaver>(GetPosition());
-    m_addGameObjectEvent->execute(beaver, 0);
+void BeaverSpawner::IncreaseSpawnBudget(float deltaTime) {
+    AddBudget(m_budgetIncreaseAmount);
+     if (m_currentRarityMilestone > m_warehouse->GetWoodAmount()) {
+         m_currentRarityMilestone *= 2;
+         m_maxRarity++;
+     }
+
+}
+
+void BeaverSpawner::SpawnBeaver() {
+    if (m_currentSpawnBudget <= 0) return;
+    Debug::Log(m_maxRarity);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // List of potential beaver types
+    std::vector<std::function<shared_ptr<Beaver>()>> beaverFactories = {
+       [this]() { return make_shared<Beaver>(GetPosition()); },
+       [this]() { return make_shared<BossBeaver>(GetPosition()); },
+       [this]() { return make_shared<ArmoredBeaver>(GetPosition()); },
+       [this]() { return make_shared<BeavzerkerBeaver>(GetPosition()); }
+    };
+
+
+    // Filter beavers by rarity
+    std::vector<shared_ptr<Beaver>> eligibleBeavers;
+    for (auto& factory : beaverFactories) {
+        auto beaver = factory();
+        if (beaver->GetRarity() > m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget){
+            eligibleBeavers.push_back(beaver);
+        }
+    }
+
+    // If no eligible beavers, use all beavers
+    if (eligibleBeavers.empty()) {
+        for (auto& factory : beaverFactories) {
+            eligibleBeavers.push_back(factory());
+        }
+    }
+
+    // Randomly select a beaver from the eligible list
+    std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
+    auto selectedBeaver = eligibleBeavers[dis(gen)];
+
+    
+    m_addGameObjectEvent->execute(selectedBeaver, 0);
+    selectedBeaver->m_spawnerRef = this;
+    m_currentSpawnBudget -= selectedBeaver->GetCost();
+    
 }

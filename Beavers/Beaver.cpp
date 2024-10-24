@@ -28,6 +28,11 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 
 }
 
+Beaver::~Beaver()
+{
+	
+}
+
 /*
 	Event Called when another Object comes into contact with a Beaver
 
@@ -57,6 +62,16 @@ void Beaver::OnEndContact(Object* _otherObject)
 	}
 }
 
+int Beaver::GetCost() const
+{
+	return m_iCost;
+}
+
+int Beaver::GetRarity() const
+{
+	return m_iRarity;
+}
+
 /*
 	Applies Damage to Beaver's Health
 
@@ -68,6 +83,7 @@ void Beaver::Damage(int _iDamage)
 	m_iHealth -= _iDamage;
 	if (m_iHealth <= 0)
 	{
+		m_spawnerRef->AddBudget(GetCost());
 		Destroy();
 	}
 }
@@ -98,9 +114,9 @@ void Beaver::Update(float _fDeltaTime)
 		auto cellValue = m_currLevel->GetFlowFieldValue(m_sprite.getPosition());
 		if (Length(cellValue) > 0)
 		{
-			m_velocity = cellValue;
+			m_iVelocity = cellValue;
 		}
-		AddPosition(m_velocity * _fDeltaTime * 64.0f);
+		AddPosition(m_iVelocity * _fDeltaTime * 64.0f);
 		m_animator->ChangeState("Walk");
 	}
 }
