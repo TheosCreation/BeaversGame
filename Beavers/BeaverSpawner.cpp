@@ -18,10 +18,10 @@ void BeaverSpawner::Update(float deltaTime) {
         m_timeSinceLastSpawn = 0.0f;
         m_spawnInterval = std::max(0.5f, m_spawnInterval * 0.95f);
     }
-    if (m_timeSinceLastSpawn >= m_budgetIncreaseInterval) {
+    if (m_timeSinceLastBudgetIncrease >= m_budgetIncreaseInterval) {
+        m_timeSinceLastBudgetIncrease = 0;
         IncreaseSpawnBudget();
     }
-  //  Debug::Log(m_currentSpawnBudget);
     
 }
 
@@ -42,14 +42,14 @@ void BeaverSpawner::SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<Ga
 }
 void BeaverSpawner::IncreaseSpawnBudget() {
     AddBudget(m_budgetIncreaseAmount);
-     if (m_currentRarityMilestone > m_warehouse->GetWoodAmount()) {
+     if (m_currentRarityMilestone < m_warehouse->GetWoodAmount()) {
          m_currentRarityMilestone *= 10;
          m_maxRarity++;
 
          Debug::Log("This thing workin");
 
          m_warningMessage->SetSize(20);
-         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
+         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound.mp3", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
      }
 
 }
