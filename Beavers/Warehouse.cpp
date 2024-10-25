@@ -31,6 +31,8 @@ Warehouse::Warehouse(Vec2f _position)
 */
 void Warehouse::ChangeWoodAmount(int _iAmount)
 { 
+	if (_iAmount == 0) return;
+
 	m_iWoodAmount += _iAmount;
 	m_woodAmountText->SetText(GetWoodAmountString());
 
