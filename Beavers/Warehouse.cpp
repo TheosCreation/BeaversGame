@@ -26,7 +26,7 @@ Warehouse::Warehouse(Vec2f _position)
 /*
 	Changes the Wood Amount stored in Warehouse
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacaox
 	@param int: Number to change amount by 
 */
 void Warehouse::ChangeWoodAmount(int _iAmount)

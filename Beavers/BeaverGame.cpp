@@ -115,7 +115,7 @@ void BeaverGame::LoadLevel()
 
 
 	// Creates Warehouse
-	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 250)).lock().get();
+	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 750)).lock().get();
 
 	// Creates and sets the win scene event
 	auto loadWinSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadWinGame); 
@@ -145,7 +145,7 @@ void BeaverGame::LoadLevel()
 	player2.lock()->SetWoodAmountChangeEvent(addGameObjectEvent);
 
 	// Creates the spawner
-	auto spawner = make_shared<BeaverSpawner>(Vec2f(500, 750), level->GetWorld(), "Resources/Images/Objects/Dam.png", warehouseRef);
+	auto spawner = make_shared<BeaverSpawner>(Vec2f(1400, 800), level->GetWorld(), "Resources/Images/Objects/Dam.png", warehouseRef);
 	level->AddGameObject(spawner);
 	spawner->SetAddGameObjectEvent(addGameObjectEvent);
 
@@ -153,9 +153,9 @@ void BeaverGame::LoadLevel()
 	level->AddObject<Tree>(Vec2f(150, 150));
 	
 	// Creates Shop(s)
-	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 1, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
-	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 1, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
-	auto shop3 = make_shared<Shop>(Vec2f(1550, 150), 1, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
+	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 30, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
+	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 30, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
+	auto shop3 = make_shared<Shop>(Vec2f(1550, 150), 30, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);

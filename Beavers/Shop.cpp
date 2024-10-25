@@ -71,15 +71,15 @@ void Shop::SetCost(int _iCost)
 
 void Shop::ApplyItem(PlayerStats& _playerStats)
 {
-	if(m_WarehouseRef->GetWoodAmount() >= GetCost())
+	if (m_WarehouseRef->GetWoodAmount() >= GetCost())
 	{
 		_playerStats += m_statUpgrade;
 		m_WarehouseRef->ChangeWoodAmount(-m_iCost);
 		std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
-		SetCost(m_iCost * 2);
+		int newCost = static_cast<int>(m_iCost * 1.15);
+		SetCost(newCost);
 	}
 }
-
 int Shop::GetCost()
 {
 	return m_iCost;
