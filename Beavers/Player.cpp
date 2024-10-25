@@ -289,7 +289,7 @@ int Player::Deposit()
 */
 void Player::UpdateHintSystem()
 {
-	m_HintRef->SetPosition(GetPosition() + Vec2f(0, 25));
+	m_HintRef->SetPosition(GetPosition() + Vec2f(0, 75));
 	// Determine the current location
 	if (m_bNearTree)
 	{
@@ -315,7 +315,24 @@ void Player::UpdateHintSystem()
 		}
 		else if (m_CurrentHint == HintType::Shop)
 		{
-			m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost: " + std::to_string(m_shopRef->GetCost()));
+			if (m_shopRef->GetShopType() == Type_Speed)
+			{
+				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 1: Increases movement speed\nCurrent cost is above the shop");
+			}
+			
+			else if (m_shopRef->GetShopType() == Type_Weapon)
+			{
+				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 2: Increases damage\nCurrent cost is above the shop");
+			}
+
+
+			else if (m_shopRef->GetShopType() == Type_Bag)
+			{
+				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 3: Increases carrying capacity\nCurrent cost is above the shop");
+			}
+
+			
+			//m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 1 - Increases movement speed\nUpgrade 2 - Increases Swing speed\nUpgrade 3 - Increases carrying capacity\n Current cost is above the shop");
 		}
 		else
 		{

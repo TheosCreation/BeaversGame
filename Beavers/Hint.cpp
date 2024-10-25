@@ -14,7 +14,7 @@ Hint::Hint(Vec2f _position) : Object(_position, "Resources/Objects/Warehouse.png
 	
 	int m_iCost = 1;
 	m_hintText = make_unique<Text>(Vec2f(_position), "", "Resources/Fonts/AlteHaasGroteskBold.ttf");
-	m_hintText->SetSize(12);
+	m_hintText->SetSize(20.0f);
 }
 
 /*

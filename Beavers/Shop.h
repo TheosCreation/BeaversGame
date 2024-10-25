@@ -27,6 +27,8 @@ public:
 	virtual void OnBeginContact(Object* _otherObject) override;
 	virtual void OnEndContact(Object* _otherObject) override;
 
+	ShopType GetShopType(){ return m_shopType;}
+
 private:
 	PlayerStats m_statUpgrade;
 	int m_iCost = 0;
@@ -35,4 +37,6 @@ private:
 	unique_ptr<Text> m_costText;
 
 	Warehouse* m_WarehouseRef;
+
+	ShopType m_shopType;
 };

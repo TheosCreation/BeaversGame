@@ -23,6 +23,8 @@ Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _s
 	AddBoxCollider(Vec2f(0, 0), Vec2f((float)m_sprite.getTexture()->getSize().x, (float)m_sprite.getTexture()->getSize().y));
 	AddBoxCollider(Vec2f(0, (float)m_sprite.getTexture()->getSize().y), Vec2f((float)m_sprite.getTexture()->getSize().x, (float)m_sprite.getTexture()->getSize().y), true);
 
+	m_shopType = _shopType;
+
 	switch (_shopType)
 	{
 	case Type_Weapon:
