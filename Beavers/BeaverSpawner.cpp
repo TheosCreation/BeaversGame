@@ -45,6 +45,11 @@ void BeaverSpawner::IncreaseSpawnBudget() {
      if (m_currentRarityMilestone > m_warehouse->GetWoodAmount()) {
          m_currentRarityMilestone *= 10;
          m_maxRarity++;
+
+         Debug::Log("This thing workin");
+
+         m_warningMessage->SetSize(20);
+         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
      }
 
 }

@@ -3,6 +3,7 @@
 #include <memory>
 #include <SFML/System/Clock.hpp>
 #include "Beaver.h"
+#include "Text.h"
 
 class Level;
 
@@ -31,4 +32,5 @@ private:
     float m_budgetIncreaseRate = 10.0f; // Time between i
     int m_budgetIncreaseAmount = 5; // Increase per 
     shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_addGameObjectEvent;
+    unique_ptr<Text> m_warningMessage = make_unique<Text>(Vec2f(0, 0), "The Beavers are getting angry...", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 };
