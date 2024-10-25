@@ -87,7 +87,7 @@ void BeaverGame::LoadLevel()
 	// Creates a particle system
 	auto particleSystem = make_shared<ParticleSystem>(50);
 	particleSystem->SetEmitterPosition(Vec2f(Vec2f(1920, 1080) / 2.0f));
-	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Tiles/sand.png"));
+	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Splinter.png"));
 	level->AddGameObject(particleSystem, 10);
 
 	// Creates a background image attached to the pause menu
