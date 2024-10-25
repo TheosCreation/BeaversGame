@@ -97,8 +97,14 @@ void BeaverGame::LoadLevel()
 
 	// Create a back to main menu button attached to the pause menu
 	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
-	shared_ptr<Button> exitToMainMenuButton = level->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", returnToMainMenuEvent, 10);
+	shared_ptr<Button> exitToMainMenuButton = level->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent, 10);
 	pauseMenuImage->AddChild(exitToMainMenuButton);
+
+	// Create a resume button attached to the pause menu
+	auto resumeGame = make_shared<Event<void, void>>(&PauseManager::GetInstance(), &PauseManager::TogglePaused);
+	shared_ptr<Button> resumeButton = level->AddButton(Vec2f(1920, 1080) / 2.0f - Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Back.png", "Resources/Audio/Click.wav", resumeGame, 10);
+	pauseMenuImage->AddChild(resumeButton);
+
 
 	// Create the title text attached to the pause menu
 	auto pauseMenuTitleText = level->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -300.0f), "Paused", 100, sf::Color::Black, 10);
