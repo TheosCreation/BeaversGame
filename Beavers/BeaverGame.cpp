@@ -84,6 +84,12 @@ void BeaverGame::LoadLevel()
 	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
 	SetScene(level);
 
+	// Creates a particle system
+	auto particleSystem = make_shared<ParticleSystem>(50);
+	particleSystem->SetEmitterPosition(Vec2f(Vec2f(1920, 1080) / 2.0f));
+	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Tiles/sand.png"));
+	level->AddGameObject(particleSystem, 10);
+
 	// Creates a background image attached to the pause menu
 	shared_ptr<Image> pauseMenuImage = level->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", 10);
 	auto openPauseMenuEvent = std::make_shared<Event<void, bool>>(

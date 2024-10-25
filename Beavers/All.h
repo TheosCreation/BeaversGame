@@ -3,6 +3,7 @@
 #include "AudioManager.h"
 #include "Level.h"
 #include "Warehouse.h"
+#include "ParticleSystem.h"
 #include "Player.h"
 #include "Tree.h"
 #include "Beaver.h"

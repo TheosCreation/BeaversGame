@@ -97,6 +97,7 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="PauseManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -321,5 +322,6 @@
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="All.h" />
     <ClInclude Include="PauseManager.h" />
+    <ClInclude Include="ParticleSystem.h" />
   </ItemGroup>
 </Project>
