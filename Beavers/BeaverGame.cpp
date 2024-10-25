@@ -84,12 +84,7 @@ void BeaverGame::LoadLevel()
 	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
 	SetScene(level);
 
-	// Creates a particle system
-	auto particleSystem = make_shared<ParticleSystem>(50);
-	particleSystem->SetEmitterPosition(Vec2f(Vec2f(1920, 1080) / 2.0f));
-	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Splinter.png"));
-	level->AddGameObject(particleSystem, 10);
-
+	
 	// Creates a background image attached to the pause menu
 	shared_ptr<Image> pauseMenuImage = level->AddImage(Vec2f(1920, 1080) / 2.0f, "Resources/Images/BeaversInAForest.png", 10);
 	auto openPauseMenuEvent = std::make_shared<Event<void, bool>>(
@@ -150,8 +145,16 @@ void BeaverGame::LoadLevel()
 	spawner->SetAddGameObjectEvent(addGameObjectEvent);
 
 	// Creates the Tree
-	level->AddObject<Tree>(Vec2f(150, 150));
-	
+	auto tree = level->AddObject<Tree>(Vec2f(150, 150));
+
+	// Creates a particle system for tree
+	auto particleSystem = make_shared<ParticleSystem>(30);
+	particleSystem->SetPlayTime(0.5f);
+	particleSystem->SetEmitterPosition(Vec2f(150, 150));
+	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Splinter.png"));
+	level->AddGameObject(particleSystem, 10);
+	tree.lock()->SetParticleSystemRef(particleSystem);
+
 	// Creates Shop(s)
 	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 30, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
 	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 30, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
