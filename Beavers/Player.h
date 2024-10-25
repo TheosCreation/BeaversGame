@@ -50,9 +50,9 @@ private:
 	sf::Clock m_interactClock;
 	sf::Clock m_cooldownClock;
 	int m_iAnimationFrame = 0;
-	float m_fSpeed = 50.0f;
+	float m_fSpeed = 200.0f;
 
-	int m_iWoodAmount = 50;
+	int m_iWoodAmount = 0;
 
 	ControlScheme m_controlScheme;
 
