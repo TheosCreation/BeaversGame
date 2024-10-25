@@ -21,7 +21,7 @@ public:
     void SetLoadLoseSceneEvent(shared_ptr<Event<void, void>> _loadLoseSceneEvent);
 
 private:
-    int m_iWoodAmount = 0;
+    int m_iWoodAmount = 50;
     std::unique_ptr<Text> m_woodAmountText;
     unique_ptr<Text> m_goalText;
 
