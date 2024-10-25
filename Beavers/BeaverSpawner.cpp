@@ -68,31 +68,38 @@ void BeaverSpawner::SpawnBeaver() {
        [this]() { return make_shared<BeavzerkerBeaver>(GetPosition()); }
     };
 
-
-    // Filter beavers by rarity
-    std::vector<shared_ptr<Beaver>> eligibleBeavers;
-    for (auto& factory : beaverFactories) {
-        auto beaver = factory();
-        if (beaver->GetRarity() <= m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget){
-            eligibleBeavers.push_back(beaver);
-        }
-    }
-
-    // If no eligible beavers, use all beavers
-    if (eligibleBeavers.empty()) {
-        Debug::Log("empty");
+    while (m_currentSpawnBudget > 0) {
+        // Filter beavers by rarity
+        std::vector<shared_ptr<Beaver>> eligibleBeavers;
         for (auto& factory : beaverFactories) {
-            eligibleBeavers.push_back(factory());
+            auto beaver = factory();
+            if (beaver->GetRarity() <= m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget) {
+                eligibleBeavers.push_back(beaver);
+            }
         }
+
+        // If no eligible beavers, use all beavers
+        if (eligibleBeavers.empty()) {
+            return;
+  
+          for (auto& factory : beaverFactories) {
+                eligibleBeavers.push_back(factory());
+            }
+        }
+        std::uniform_real_distribution<float> offsetDist(-spawnRadius, spawnRadius);
+        auto currentPosition = GetPosition();
+        float offsetX = offsetDist(gen);
+        float offsetY = offsetDist(gen);
+        Vec2f newPosition(currentPosition.x + offsetX, currentPosition.y + offsetY);
+        // Randomly select a beaver from the eligible list
+        std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
+        auto selectedBeaver = eligibleBeavers[dis(gen)];
+
+
+        m_addGameObjectEvent->execute(selectedBeaver, 0);
+        selectedBeaver->m_spawnerRef = this;
+        selectedBeaver->SetPosition(newPosition);
+        m_currentSpawnBudget -= selectedBeaver->GetCost();
     }
-
-    // Randomly select a beaver from the eligible list
-    std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
-    auto selectedBeaver = eligibleBeavers[dis(gen)];
-
-    
-    m_addGameObjectEvent->execute(selectedBeaver, 1);
-    selectedBeaver->m_spawnerRef = this;
-    m_currentSpawnBudget -= selectedBeaver->GetCost();
     
 }
