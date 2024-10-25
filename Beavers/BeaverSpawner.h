@@ -16,18 +16,18 @@ public:
 
 private:
     void SpawnBeaver();
-    void IncreaseSpawnBudget(float deltaTime);
+    void IncreaseSpawnBudget();
 
     Warehouse* m_warehouse;
 
-    int m_currentRarityMilestone = 100;
-    int m_maxSpawnBudget = 2;
+    int m_currentRarityMilestone = 500;
+    int m_maxSpawnBudget = 10;
     int m_currentSpawnBudget;
     float m_spawnInterval;
+    float m_budgetIncreaseInterval;
     float m_timeSinceLastSpawn;
     float m_timeSinceLastBudgetIncrease = 0.0f;
     float m_maxRarity = 1;
-    int m
     float m_budgetIncreaseRate = 10.0f; // Time between i
     int m_budgetIncreaseAmount = 5; // Increase per 
     shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_addGameObjectEvent;

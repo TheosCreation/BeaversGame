@@ -5,7 +5,7 @@
 #include "Beaver.h"
 
 BeaverSpawner::BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath, Warehouse* warehouse)
-    : Object(position, texturePath, true), m_spawnInterval(20.0f), m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse)
+    : Object(position, texturePath, true), m_spawnInterval(10.0f), m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse), m_budgetIncreaseInterval(30.0f)
 {
 }
 
@@ -18,6 +18,10 @@ void BeaverSpawner::Update(float deltaTime) {
         m_timeSinceLastSpawn = 0.0f;
         m_spawnInterval = std::max(0.5f, m_spawnInterval * 0.95f);
     }
+    if (m_timeSinceLastSpawn >= m_budgetIncreaseInterval) {
+        IncreaseSpawnBudget();
+    }
+  //  Debug::Log(m_currentSpawnBudget);
     
 }
 
@@ -36,10 +40,10 @@ void BeaverSpawner::SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<Ga
 {
     m_addGameObjectEvent = _addGameObjectEvent;
 }
-void BeaverSpawner::IncreaseSpawnBudget(float deltaTime) {
+void BeaverSpawner::IncreaseSpawnBudget() {
     AddBudget(m_budgetIncreaseAmount);
      if (m_currentRarityMilestone > m_warehouse->GetWoodAmount()) {
-         m_currentRarityMilestone *= 2;
+         m_currentRarityMilestone *= 10;
          m_maxRarity++;
      }
 
@@ -64,13 +68,14 @@ void BeaverSpawner::SpawnBeaver() {
     std::vector<shared_ptr<Beaver>> eligibleBeavers;
     for (auto& factory : beaverFactories) {
         auto beaver = factory();
-        if (beaver->GetRarity() > m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget){
+        if (beaver->GetRarity() <= m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget){
             eligibleBeavers.push_back(beaver);
         }
     }
 
     // If no eligible beavers, use all beavers
     if (eligibleBeavers.empty()) {
+        Debug::Log("empty");
         for (auto& factory : beaverFactories) {
             eligibleBeavers.push_back(factory());
         }
