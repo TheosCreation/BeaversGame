@@ -148,12 +148,12 @@ void BeaverGame::LoadLevel()
 	auto tree = level->AddObject<Tree>(Vec2f(150, 150));
 
 	// Creates a particle system for tree
-	auto particleSystem = make_shared<ParticleSystem>(30);
-	particleSystem->SetPlayTime(0.5f);
-	particleSystem->SetEmitterPosition(Vec2f(150, 150));
-	particleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Splinter.png"));
-	level->AddGameObject(particleSystem, 10);
-	tree.lock()->SetParticleSystemRef(particleSystem);
+	auto woodParticleSystem = make_shared<ParticleSystem>(30);
+	woodParticleSystem->SetPlayTime(0.5f);
+	woodParticleSystem->SetEmitterPosition(Vec2f(150, 150));
+	woodParticleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Splinter.png"));
+	level->AddGameObject(woodParticleSystem, 10);
+	tree.lock()->SetParticleSystemRef(woodParticleSystem);
 
 	// Creates Shop(s)
 	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 30, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);

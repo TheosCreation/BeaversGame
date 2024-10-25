@@ -1,10 +1,11 @@
 #include "Beaver.h"
 #include "Level.h"
+#include "ParticleSystem.h"
 
 /*
 	Creates a Beaver Object
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacao, Theo Morris and Kaz
 	@param Vec2f: Position of Beaver
 	@param weak_ptr<b2World>: Scene World
 */
@@ -25,11 +26,24 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 	m_animator->AddState("Stand", "Resources/Images/Entities/Beaver/GroundToStand.png", 5, 8); 
 	m_woodClock.restart();
 
+
+
+	// Creates a blood particle system for damaging
+	m_bloodParticleSystem = make_shared<ParticleSystem>(30);
+	m_bloodParticleSystem->SetPlayTime(0.5f);
+	m_bloodParticleSystem->SetTexture(&TextureManager::GetInstance().GetTexture("Resources/Images/Blood.png"));
+
 }
 
 Beaver::~Beaver()
 {
 	
+}
+
+void Beaver::Render(sf::RenderTexture* _sceneBuffer)
+{
+	m_bloodParticleSystem->Render(_sceneBuffer);
+	Object::Render(_sceneBuffer);
 }
 
 /*
@@ -74,12 +88,15 @@ int Beaver::GetRarity() const
 /*
 	Applies Damage to Beaver's Health
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and Theo Morris
 	@param int: Value of Damage done to Beaver
 */
 void Beaver::Damage(int _iDamage)
 {
 	m_iHealth -= _iDamage;
+	Debug::Log("Damaged beaver: " + ToString(_iDamage));
+	Debug::Log("Health left: " + ToString(m_iHealth));
+	m_bloodParticleSystem->Play();
 	if (m_iHealth <= 0)
 	{
 		m_spawnerRef->AddBudget(GetCost());
@@ -90,7 +107,7 @@ void Beaver::Damage(int _iDamage)
 /*
 	Handles Updating Beaver
 
-	@author(s) Jamuel Bocacao
+	@author(s) Jamuel Bocacao and Theo Morris
 	@param float: Delta Time
 */
 void Beaver::Update(float _fDeltaTime)
@@ -118,4 +135,7 @@ void Beaver::Update(float _fDeltaTime)
 		AddPosition(m_iVelocity * _fDeltaTime * 64.0f);
 		m_animator->ChangeState("Walk");
 	}
+
+	m_bloodParticleSystem->SetEmitterPosition(GetPosition());
+	m_bloodParticleSystem->Update(_fDeltaTime);
 }

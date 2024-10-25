@@ -4,6 +4,7 @@
 #include "BeaverSpawner.h"
 
 class BeaverSpawner;
+class ParticleSystem;
 
 class Beaver : public Object
 {
@@ -13,6 +14,8 @@ public:
 
    BeaverSpawner* m_spawnerRef;
 
+
+    void Render(sf::RenderTexture* _sceneBuffer) override;
     void OnBeginContact(Object* _otherObject) override;
     void OnEndContact(Object* _otherObject) override;
     int GetCost() const;
@@ -31,6 +34,7 @@ protected:
     Warehouse* m_warehouse = nullptr;
     unique_ptr<Animator> m_animator;
     sf::Clock m_woodClock;
+    shared_ptr<ParticleSystem> m_bloodParticleSystem = nullptr;
 };
 
 // Just doing everything here to save time 

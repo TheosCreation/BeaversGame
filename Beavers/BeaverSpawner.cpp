@@ -91,7 +91,7 @@ void BeaverSpawner::SpawnBeaver() {
     auto selectedBeaver = eligibleBeavers[dis(gen)];
 
     
-    m_addGameObjectEvent->execute(selectedBeaver, 0);
+    m_addGameObjectEvent->execute(selectedBeaver, 1);
     selectedBeaver->m_spawnerRef = this;
     m_currentSpawnBudget -= selectedBeaver->GetCost();
     

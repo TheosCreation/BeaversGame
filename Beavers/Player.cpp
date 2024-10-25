@@ -129,7 +129,6 @@ void Player::Update(float _fDeltaTime)
 						}
 						else if (contactObject->IsOfType<Beaver>(&beaver))
 						{
-							printf("Damage");
 							beaver->Damage(m_playerStats.m_iDamage);
 						}
 					}
