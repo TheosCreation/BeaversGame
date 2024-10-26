@@ -21,7 +21,7 @@ void Game::Start(string _strWindowTitle)
 	m_window.create(sf::VideoMode(1280, 720), _strWindowTitle);
 	m_bHasStarted = true;
 
-	LoadMenu();
+	LoadMainMenu();
 
 	sf::Clock gameTimer;
 

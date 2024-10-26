@@ -3,13 +3,14 @@
 #include "Button.h"
 #include "Text.h"
 #include "PauseManager.h"
+#include "GamepadMgr.h"
 
 /*
 	Event Function for Loading Menu Scene
 
 	@author(s) Jamuel Bocacao and Theo Morris
 */
-void BeaverGame::LoadMenu()
+void BeaverGame::LoadMainMenu()
 {
 	// Creates and sets the scene to the menu scene
 	auto menu = make_shared<Scene>(Vec2u(1920, 1080), &m_window, true);
@@ -35,6 +36,9 @@ void BeaverGame::LoadMenu()
 	//Create the quit button
 	auto quitEvent = make_shared<Event<void, void>>(this, &BeaverGame::Quit);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
+
+	//Initialise gamepad
+	GamepadMgr::Instance().Initialize();
 }
 
 /*
@@ -91,7 +95,7 @@ void BeaverGame::LoadLevel()
 		static_cast<GameObject*>(pauseMenuImage.get()), &GameObject::SetVisibility); // Creates an event to be able to toggle the pausemenus visibility
 
 	// Create a back to main menu button attached to the pause menu
-	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
+	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMainMenu);
 	shared_ptr<Button> exitToMainMenuButton = level->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent, 10);
 	pauseMenuImage->AddChild(exitToMainMenuButton);
 
@@ -133,6 +137,12 @@ void BeaverGame::LoadLevel()
 	secondPlayerControls.Pause = sf::Keyboard::Unknown; // Please review this is to prevent player 2 from receiving input and then unpausing right after pause through player 1
 	auto player2 = level->AddObject<Player>(Vec2f(780, 360) / 2.0f);
 	player2.lock()->SetControlScheme(secondPlayerControls);
+
+	// Create third player if atleast 1 controller is connected
+	if (GamepadMgr::Instance().GamepadOne()->isGamepadConnected())
+	{
+
+	}
 
 	// Adds a event to the player
 	auto addGameObjectEvent = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
@@ -223,7 +233,7 @@ void BeaverGame::LoadWinGame()
 	winGameScene->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
 
 	//Create return to main menu button
-	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
+	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMainMenu);
 	winGameScene->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
 }
 
@@ -249,7 +259,7 @@ void BeaverGame::LoadGameOver()
 	gameOverScene->AddButton(Vec2f(1920, 1080) / 2.0f, "Resources/Images/Buttons/PlayAgain.png", "Resources/Audio/Click.wav", playAgainEvent);
 
 	// Create return to main menu button
-	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMenu);
+	auto returnToMainMenuEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadMainMenu);
 	gameOverScene->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), "Resources/Images/Buttons/Exit.png", "Resources/Audio/Click.wav", returnToMainMenuEvent);
 }
 

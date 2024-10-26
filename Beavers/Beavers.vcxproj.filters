@@ -98,6 +98,8 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="PauseManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="GamepadMgr.cpp" />
+    <ClCompile Include="Gamepad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Code Files">
@@ -323,5 +325,7 @@
     <ClInclude Include="All.h" />
     <ClInclude Include="PauseManager.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="GamepadMgr.h" />
+    <ClInclude Include="Gamepad.h" />
   </ItemGroup>
 </Project>
