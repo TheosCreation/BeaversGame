@@ -21,7 +21,7 @@ private:
 	Game& operator= (const Game& _copy) = delete;
 
 private:
-	virtual void LoadMenu() abstract;
+	virtual void LoadMainMenu() abstract;
 
 protected:
 	sf::RenderWindow m_window;

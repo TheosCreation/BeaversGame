@@ -105,6 +105,8 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gamepad.cpp" />
+    <ClCompile Include="GamepadMgr.cpp" />
     <ClCompile Include="Hint.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -142,6 +144,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ControlScheme.h" />
+    <ClInclude Include="Gamepad.h" />
+    <ClInclude Include="GamepadMgr.h" />
     <ClInclude Include="Hint.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Level.h" />

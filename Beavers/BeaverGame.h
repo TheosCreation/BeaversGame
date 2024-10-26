@@ -6,7 +6,7 @@ public:
 	BeaverGame() = default;
 
 private:
-	void LoadMenu() override;
+	void LoadMainMenu() override;
 	void LoadOptions();
 	void LoadLevel();
 	void LoadCredits();
