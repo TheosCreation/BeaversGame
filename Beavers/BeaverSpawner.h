@@ -23,10 +23,10 @@ private:
     const float spawnRadius = 200.0f;
     int m_currentRarityMilestone = 500;
     int m_maxSpawnBudget = 10;
-    int m_currentSpawnBudget;
-    float m_spawnInterval;
-    float m_budgetIncreaseInterval;
-    float m_timeSinceLastSpawn;
+    int m_currentSpawnBudget = 0;
+    float m_spawnInterval = 0;
+    float m_budgetIncreaseInterval = 0;
+    float m_timeSinceLastSpawn = 0;
     float m_timeSinceLastBudgetIncrease = 0.0f;
     float m_maxRarity = 1;
     float m_budgetIncreaseRate = 10.0f; // Time between i

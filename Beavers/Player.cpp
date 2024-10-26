@@ -22,9 +22,10 @@ Player::Player(Vec2f _position) : Object(_position, false)
 	m_attackZoneRight = AddBoxCollider(Vec2f(16, 0), Vec2f(16, 32), true); // Right Attack Sensor
 
 	m_animator = make_unique<Animator>(&m_sprite);
-	m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
+	SetAnimations("Resources/Images/Entities/Idle.png", "Resources/Images/Entities/Run.png", "Resources/Images/Entities/Attack.png");
+	/*m_animator->AddState("Running", "Resources/Images/Entities/Run.png", 4, 8);
 	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
-	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");
+	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");*/
 
 	m_cooldownClock.restart();
 	// Initialize the wood amount text
@@ -401,4 +402,11 @@ void Player::Render(sf::RenderTexture* _sceneBuffer)
 	{
 		m_woodAmountText->Render(_sceneBuffer);
 	}
+}
+
+void Player::SetAnimations(std::string _idle, std::string _run, std::string _attack)
+{
+	m_animator->AddState("Idle", _idle, 4, 8);
+	m_animator->AddState("Running", _run, 4, 8);
+	m_animator->AddState("Attack", _attack, 5, 8, "Idle");
 }

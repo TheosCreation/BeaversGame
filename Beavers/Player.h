@@ -38,6 +38,8 @@ public:
 
 	void Render(sf::RenderTexture* _sceneBuffer) override;
 
+	void SetAnimations(std::string _idle, std::string _run, std::string _attack);
+
 private:
 	static PlayerStats m_playerStats;
 	std::string walkSound = "Resources/Audio/footStep.mp3";
