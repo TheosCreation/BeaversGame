@@ -33,18 +33,18 @@ void GamepadMgr::Initialize()
 
 	if (totalJoysticksConnected == 0) return;
 	if (totalJoysticksConnected == 1 && numberOfXInputDevices == 0) {
-		_gamepadOne = new Gamepad(0, false);
+		_gamepadOne = new Gamepad(0, false, true);
 	}
 	else if (totalJoysticksConnected == 1 && numberOfXInputDevices == 1) {
-		_gamepadOne = new Gamepad(0, true);
+		_gamepadOne = new Gamepad(0, true, true);
 	}
 	else if (totalJoysticksConnected == 2 && numberOfXInputDevices == 2) {
-		_gamepadOne = new Gamepad(0, true);
-		_gamepadTwo = new Gamepad(1, true);
+		_gamepadOne = new Gamepad(0, true, true);
+		_gamepadTwo = new Gamepad(1, true, true);
 	}
 	else if (totalJoysticksConnected == 2 && numberOfXInputDevices == 0) {
-		_gamepadOne = new Gamepad(0, false);
-		_gamepadTwo = new Gamepad(1, false);
+		_gamepadOne = new Gamepad(0, false, true);
+		_gamepadTwo = new Gamepad(1, false, true);
 	}
 	else if (totalJoysticksConnected == 2 && numberOfXInputDevices == 1) {
 		// The XInput device will be number 0 for XInput, but we don't know the number
@@ -57,12 +57,12 @@ void GamepadMgr::Initialize()
 		sf::Joystick::Identification data = sf::Joystick::getIdentification(0);
 		int MicrosoftVendorID = 1118;
 		if (data.vendorId == MicrosoftVendorID) { // For the XInput Gamepad XInput number and SFML number coincide = 0
-			_gamepadOne = new Gamepad(0, true); // XInput Gamepad
-			_gamepadTwo = new Gamepad(1, false); // The other Gamepad
+			_gamepadOne = new Gamepad(0, true, true); // XInput Gamepad
+			_gamepadTwo = new Gamepad(1, false, true); // The other Gamepad
 		}
 		else { // For the XInput Gamepad XInput number is 0 and SFML number is 1
-			_gamepadOne = new Gamepad(0, false); // The other Gamepad
-			_gamepadTwo = new Gamepad(0, true); // XInput Gamepad
+			_gamepadOne = new Gamepad(0, false, true); // The other Gamepad
+			_gamepadTwo = new Gamepad(0, true, true); // XInput Gamepad
 		}
 	}
 }

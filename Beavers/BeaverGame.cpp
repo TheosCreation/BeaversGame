@@ -3,7 +3,6 @@
 #include "Button.h"
 #include "Text.h"
 #include "PauseManager.h"
-#include "GamepadMgr.h"
 
 /*
 	Event Function for Loading Menu Scene
@@ -37,8 +36,8 @@ void BeaverGame::LoadMainMenu()
 	auto quitEvent = make_shared<Event<void, void>>(this, &BeaverGame::Quit);
 	menu->AddButton(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, 150.0f), "Resources/Images/Buttons/Quit.png", "Resources/Audio/Click.wav", quitEvent);
 
-	//Initialise gamepad
-	GamepadMgr::Instance().Initialize();
+	//Initialise GamepadMgr/Gamepad(s)
+	//GamepadMgr::Instance().Initialize();
 }
 
 /*
@@ -136,13 +135,7 @@ void BeaverGame::LoadLevel()
 	secondPlayerControls.Interact = sf::Keyboard::RShift;
 	secondPlayerControls.Pause = sf::Keyboard::Unknown; // Please review this is to prevent player 2 from receiving input and then unpausing right after pause through player 1
 	auto player2 = level->AddObject<Player>(Vec2f(780, 360) / 2.0f);
-	player2.lock()->SetControlScheme(secondPlayerControls);
-
-	// Create third player if atleast 1 controller is connected
-	if (GamepadMgr::Instance().GamepadOne()->isGamepadConnected())
-	{
-
-	}
+	player2.lock()->SetControlScheme(secondPlayerControls);	
 
 	// Adds a event to the player
 	auto addGameObjectEvent = make_shared<Event2P<void, shared_ptr<GameObject>, int>>((Scene*)level.get(), &Scene::AddGameObject);
