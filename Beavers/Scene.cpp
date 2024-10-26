@@ -220,10 +220,10 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 */
 void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 {
-			Debug::Log("START");
+			//Debug::Log("START");
 	for (auto const& [layer, objects] : m_objects)
 	{
-			Debug::Log("layer" + ToString(layer));
+			//Debug::Log("layer" + ToString(layer));
 		for (auto object : objects)
 		{
 			// crash is happening somewhere here before debugin when checking the objects list 
@@ -231,13 +231,13 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 				Debug::Log("null object");
 				continue;
 			}
-			Debug::Log(object);
+			//Debug::Log(object);
 			object->Update(_fDeltaTime);
-			Debug::Log("object end");
+			//Debug::Log("object end");
 		}
-			Debug::Log("layer end");
+			//Debug::Log("layer end");
 	}
-			Debug::Log("END");
+			//Debug::Log("END");
 	return;
 }
 
