@@ -124,11 +124,11 @@ void Player::Update(float _fDeltaTime)
 							int actualGain = std::min(m_playerStats.m_iDamage, m_playerStats.m_iCapacity - m_iWoodAmount);
 							m_iWoodAmount += actualGain;
 							ExecuteWoodAmountChangeEvent(actualGain);
+							dynamic_cast<Tree*>(contactObject)->PlayParticleSystem();
 							break;
 						}
 						else if (contactObject->IsOfType<Beaver>(&beaver))
 						{
-							printf("Damage");
 							beaver->Damage(m_playerStats.m_iDamage);
 						}
 					}

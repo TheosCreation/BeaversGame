@@ -18,10 +18,10 @@ void BeaverSpawner::Update(float deltaTime) {
         m_timeSinceLastSpawn = 0.0f;
         m_spawnInterval = std::max(0.5f, m_spawnInterval * 0.95f);
     }
-    if (m_timeSinceLastSpawn >= m_budgetIncreaseInterval) {
+    if (m_timeSinceLastBudgetIncrease >= m_budgetIncreaseInterval) {
+        m_timeSinceLastBudgetIncrease = 0;
         IncreaseSpawnBudget();
     }
-  //  Debug::Log(m_currentSpawnBudget);
     
 }
 
@@ -42,14 +42,14 @@ void BeaverSpawner::SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<Ga
 }
 void BeaverSpawner::IncreaseSpawnBudget() {
     AddBudget(m_budgetIncreaseAmount);
-     if (m_currentRarityMilestone > m_warehouse->GetWoodAmount()) {
+     if (m_currentRarityMilestone < m_warehouse->GetWoodAmount()) {
          m_currentRarityMilestone *= 10;
          m_maxRarity++;
 
          Debug::Log("This thing workin");
 
          m_warningMessage->SetSize(20);
-         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
+         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound.mp3", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
      }
 
 }
@@ -68,31 +68,38 @@ void BeaverSpawner::SpawnBeaver() {
        [this]() { return make_shared<BeavzerkerBeaver>(GetPosition()); }
     };
 
-
-    // Filter beavers by rarity
-    std::vector<shared_ptr<Beaver>> eligibleBeavers;
-    for (auto& factory : beaverFactories) {
-        auto beaver = factory();
-        if (beaver->GetRarity() <= m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget){
-            eligibleBeavers.push_back(beaver);
-        }
-    }
-
-    // If no eligible beavers, use all beavers
-    if (eligibleBeavers.empty()) {
-        Debug::Log("empty");
+    while (m_currentSpawnBudget > 0) {
+        // Filter beavers by rarity
+        std::vector<shared_ptr<Beaver>> eligibleBeavers;
         for (auto& factory : beaverFactories) {
-            eligibleBeavers.push_back(factory());
+            auto beaver = factory();
+            if (beaver->GetRarity() <= m_maxRarity && beaver->GetCost() <= m_currentSpawnBudget) {
+                eligibleBeavers.push_back(beaver);
+            }
         }
+
+        // If no eligible beavers, use all beavers
+        if (eligibleBeavers.empty()) {
+            return;
+  
+          for (auto& factory : beaverFactories) {
+                eligibleBeavers.push_back(factory());
+            }
+        }
+        std::uniform_real_distribution<float> offsetDist(-spawnRadius, spawnRadius);
+        auto currentPosition = GetPosition();
+        float offsetX = offsetDist(gen);
+        float offsetY = offsetDist(gen);
+        Vec2f newPosition(currentPosition.x + offsetX, currentPosition.y + offsetY);
+        // Randomly select a beaver from the eligible list
+        std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
+        auto selectedBeaver = eligibleBeavers[dis(gen)];
+
+
+        m_addGameObjectEvent->execute(selectedBeaver, 0);
+        selectedBeaver->m_spawnerRef = this;
+        selectedBeaver->SetPosition(newPosition);
+        m_currentSpawnBudget -= selectedBeaver->GetCost();
     }
-
-    // Randomly select a beaver from the eligible list
-    std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
-    auto selectedBeaver = eligibleBeavers[dis(gen)];
-
-    
-    m_addGameObjectEvent->execute(selectedBeaver, 0);
-    selectedBeaver->m_spawnerRef = this;
-    m_currentSpawnBudget -= selectedBeaver->GetCost();
     
 }

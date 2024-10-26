@@ -8,8 +8,9 @@ public:
     ParticleSystem(unsigned int count) :
         m_particles(count),
         m_vertices(sf::Quads, count * 4), // Each particle requires 4 vertices
-        m_lifetime(sf::seconds(3.f)),
-        m_emitterPosition(0.f, 0.f)
+        m_lifetime(sf::seconds(2.f)),
+        m_emitterPosition(0.f, 0.f),
+        m_isPaused(true) // Start in a paused state
     {
     }
 
@@ -18,12 +19,15 @@ public:
     virtual Vec2f GetPosition() override { return Vec2f(); };
 
     void SetEmitterPosition(sf::Vector2f _newPosition);
-
     void Render(sf::RenderTexture* _sceneBuffer) override;
-
     void Update(float _fDeltaTime);
-
     void SetTexture(sf::Texture* _texture);
+
+    // New methods for play/pause and setting play time
+    void Play();
+    void SetPlayTime(float playTime);
+    void Pause();
+    void Stop();
 
 private:
 
@@ -53,7 +57,10 @@ private:
     sf::VertexArray m_vertices;
     sf::Time m_lifetime;
     sf::Vector2f m_emitterPosition;
-    sf::Texture* m_texture = nullptr; 
-    float m_particleSize = 10.f;
+    sf::Texture* m_texture = nullptr;
+    float m_particleSize = 20.f;
 
+    bool m_isPaused;
+    float m_playLength = 0.0f; // Total play time in seconds
+    float m_elapsedTime = 0.0f; // Time since Play() was called
 };

@@ -20,7 +20,7 @@ private:
     void IncreaseSpawnBudget();
 
     Warehouse* m_warehouse;
-
+    const float spawnRadius = 200.0f;
     int m_currentRarityMilestone = 500;
     int m_maxSpawnBudget = 10;
     int m_currentSpawnBudget;
