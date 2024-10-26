@@ -11,7 +11,7 @@
 #pragma comment(lib,"XInput.lib") // include libraries
 #pragma comment(lib,"Xinput9_1_0.lib") // include libraries
 
-Gamepad::Gamepad(int number, bool XInput) : gamepadNumber(number)
+Gamepad::Gamepad(int number, bool XInput, bool isConnected) : gamepadNumber(number)
 {
 	/// XINPUT
 	isXInput = XInput;
@@ -19,6 +19,8 @@ Gamepad::Gamepad(int number, bool XInput) : gamepadNumber(number)
 		std::cout << "XInput device found.";
 		return;
 	}
+
+	IS_CONNECTED = isConnected;
 
 	/// SDL DATABASE
 	sf::Joystick::Identification data = sf::Joystick::getIdentification(gamepadNumber);

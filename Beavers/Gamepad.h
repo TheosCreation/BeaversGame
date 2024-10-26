@@ -16,7 +16,7 @@ private:
 		int button;
 	};
 public:
-	Gamepad(int number, bool XInput);
+	Gamepad(int number, bool XInput, bool isConnected);
 	~Gamepad() {}
 
 	enum GAMEPAD_BUTTON { btn_a, btn_b, btn_x, btn_y, btn_leftStick, btn_rightStick, btn_back, btn_start, btn_lb, btn_rb, dpad_up, dpad_down, dpad_left, dpad_right };
