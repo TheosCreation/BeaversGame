@@ -224,7 +224,7 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 	for (auto const& [layer, objects] : m_objects)
 	{
 			//Debug::Log("layer" + ToString(layer));
-		for (auto object : objects)
+		for (auto& object : objects)
 		{
 			// crash is happening somewhere here before debugin when checking the objects list 
 			if (!object) {
