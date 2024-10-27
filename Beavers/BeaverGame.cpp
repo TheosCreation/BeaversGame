@@ -60,12 +60,12 @@ void BeaverGame::LoadOptions()
 	//Create the sfx volume slider
 	auto soundDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetSoundVolume);
 	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(-400.0f, -150.0f), "SFX Volume", 30, sf::Color::Black);
-	options->AddSlider(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), 50, 100, soundDragEvent);
+	options->AddSlider(Vec2f(1920, 1080) / 2.0f + Vec2f(0.0f, -150.0f), AudioManager::GetInstance().GetSoundVolume(), 100, soundDragEvent);
 
 	//Create the music volume slider
 	auto musicDragEvent = make_shared<Event<void, int>>(&AudioManager::GetInstance(), &AudioManager::SetMusicVolume);
 	options->AddText(Vec2f(1920, 1080) / 2.0f + Vec2f(-400.0f, 0.0f), "Music Volume", 30, sf::Color::Black);
-	options->AddSlider(Vec2f(1920, 1080) / 2.0f, 50, 100, musicDragEvent);
+	options->AddSlider(Vec2f(1920, 1080) / 2.0f, AudioManager::GetInstance().GetMusicVolume(), 100, musicDragEvent);
 
 	//Create the back button
 	auto backEvent = make_shared<Event<void, void>>((Game*)this, &Game::LoadPreviousScene);
