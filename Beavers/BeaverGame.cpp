@@ -76,7 +76,7 @@ void BeaverGame::LoadOptions()
 /*
 	Event Function for Loading Level
 
-	@author(s) Jamuel Bocacao and Theo Morris, Kazuo RDA
+	@author(s) Jamuel Bocacao, Theo Morris, Kazuo RDA and George Mitchell
 */
 void BeaverGame::LoadLevel()
 {

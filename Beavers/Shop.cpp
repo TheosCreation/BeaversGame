@@ -71,6 +71,13 @@ void Shop::SetCost(int _iCost)
 	//m_costText = make_unique<Text>(Vec2f(m_costText->GetPosition().x, m_costText->GetPosition().y) + Vec2f(20.0f, -2.0f), std::to_string(m_iCost), "Resources/Fonts/Yogurt Extra.ttf");
 }
 
+
+/*
+	Increase players stats
+
+	@author(s) George Mitchell
+	@param Playerstats ref: Reference to the players stats
+*/
 void Shop::ApplyItem(PlayerStats& _playerStats)
 {
 	if (m_WarehouseRef->GetWoodAmount() >= GetCost())
@@ -82,6 +89,12 @@ void Shop::ApplyItem(PlayerStats& _playerStats)
 		SetCost(newCost);
 	}
 }
+
+/*
+	Returns shops cost
+
+	@author(s) George Mitchell
+*/
 int Shop::GetCost()
 {
 	return m_iCost;

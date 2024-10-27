@@ -1,11 +1,12 @@
 #include "Slider.h"
+#include <iostream>
 
 typedef unsigned int uint;
 
 /*
 	Creates a Slider Object
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and George Mitchell
 	@param Vec2f: Position of Slider
 	@param unsigned int: Initial value of Slider
 	@param unsigned int: Max Value of Slider
@@ -15,6 +16,7 @@ Slider::Slider(Vec2f _position, unsigned int _iValue, unsigned int _iMaxValue, s
 {
 	// Create Slider Game Objects
 	m_sliderBar = make_unique<Image>(_position, "Resources/Images/Slider/Bar.png");
+	m_waterBar = make_unique<Image>(_position, "Resources/Images/Slider/BarBlue.png");
 	m_sliderHandle = make_unique<Image>(_position, "Resources/Images/Slider/Handle.png");
 	m_text = make_unique<Text>(_position, std::to_string(_iValue), "Resources/Fonts/AlteHaasGroteskBold.ttf");
 
@@ -78,7 +80,7 @@ Vec2f Slider::GetPosition()
 /*
 	Renders Slider to Scene's View Buffer
 
-	@author Jamuel Bocacao
+	@author Jamuel Bocacao and George Mitchell
 	@param sf::RenderTexture*: Scene's View Buffer
 */
 void Slider::Render(sf::RenderTexture* _sceneBuffer)
@@ -86,6 +88,9 @@ void Slider::Render(sf::RenderTexture* _sceneBuffer)
 	if (m_bIsActive && m_bIsVisible)
 	{
 		m_sliderBar->Render(_sceneBuffer);
+		m_waterBar->SetScale(float(m_iValue) / 100.0f, 1);
+		m_waterBar->SetPosition(Vec2f(m_sliderBar->GetPosition().x - (200 - (m_iValue * 2)), m_sliderBar->GetPosition().y));
+		m_waterBar->Render(_sceneBuffer);
 		m_sliderHandle->Render(_sceneBuffer);
 		m_text->Render(_sceneBuffer);
 	}
