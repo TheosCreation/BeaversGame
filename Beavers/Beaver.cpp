@@ -42,10 +42,12 @@ Beaver::~Beaver()
 
 void Beaver::Render(sf::RenderTexture* _sceneBuffer)
 {
-	m_bloodParticleSystem->Render(_sceneBuffer);
+	if (m_bloodParticleSystem)
+	{
+		m_bloodParticleSystem->Render(_sceneBuffer);
+	}
 	Object::Render(_sceneBuffer);
 }
-
 /*
 	Event Called when another Object comes into contact with a Beaver
 
@@ -54,8 +56,7 @@ void Beaver::Render(sf::RenderTexture* _sceneBuffer)
 */
 void Beaver::OnBeginContact(Object* _otherObject)
 {
-
-	if (_otherObject->IsOfType<Warehouse>())
+	if (_otherObject && _otherObject->IsOfType<Warehouse>())
 	{
 		m_warehouse = dynamic_cast<Warehouse*>(_otherObject);
 	}
@@ -69,7 +70,7 @@ void Beaver::OnBeginContact(Object* _otherObject)
 */
 void Beaver::OnEndContact(Object* _otherObject)
 {
-	if (_otherObject->IsOfType<Warehouse>())
+	if (_otherObject && _otherObject->IsOfType<Warehouse>())
 	{
 		m_warehouse = nullptr;
 	}
@@ -93,17 +94,22 @@ int Beaver::GetRarity() const
 */
 void Beaver::Damage(int _iDamage)
 {
+	if (m_bloodParticleSystem)
+	{
+		m_bloodParticleSystem->Play();
+	}
+
 	m_iHealth -= _iDamage;
-	Debug::Log("Damaged beaver: " + ToString(_iDamage));
-	Debug::Log("Health left: " + ToString(m_iHealth));
-	m_bloodParticleSystem->Play();
+
 	if (m_iHealth <= 0)
 	{
-		m_spawnerRef->AddBudget(GetCost());
+		if (m_spawnerRef)
+		{
+			m_spawnerRef->AddBudget(GetCost());
+		}
 		Destroy();
 	}
 }
-
 /*
 	Handles Updating Beaver
 
@@ -112,30 +118,43 @@ void Beaver::Damage(int _iDamage)
 */
 void Beaver::Update(float _fDeltaTime)
 {
-
-	m_animator->Update();
+	if (m_animator)
+	{
+		m_animator->Update();
+	}
 
 	if (m_warehouse)
 	{
-		// Removes Wood from Warehouse after a certain Period
 		if (m_woodClock.getElapsedTime().asSeconds() > 1.0f)
 		{
 			m_woodClock.restart();
-			m_warehouse->ChangeWoodAmount(-m_iDamage);
-			m_animator->ChangeState("Attack");
+			if (m_warehouse)
+			{
+				m_warehouse->ChangeWoodAmount(-m_iDamage);
+				if (m_animator)
+				{
+					m_animator->ChangeState("Attack");
+				}
+			}
 		}
 	}
 	else
 	{
-		auto cellValue = m_currLevel->GetFlowFieldValue(m_sprite.getPosition());
+		auto cellValue = m_currLevel ? m_currLevel->GetFlowFieldValue(m_sprite.getPosition()) : Vec2f(0, 0);
 		if (Length(cellValue) > 0)
 		{
 			m_iVelocity = cellValue;
 		}
 		AddPosition(m_iVelocity * _fDeltaTime * 64.0f);
-		m_animator->ChangeState("Walk");
+		if (m_animator)
+		{
+			m_animator->ChangeState("Walk");
+		}
 	}
 
-	m_bloodParticleSystem->SetEmitterPosition(GetPosition());
-	m_bloodParticleSystem->Update(_fDeltaTime);
+	if (m_bloodParticleSystem)
+	{
+		m_bloodParticleSystem->SetEmitterPosition(GetPosition());
+		m_bloodParticleSystem->Update(_fDeltaTime);
+	}
 }

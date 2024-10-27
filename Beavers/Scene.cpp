@@ -220,13 +220,24 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 */
 void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 {
+			//Debug::Log("START");
 	for (auto const& [layer, objects] : m_objects)
 	{
+			//Debug::Log("layer" + ToString(layer));
 		for (auto object : objects)
 		{
+			// crash is happening somewhere here before debugin when checking the objects list 
+			if (!object) {
+				Debug::Log("null object");
+				continue;
+			}
+			//Debug::Log(object);
 			object->Update(_fDeltaTime);
+			//Debug::Log("object end");
 		}
+			//Debug::Log("layer end");
 	}
+			//Debug::Log("END");
 	return;
 }
 
@@ -251,6 +262,7 @@ void Scene::DestroyObjects()
 */
 void Scene::Render(sf::RenderWindow* _window)
 {
+	
 	m_sceneBuffer.clear(sf::Color(0, 0, 0, 0));
 	for (auto &layer : m_objects)
 	{
@@ -263,7 +275,7 @@ void Scene::Render(sf::RenderWindow* _window)
 	sf::Sprite buffer(m_sceneBuffer.getTexture());
 	buffer.setPosition(m_bufferDisplacement);
 	_window->draw(buffer);
-}
+	}
 
 /*
 	Gets whether Game should store current Scene before loading this Scene
