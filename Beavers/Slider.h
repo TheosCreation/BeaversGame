@@ -23,6 +23,7 @@ public:
 
 private:
 	unique_ptr<Image> m_sliderBar;
+	unique_ptr<Image> m_waterBar;
 	unique_ptr<Image> m_sliderHandle;
 	unique_ptr<Text> m_text;
 
