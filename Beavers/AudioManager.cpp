@@ -86,6 +86,7 @@ void AudioManager::PlayMusic(string _strMusicPath, sf::Time _startTime)
 */
 void AudioManager::SetSoundVolume(int _iVolume)
 {
+	m_iSoundVolume = _iVolume;
 	for (auto sound : m_sounds)
 	{
 		sound.second->SetVolume(float(_iVolume));
