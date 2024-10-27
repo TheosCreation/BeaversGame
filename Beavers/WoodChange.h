@@ -19,6 +19,6 @@ private:
 	unique_ptr<Image> m_woodItemIcon;
 	unique_ptr<Text> m_woodAmountText;
 
-	sf::Clock m_despawnClock;
+	float m_despawnClock = 0.0f;
 };
 

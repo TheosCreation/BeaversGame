@@ -49,8 +49,8 @@ private:
 	b2Fixture* m_attackZoneRight = nullptr;
 
 	unique_ptr<Animator> m_animator;
-	sf::Clock m_interactClock;
-	sf::Clock m_cooldownClock;
+	float m_interactClock = 0.0f;
+	float m_cooldownClock = 0.0f;
 	int m_iAnimationFrame = 0;
 	float m_fSpeed = 200.0f;
 

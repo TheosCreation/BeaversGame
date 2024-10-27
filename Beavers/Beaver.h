@@ -33,7 +33,7 @@ protected:
     int m_iRarity = 1;
     Warehouse* m_warehouse = nullptr;
     unique_ptr<Animator> m_animator;
-    sf::Clock m_woodClock;
+    float m_woodClock = 0.0f;
     shared_ptr<ParticleSystem> m_bloodParticleSystem = nullptr;
 };
 

@@ -27,7 +27,6 @@ Player::Player(Vec2f _position) : Object(_position, false)
 	m_animator->AddState("Idle", "Resources/Images/Entities/Idle.png", 4, 8);
 	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");*/
 
-	m_cooldownClock.restart();
 	// Initialize the wood amount text
 	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -20.0f), "Wood: 0/100", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 	m_woodAmountText->SetSize(12);
@@ -42,8 +41,13 @@ Player::Player(Vec2f _position) : Object(_position, false)
 */
 void Player::Update(float _fDeltaTime)
 {
+	if (_fDeltaTime == 0) return;
+
+	m_cooldownClock += _fDeltaTime;
+	m_interactClock += _fDeltaTime;
+
 	// Updates Current Animation Frame
-	m_animator->Update();
+	m_animator->Update(_fDeltaTime);
 
 	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -20.0f));
 	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_iCapacity));
@@ -96,9 +100,9 @@ void Player::Update(float _fDeltaTime)
 	}
 	else
 	{
-		if (m_interactClock.getElapsedTime().asSeconds() > 4.0f/8.0f)
+		if (m_interactClock > 0.5f)
 		{
-			m_cooldownClock.restart();
+			m_interactClock = 0.0f;
 			if (m_shopRef)
 			{
 				std::cout << m_playerStats.m_iDamage << std::endl;
@@ -145,21 +149,17 @@ void Player::Update(float _fDeltaTime)
 	// Interact Action
 	if (sf::Keyboard::isKeyPressed(m_controlScheme.Interact))
 	{
-		if (m_cooldownClock.getElapsedTime().asSeconds() > 1.0f)
+		if (m_cooldownClock > 1.0f)
 		{
 			if (!m_bInteracting)
 			{
-				if (m_shopRef)
-				{
-					m_interactClock.restart();
-					m_bInteracting = true;
-				}
-				else
+				m_cooldownClock = 0.0f;
+				m_interactClock = 0.0f;
+				m_bInteracting = true;
+				if (!m_shopRef)
 				{
 					m_animator->ChangeState("Attack");
 					OnPlayerSwingAxe();
-					m_interactClock.restart();
-					m_bInteracting = true;
 				}
 			}
 		}

@@ -24,8 +24,6 @@ Beaver::Beaver(Vec2f _position) : Object(_position, false)
 	m_animator->AddState("DieStanding", "Resources/Images/Entities/Beaver/DieStanding.png", 5, 8);
 	m_animator->AddState("Attack", "Resources/Images/Entities/Beaver/Attack.png", 8, 8);
 	m_animator->AddState("Stand", "Resources/Images/Entities/Beaver/GroundToStand.png", 5, 8); 
-	m_woodClock.restart();
-
 
 
 	// Creates a blood particle system for damaging
@@ -118,16 +116,19 @@ void Beaver::Damage(int _iDamage)
 */
 void Beaver::Update(float _fDeltaTime)
 {
+	if (_fDeltaTime == 0) return;
+	m_woodClock += _fDeltaTime;
+
 	if (m_animator)
 	{
-		m_animator->Update();
+		m_animator->Update(_fDeltaTime);
 	}
 
 	if (m_warehouse)
 	{
-		if (m_woodClock.getElapsedTime().asSeconds() > 1.0f)
+		if (m_woodClock > 1.0f)
 		{
-			m_woodClock.restart();
+			m_woodClock = 0.0f;
 			if (m_warehouse)
 			{
 				m_warehouse->ChangeWoodAmount(-m_iDamage);

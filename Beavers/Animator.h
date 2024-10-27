@@ -22,7 +22,7 @@ public:
 	void AddState(string _strStateName, string _strTexturePath, int _iFrames, string _strExitState = "");
 	void AddState(string _strStateName, string _strTexturePath, int _iFrames, int _iFramesPerSecond, string _strExitState = "");
 
-	void Update();
+	void Update(float _fDeltaTime);
 
 private:
 	Animation* CreateAnimation(string _strTexturePath, int _iFrames, int _iFramesPerSecond, string _strExitState = "");
@@ -30,7 +30,7 @@ private:
 private:
 	map<string, Animation*> m_animationStates;
 	int m_iCurrFrame = 0;
-	sf::Clock m_animationTimer;
+	float m_animationTimer = 0.0f;
 	Animation* m_currAnimation = nullptr;
 	sf::Sprite* m_sprite;
 };

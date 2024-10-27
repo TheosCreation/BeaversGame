@@ -42,11 +42,15 @@ void Animator::AddState(string _strStateName, string _strTexturePath, int _iFram
 	}
 }
 
-void Animator::Update()
+void Animator::Update(float _fDeltaTime)
 {
-	if (m_animationTimer.getElapsedTime().asSeconds() > (1.0f / float(m_currAnimation->m_iFramesPerSecond)))
+	if (_fDeltaTime == 0) return;
+
+	m_animationTimer += _fDeltaTime;
+
+	if (m_animationTimer > (1.0f / float(m_currAnimation->m_iFramesPerSecond)))
 	{
-		m_animationTimer.restart();
+		m_animationTimer = 0.0f;
 
 		// Sets Next Frame
 		m_iCurrFrame++;
