@@ -130,7 +130,7 @@ void Beaver::Update(float _fDeltaTime)
 			m_woodClock = 0.0f;
 			if (m_warehouse)
 			{
-				//m_warehouse->ChangeWoodAmount(-m_iDamage);
+				m_warehouse->ChangeWoodAmount(-m_iDamage * (5^m_spawnerRef->GetMaxRarity()));
 				if (m_animator)
 				{
 					m_animator->ChangeState("Attack");
@@ -143,9 +143,9 @@ void Beaver::Update(float _fDeltaTime)
 		auto cellValue = m_currLevel ? m_currLevel->GetFlowFieldValue(m_sprite.getPosition()) : Vec2f(0, 0);
 		if (Length(cellValue) > 0)
 		{
-			m_iVelocity = cellValue;
+			m_fVelocity = cellValue ;
 		}
-		AddPosition(m_iVelocity * _fDeltaTime * 64.0f);
+		AddPosition(m_fVelocity * m_fSpeed * _fDeltaTime * 64.0f);
 		if (m_animator)
 		{
 			m_animator->ChangeState("Walk");

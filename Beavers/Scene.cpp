@@ -229,19 +229,7 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 				Debug::Log("null object1");
 				continue;
 			}
-			if (object == nullptr) {
-				Debug::Log("null object2");
-				continue;
-			}
-			if (object.get() == nullptr) {
-				Debug::Log("null object3");
-				continue;
-			}
-				
-			if (!object.use_count()) {
-				Debug::Log("null object4");
-				continue;
-			}
+
 		 
 			// Check if the object is valid before accessing it
 			

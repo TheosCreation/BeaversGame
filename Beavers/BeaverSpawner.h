@@ -14,7 +14,7 @@ public:
     void Render(sf::RenderTexture* _sceneBuffer) override;
     void AddBudget(int _budget);
     void SetAddGameObjectEvent(shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> _addGameObjectEvent);
-
+    int GetMaxRarity() const { return m_maxRarity; }
 private:
     void SpawnBeaver();
     void IncreaseSpawnBudget();

@@ -28,18 +28,18 @@ Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _s
 	switch (_shopType)
 	{
 	case Type_Weapon:
-		m_statUpgrade.m_iDamage = 10;
-		m_statUpgrade.m_iCapacity = 0;
+		m_statUpgrade.m_fDamage = 1.2f;
+		m_statUpgrade.m_fCapacity = 0;
 		m_statUpgrade.m_iSpeed = 0;
 		break;
 	case Type_Speed:
-		m_statUpgrade.m_iDamage = 0;
-		m_statUpgrade.m_iCapacity = 0;
+		m_statUpgrade.m_fDamage = 0;
+		m_statUpgrade.m_fCapacity = 0;
 		m_statUpgrade.m_iSpeed = 12;
 		break;
 	case Type_Bag:
-		m_statUpgrade.m_iDamage = 0;
-		m_statUpgrade.m_iCapacity = 100;
+		m_statUpgrade.m_fDamage = 0;
+		m_statUpgrade.m_fCapacity = 1.2f;
 		m_statUpgrade.m_iSpeed = 0;
 		break;
 	default:

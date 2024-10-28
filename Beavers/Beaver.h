@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include "Warehouse.h"
 #include "Animator.h"
 #include "BeaverSpawner.h"
@@ -26,10 +26,10 @@ public:
 
 protected:
     int m_iCost = 1;
-    Vec2f m_iVelocity;
+    Vec2f m_fVelocity;
     int m_iHealth = 20;
     int m_iDamage = 0;
-    float m_fSpeed;
+    float m_fSpeed = 1;
     int m_iRarity = 1;
     Warehouse* m_warehouse = nullptr;
     unique_ptr<Animator> m_animator;
@@ -43,9 +43,9 @@ class BossBeaver : public Beaver {
 public: 
     BossBeaver(Vec2f _position) : Beaver(_position) {
         m_sprite.setColor(sf::Color::Red);
-        m_sprite.setScale(0.25f, 0.25f);
+        m_sprite.setScale(0.30f, 0.30f);
         m_iHealth = 200; // Boss has more health
-        m_iDamage = 20; // Boss deals more damage
+        m_iDamage = 10; // Boss deals more damage
         m_fSpeed = 0.5f; // Boss moves slower
         m_iCost = 15;  // Cost spawning system
         m_iRarity = 4;
@@ -60,9 +60,9 @@ class ArmoredBeaver : public Beaver {
 public:
     ArmoredBeaver(Vec2f _position) : Beaver(_position) {
         m_sprite.setColor(sf::Color::Blue);
-        m_sprite.setScale(0.1f, 0.1f);
+        m_sprite.setScale(0.15f, 0.15f);
         m_iHealth = 50; 
-        m_iDamage = 5;
+        m_iDamage = 3;
         m_fSpeed = 0.8f;
         m_iCost = 5;
         m_iRarity = 3;
@@ -73,9 +73,9 @@ class BeavzerkerBeaver : public Beaver {
 public:
     BeavzerkerBeaver(Vec2f _position) : Beaver(_position) {
         m_sprite.setColor(sf::Color::Green);
-        m_sprite.setScale(0.05f, 0.05f);
+        m_sprite.setScale(0.08f, 0.08f);
         m_iHealth = 20; 
-        m_iDamage = 8;  
+        m_iDamage = 2;  
         m_fSpeed = 1.5f; 
         m_iCost = 1;
         m_iRarity = 2;

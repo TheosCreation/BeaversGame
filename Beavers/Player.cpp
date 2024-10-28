@@ -50,7 +50,7 @@ void Player::Update(float _fDeltaTime)
 	m_animator->Update(_fDeltaTime);
 
 	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -25.0f));
-	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_iCapacity));
+	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_fCapacity));
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
@@ -105,7 +105,7 @@ void Player::Update(float _fDeltaTime)
 			m_interactClock = 0.0f;
 			if (m_shopRef)
 			{
-				std::cout << m_playerStats.m_iDamage << std::endl;
+				std::cout << m_playerStats.m_fDamage << std::endl;
 				m_shopRef->ApplyItem(m_playerStats);
 			}
 			// Atack Action
@@ -126,7 +126,7 @@ void Player::Update(float _fDeltaTime)
 						Beaver* beaver;
 						if (contactObject->IsOfType<Tree>())
 						{
-							int actualGain = std::min(m_playerStats.m_iDamage, m_playerStats.m_iCapacity - m_iWoodAmount);
+							int actualGain = std::min(m_playerStats.m_fDamage, m_playerStats.m_fCapacity - m_iWoodAmount);
 							m_iWoodAmount += actualGain;
 							ExecuteWoodAmountChangeEvent(actualGain);
 							dynamic_cast<Tree*>(contactObject)->PlayParticleSystem();
@@ -134,7 +134,7 @@ void Player::Update(float _fDeltaTime)
 						}
 						else if (contactObject->IsOfType<Beaver>(&beaver))
 						{
-							beaver->Damage(m_playerStats.m_iDamage);
+							beaver->Damage(m_playerStats.m_fDamage);
 						}
 					}
 
