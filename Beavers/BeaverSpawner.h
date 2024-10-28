@@ -22,8 +22,8 @@ private:
     Warehouse* m_warehouse;
     const float spawnRadius = 200.0f;
     int m_currentRarityMilestone = 500;
-    int m_maxSpawnBudget = 20;
-    int m_currentSpawnBudget = 15;
+    int m_maxSpawnBudget = 1;
+    int m_currentSpawnBudget = 0;
     float m_spawnInterval = 15.0f;
     float m_timeSinceLastSpawn = 0;
     float m_timeSinceLastBudgetIncrease = 0.0f;
