@@ -33,6 +33,7 @@ void WoodChange::Render(sf::RenderTexture* _sceneBuffer)
 
 void WoodChange::Update(float _fDeltaTime)
 {
+	m_despawnClock += _fDeltaTime;
 	if (m_despawnClock > 1.0f)
 	{
 		Destroy();
