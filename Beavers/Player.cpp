@@ -312,7 +312,8 @@ void Player::UpdateHintSystem()
 
 		if (m_CurrentHint == HintType::Forest)
 		{
-			m_HintRef->SetText("Press F near to gather wood");
+			m_HintRef->SetText("Press F near to gather wood\nDeposit it in the warehouse\n below to use on upgrades");
+			//m_HintRef->SetText("Press F near to gather wood");
 		}
 		else if (m_CurrentHint == HintType::Shop)
 		{

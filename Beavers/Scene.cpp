@@ -227,7 +227,7 @@ void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 		for (auto& object : objects)
 		{
 			// crash is happening somewhere here before debugin when checking the objects list 
-			if (!object) {
+			if (object == nullptr || !object) {
 				Debug::Log("null object");
 				continue;
 			}
