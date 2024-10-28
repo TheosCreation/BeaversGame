@@ -28,8 +28,8 @@ Player::Player(Vec2f _position) : Object(_position, false)
 	m_animator->AddState("Attack", "Resources/Images/Entities/Attack.png", 5, 8, "Idle");*/
 
 	// Initialize the wood amount text
-	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -20.0f), "Wood: 0/100", "Resources/Fonts/AlteHaasGroteskBold.ttf");
-	m_woodAmountText->SetSize(12);
+	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -15.0f), "Wood: 0/100", "Resources/Fonts/AlteHaasGroteskBold.ttf");
+	m_woodAmountText->SetSize(15);
 	m_woodAmountText->SetColour(sf::Color::White);
 }
 
@@ -49,7 +49,7 @@ void Player::Update(float _fDeltaTime)
 	// Updates Current Animation Frame
 	m_animator->Update(_fDeltaTime);
 
-	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -20.0f));
+	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -25.0f));
 	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_iCapacity));
 
 	// Handles Player Movement
