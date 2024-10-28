@@ -220,26 +220,38 @@ void Scene::ProcessEvents(sf::Event& _event, sf::RenderWindow* _window)
 */
 void Scene::Update(float _fDeltaTime, sf::RenderWindow* _window)
 {
-			//Debug::Log("START");
 	for (auto const& [layer, objects] : m_objects)
 	{
-			//Debug::Log("layer" + ToString(layer));
 		for (auto& object : objects)
 		{
-			// crash is happening somewhere here before debugin when checking the objects list 
-			if (object == nullptr || !object) {
-				Debug::Log("null object");
+			// Check if the shared_ptr is not null
+			if (!object ) {
+				Debug::Log("null object1");
 				continue;
 			}
-			//Debug::Log(object);
+			if (object == nullptr) {
+				Debug::Log("null object2");
+				continue;
+			}
+			if (object.get() == nullptr) {
+				Debug::Log("null object3");
+				continue;
+			}
+				
+			if (!object.use_count()) {
+				Debug::Log("null object4");
+				continue;
+			}
+		 
+			// Check if the object is valid before accessing it
+			
 			object->Update(_fDeltaTime);
-			//Debug::Log("object end");
+			
+			
 		}
-			//Debug::Log("layer end");
 	}
-			//Debug::Log("END");
-	return;
 }
+
 
 /*
 	Deletes all Marked for Destruction Game Objects

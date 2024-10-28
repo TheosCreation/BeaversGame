@@ -28,7 +28,7 @@ protected:
     int m_iCost = 1;
     Vec2f m_iVelocity;
     int m_iHealth = 20;
-    int m_iDamage = 1;
+    int m_iDamage = 0;
     float m_fSpeed;
     int m_iRarity = 1;
     Warehouse* m_warehouse = nullptr;
