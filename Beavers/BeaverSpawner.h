@@ -31,5 +31,7 @@ private:
     float m_budgetIncreaseInterval = 30.0f; // Time between increases
     int m_budgetIncreaseAmount = 1; // budget increases every 30 seconds, takes about 900 seconds to get to boss beavers spawning right now 
     shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_addGameObjectEvent;
-    unique_ptr<Text> m_warningMessage = make_unique<Text>(Vec2f(0, 0), "The Beavers are getting angry...", "Resources/Fonts/AlteHaasGroteskBold.ttf");
+    unique_ptr<Text> m_warningMessage = make_unique<Text>(Vec2f(0, 0), "The Beavers are sharpening their teeth!", "Resources/Fonts/AlteHaasGroteskBold.ttf");
+    bool m_warningDisplay = false;
+    float m_warningTimer = 4.0;
 };

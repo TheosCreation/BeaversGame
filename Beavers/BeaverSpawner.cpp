@@ -5,7 +5,11 @@
 #include "Beaver.h"
 
 BeaverSpawner::BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath, Warehouse* warehouse)
-    : Object(position, texturePath, true),  m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse) {
+    : Object(position, texturePath, true),  m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse)
+{
+    m_warningMessage->SetSize(50);
+    m_warningMessage->SetColour(sf::Color::Red);
+    m_warningMessage->SetPosition(Vec2f(960.0f, 540.0f));
 }
 
 void BeaverSpawner::Update(float deltaTime) {
@@ -21,10 +25,23 @@ void BeaverSpawner::Update(float deltaTime) {
         m_timeSinceLastBudgetIncrease = 0;
         IncreaseSpawnBudget();
     }
+    if (m_warningDisplay)
+    {
+        m_warningTimer -= deltaTime;
+        if (m_warningTimer <= 0.0f)
+        {
+            m_warningDisplay = false;
+            m_warningTimer = 4.0f;
+        }
+    }
 }
 
 void BeaverSpawner::Render(sf::RenderTexture* _sceneBuffer) {
     Object::Render(_sceneBuffer);
+    if (m_warningDisplay)
+    {
+        m_warningMessage->Render(_sceneBuffer);
+    }
     // Maybe river?
 }
 
@@ -44,7 +61,7 @@ void BeaverSpawner::IncreaseSpawnBudget() {
         m_currentRarityMilestone *= 10;
         m_maxRarity++;
 
-        m_warningMessage->SetSize(20);
+        m_warningDisplay = true;
         AudioManager::GetInstance().PlaySound("Resources/Audio/BeaverAngrySound.mp3", sf::Vector3f(0, 0, 0), sf::Time(), 1.0, 1.0);
     }
 }
