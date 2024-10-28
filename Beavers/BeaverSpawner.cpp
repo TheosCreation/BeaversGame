@@ -85,12 +85,12 @@ void BeaverSpawner::SpawnBeaver() {
 
         std::uniform_int_distribution<> dis(0, eligibleBeavers.size() - 1);
         auto selectedBeaver = eligibleBeavers[dis(gen)];
+        selectedBeaver->m_spawnerRef = this;
+        selectedBeaver->SetPosition(newPosition);
 
+        m_currentSpawnBudget -= selectedBeaver->GetCost();
         if (m_addGameObjectEvent) {
             m_addGameObjectEvent->execute(selectedBeaver, 0);
         }
-        selectedBeaver->m_spawnerRef = this;
-        selectedBeaver->SetPosition(newPosition);
-        m_currentSpawnBudget -= selectedBeaver->GetCost();
     }
 }

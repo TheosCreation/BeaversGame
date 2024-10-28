@@ -130,7 +130,7 @@ void Beaver::Update(float _fDeltaTime)
 			m_woodClock = 0.0f;
 			if (m_warehouse)
 			{
-				m_warehouse->ChangeWoodAmount(-m_iDamage);
+				//m_warehouse->ChangeWoodAmount(-m_iDamage);
 				if (m_animator)
 				{
 					m_animator->ChangeState("Attack");
