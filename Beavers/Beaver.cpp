@@ -91,14 +91,13 @@ int Beaver::GetRarity() const
 	@param int: Value of Damage done to Beaver
 */
 void Beaver::Damage(int _iDamage)
-{
+{	AudioManager::GetInstance().PlaySound("Resources/Audio/squeak.mp3", sf::Vector3f(), sf::seconds(0), 0.6f, 1.0f);
 	if (m_bloodParticleSystem)
 	{
 		m_bloodParticleSystem->Play();
 	}
 
 	m_iHealth -= _iDamage;
-
 	if (m_iHealth <= 0)
 	{
 		if (m_spawnerRef)

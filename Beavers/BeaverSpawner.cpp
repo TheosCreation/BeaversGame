@@ -5,8 +5,7 @@
 #include "Beaver.h"
 
 BeaverSpawner::BeaverSpawner(Vec2f position, std::weak_ptr<b2World> world, const std::string& texturePath, Warehouse* warehouse)
-    : Object(position, texturePath, true), m_spawnInterval(10.0f), m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse), m_budgetIncreaseInterval(30.0f)
-{
+    : Object(position, texturePath, true),  m_timeSinceLastSpawn(0.0f), m_currentSpawnBudget(m_maxSpawnBudget), m_warehouse(warehouse) {
 }
 
 void BeaverSpawner::Update(float deltaTime) {

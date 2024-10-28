@@ -22,15 +22,14 @@ private:
     Warehouse* m_warehouse;
     const float spawnRadius = 200.0f;
     int m_currentRarityMilestone = 500;
-    int m_maxSpawnBudget = 10;
+    int m_maxSpawnBudget = 1;
     int m_currentSpawnBudget = 0;
-    float m_spawnInterval = 0;
-    float m_budgetIncreaseInterval = 0;
+    float m_spawnInterval = 15.0f;
     float m_timeSinceLastSpawn = 0;
     float m_timeSinceLastBudgetIncrease = 0.0f;
     float m_maxRarity = 1;
-    float m_budgetIncreaseRate = 10.0f; // Time between i
-    int m_budgetIncreaseAmount = 5; // Increase per 
+    float m_budgetIncreaseInterval = 30.0f; // Time between increases
+    int m_budgetIncreaseAmount = 1; // budget increases every 30 seconds, takes about 900 seconds to get to boss beavers spawning right now 
     shared_ptr<Event2P<void, shared_ptr<GameObject>, int>> m_addGameObjectEvent;
     unique_ptr<Text> m_warningMessage = make_unique<Text>(Vec2f(0, 0), "The Beavers are getting angry...", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 };

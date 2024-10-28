@@ -82,6 +82,7 @@ void BeaverGame::LoadLevel()
 {
 	AudioManager::GetInstance().StopAll();
 	PauseManager::GetInstance().SetPaused(false);
+	AudioManager::GetInstance().PlayMusic("Resources/Music/forestSounds.mp3", sf::seconds(2.05f));
 
 	// Creates and sets the scene to the level scene
 	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
