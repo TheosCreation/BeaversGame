@@ -50,7 +50,7 @@ void Player::Update(float _fDeltaTime)
 	m_animator->Update(_fDeltaTime);
 
 	m_woodAmountText->SetPosition(GetPosition() + Vec2f(0.0f, -25.0f));
-	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string(m_playerStats.m_fCapacity));
+	m_woodAmountText->SetText("Wood: " + std::to_string(m_iWoodAmount) + "/" + std::to_string((int)m_playerStats.m_fCapacity));
 
 	// Handles Player Movement
 	sf::Vector2f displacement;
