@@ -24,27 +24,6 @@ Shop::Shop(Vec2f _position, int _baseCost, std::string _spriteImage, ShopType _s
 	AddBoxCollider(Vec2f(0, (float)m_sprite.getTexture()->getSize().y), Vec2f((float)m_sprite.getTexture()->getSize().x, (float)m_sprite.getTexture()->getSize().y), true);
 
 	m_shopType = _shopType;
-
-	switch (_shopType)
-	{
-	case Type_Weapon:
-		m_statUpgrade.m_fDamage = 1.2f;
-		m_statUpgrade.m_fCapacity = 0;
-		m_statUpgrade.m_iSpeed = 0;
-		break;
-	case Type_Speed:
-		m_statUpgrade.m_fDamage = 0;
-		m_statUpgrade.m_fCapacity = 0;
-		m_statUpgrade.m_iSpeed = 12;
-		break;
-	case Type_Bag:
-		m_statUpgrade.m_fDamage = 0;
-		m_statUpgrade.m_fCapacity = 1.2f;
-		m_statUpgrade.m_iSpeed = 0;
-		break;
-	default:
-		break;
-	}
 }
 
 /*
@@ -82,7 +61,20 @@ void Shop::ApplyItem(PlayerStats& _playerStats)
 {
 	if (m_WarehouseRef->GetWoodAmount() >= GetCost())
 	{
-		_playerStats += m_statUpgrade;
+		switch (m_shopType)
+		{
+		case Type_Weapon:
+			_playerStats.m_fDamage *= 1.2f;
+			break;
+		case Type_Speed:
+			_playerStats.m_iSpeed += 12;
+			break;
+		case Type_Bag:
+			_playerStats.m_fCapacity *= 1.2f;
+			break;
+		default:
+			break;
+		}
 		m_WarehouseRef->ChangeWoodAmount(-m_iCost);
 		std::cout << m_WarehouseRef->GetWoodAmount() << std::endl;
 		int newCost = static_cast<int>(m_iCost * 1.15);
