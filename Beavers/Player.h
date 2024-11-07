@@ -76,7 +76,7 @@ private:
 	unique_ptr<Text> m_woodAmountText; 
 
 	// Variable to track the last hint displayed
-	HintType m_PreviousHint = HintType::None;
+	HintType m_PreviousHint = HintType::Shop;
 	HintType m_CurrentHint = HintType::None;
 };
 

@@ -15,7 +15,7 @@ Warehouse::Warehouse(Vec2f _position)
 {
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128));
 	AddBoxCollider(Vec2f(0.0f, 0.0f), Vec2f(128, 128), true);
-	m_woodAmountText->SetSize(20);
+	m_woodAmountText->SetSize(18);
 	m_woodAmountText->SetColour(sf::Color::White);
 	m_currLevel->SetFlowFieldGoal(_position - Vec2f(64, 32), _position + Vec2f(96, 64));
 

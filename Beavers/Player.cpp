@@ -31,6 +31,8 @@ Player::Player(Vec2f _position) : Object(_position, false)
 	m_woodAmountText = make_unique<Text>(_position + Vec2f(0.0f, -15.0f), "Wood: 0/100", "Resources/Fonts/AlteHaasGroteskBold.ttf");
 	m_woodAmountText->SetSize(15);
 	m_woodAmountText->SetColour(sf::Color::White);
+
+	//
 }
 
 /*
@@ -291,6 +293,8 @@ int Player::Deposit()
 void Player::UpdateHintSystem()
 {
 	m_HintRef->SetPosition(GetPosition() + Vec2f(0, 75));
+
+	
 	// Determine the current location
 	if (m_bNearTree)
 	{
@@ -305,32 +309,30 @@ void Player::UpdateHintSystem()
 		m_CurrentHint = HintType::None;
 	}
 
-	// Display the hint only if the player moves to a new location
-	if (m_CurrentHint != m_PreviousHint)
-	{
+	
 		m_PreviousHint = m_CurrentHint;
 
 		if (m_CurrentHint == HintType::Forest)
 		{
-			m_HintRef->SetText("Press F near to gather wood\nDeposit it in the warehouse\n below to use on upgrades");
+			m_HintRef->SetText("Press interact near to gather wood\nDeposit it in the warehouse\n below to use on upgrades\n");
 			//m_HintRef->SetText("Press F near to gather wood");
 		}
 		else if (m_CurrentHint == HintType::Shop)
 		{
 			if (m_shopRef->GetShopType() == Type_Speed)
 			{
-				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 1: Increases movement speed\nCurrent cost is above the shop");
+				m_HintRef->SetText("Press interact near to buy upgrades\nUpgrade 1: Increases movement speed\nCurrent cost is above the shop");
 			}
 			
 			else if (m_shopRef->GetShopType() == Type_Weapon)
 			{
-				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 2: Increases damage\nCurrent cost is above the shop");
+				m_HintRef->SetText("Press interact near to buy upgrades\nUpgrade 2: Increases damage\nCurrent cost is above the shop");
 			}
 
 
 			else if (m_shopRef->GetShopType() == Type_Bag)
 			{
-				m_HintRef->SetText("Press F near to buy upgrades\nUpgrade 3: Increases carrying capacity\nCurrent cost is above the shop");
+				m_HintRef->SetText("Press interact near to buy upgrades\nUpgrade 3: Increases carrying capacity\nCurrent cost is above the shop");
 			}
 
 			
@@ -339,9 +341,15 @@ void Player::UpdateHintSystem()
 		else
 		{
 			//std::cout << "No hints available" << std::endl;
-			m_HintRef->SetText(""); //Hides the hint
+			if (m_controlScheme.Interact == sf::Keyboard::RShift)
+			{
+				m_HintRef->SetText("Movement: Arrow keys\nInteract/Attack: Right Shift\nToggle hints: H\nGoal: Reach 1 million wood");
+			}
+			else
+			{
+				m_HintRef->SetText("Movement: WASD\nInteract/Attack: F\nToggle hints: H\nGoal: Reach 1 million wood");
+			}
 		}
-	}
 }
 
 /*
