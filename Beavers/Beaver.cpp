@@ -117,6 +117,7 @@ void Beaver::Update(float _fDeltaTime)
 {
 	if (_fDeltaTime == 0) return;
 	m_woodClock += _fDeltaTime;
+				Debug::Log(5 ^ (m_spawnerRef->GetMaxRarity())-5);
 
 	if (m_animator)
 	{
@@ -130,7 +131,7 @@ void Beaver::Update(float _fDeltaTime)
 			m_woodClock = 0.0f;
 			if (m_warehouse)
 			{
-				m_warehouse->ChangeWoodAmount(-m_iDamage * (5^m_spawnerRef->GetMaxRarity()));
+				m_warehouse->ChangeWoodAmount(-m_iDamage * (5 ^ m_spawnerRef->GetMaxRarity())-4);
 				if (m_animator)
 				{
 					m_animator->ChangeState("Attack");
