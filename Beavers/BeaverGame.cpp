@@ -85,7 +85,8 @@ void BeaverGame::LoadLevel()
 	AudioManager::GetInstance().PlayMusic("Resources/Music/forestSounds.mp3", sf::seconds(2.05f));
 
 	// Creates and sets the scene to the level scene
-	auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
+	//auto level = make_shared<Level>(Vec2u(1920, 1080), &m_window, true);
+	auto level = make_shared<Level>(Vec2u(1440, 810), &m_window, true);
 	SetScene(level);
 
 	
@@ -114,7 +115,7 @@ void BeaverGame::LoadLevel()
 
 
 	// Creates Warehouse
-	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(500, 750)).lock().get();
+	Warehouse* warehouseRef = level->AddObject<Warehouse>(Vec2f(400, 650)).lock().get();
 
 	// Creates and sets the win scene event
 	auto loadWinSceneEvent = make_shared<Event<void, void>>(this, &BeaverGame::LoadWinGame); 
@@ -144,12 +145,12 @@ void BeaverGame::LoadLevel()
 	player2.lock()->SetWoodAmountChangeEvent(addGameObjectEvent);
 
 	// Creates the spawner
-	auto spawner = make_shared<BeaverSpawner>(Vec2f(1400, 800), level->GetWorld(), "Resources/Images/Objects/Dam.png", warehouseRef);
+	auto spawner = make_shared<BeaverSpawner>(Vec2f(1200, 700), level->GetWorld(), "Resources/Images/Objects/Dam.png", warehouseRef);
 	level->AddGameObject(spawner);
 	spawner->SetAddGameObjectEvent(addGameObjectEvent);
 
 	// Creates the Tree
-	auto tree = level->AddObject<Tree>(Vec2f(150, 150));
+	auto tree = level->AddObject<Tree>(Vec2f(200, 200));
 
 	// Creates a particle system for tree
 	auto woodParticleSystem = make_shared<ParticleSystem>(30);
@@ -160,9 +161,9 @@ void BeaverGame::LoadLevel()
 	tree.lock()->SetParticleSystemRef(woodParticleSystem);
 
 	// Creates Shop(s)
-	auto shop1 = make_shared<Shop>(Vec2f(1350, 150), 30, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
-	auto shop2 = make_shared<Shop>(Vec2f(1150, 150), 30, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
-	auto shop3 = make_shared<Shop>(Vec2f(1550, 150), 30, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
+	auto shop1 = make_shared<Shop>(Vec2f(1050, 150), 30, "Resources/Images/Objects/AxeShop.png", ShopType::Type_Weapon);
+	auto shop2 = make_shared<Shop>(Vec2f(950, 150), 30, "Resources/Images/Objects/BootShop.png", ShopType::Type_Speed);
+	auto shop3 = make_shared<Shop>(Vec2f(1150, 150), 30, "Resources/Images/Objects/BagShop.png", ShopType::Type_Bag);
 	level->AddGameObject(shop1);
 	level->AddGameObject(shop2);
 	level->AddGameObject(shop3);
